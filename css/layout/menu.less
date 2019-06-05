@@ -1,0 +1,43 @@
+
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  z-index: 100;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  &-logo {
+    width: 300px;
+
+    &-image {
+      width: 100%;
+    }
+  }
+
+  &-elem {
+    margin-left: 60px;
+
+    &-link {
+      color: black;
+      font-size: 24px;
+      transition: all ease-in-out .3s;
+
+      &:hover, &:focus {
+        text-decoration: none;
+        color: #E57B28;
+        text-shadow: 1px 1px rgb(150, 150, 150);
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+
+.team {
+  padding-top: 80px;
+  margin-bottom: 70px;
+  &-title {
+    font-family: "Lobster", cursive;
+    font-size: 60px;
+    text-align: center;
+    color: black;
+    margin-bottom: 70px;
+  }
+  &-member {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    &-name {
+      font-size: 24px;
+      font-family: "Lobster", cursive;
+      color: #FF6900;
+    }
+    &-post {
+      font-size: 18px;
+    }
+    &-img {
+      width: 100%;
+    }
+
+    &-link {
+      transition: all ease-in-out .3s;
+      &:hover {
+        img {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

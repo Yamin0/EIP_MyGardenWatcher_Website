@@ -19,6 +19,129 @@ body {
   background: url("../images/carrots.png") no-repeat center;
   background-size: 20%;
 }
+.header {
+  display: table !important;
+  background-repeat: no-repeat, no-repeat;
+  background-size: contain, contain;
+  background-position: center, center;
+  background-color: black;
+  width: 100%;
+  height: 600px;
+  margin-top: 100px;
+}
+.header-title {
+  display: table-cell;
+  vertical-align: bottom;
+  text-align: center;
+  font-family: "Lobster", cursive;
+  padding-bottom: 100px;
+  color: white;
+  float: none;
+}
+.header-title-main {
+  font-size: 100px;
+  text-shadow: 5px 5px black;
+  font-weight: normal;
+}
+.header-title-medium {
+  font-size: 70px;
+  text-shadow: 5px 5px black;
+  vertical-align: top;
+  color: #FF7300;
+}
+.header-title-medium.green {
+  color: #00A84E;
+}
+.header-title-sub {
+  font-size: 50px;
+  font-weight: normal;
+}
+.header-description {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 22px;
+  width: 80%;
+  margin: 40px auto 20px auto;
+}
+.header-link {
+  color: #91C37D;
+  text-shadow: 2px 2px black;
+  font-size: 30px;
+  transition: all ease-in-out 0.3s;
+}
+.header-link.orange {
+  color: #E57B28;
+}
+.header-link.orange:hover {
+  color: #FF9000;
+}
+.header-link:hover {
+  color: #00A84E;
+  text-decoration: none;
+}
+.header.main {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/garden.jpg");
+  background-size: cover, cover;
+}
+.header.main .header-title {
+  vertical-align: middle;
+  padding-bottom: 0;
+}
+.header.main .header-description {
+  color: #E57B28;
+}
+.header.forward {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-final-forward.jpg");
+}
+.header.epitech-exp {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-epitech-experience.jpg");
+}
+.header.tech-inn {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-tech-inn.jpg");
+}
+.header.mf-nantes {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-mf-nantes.jpeg");
+}
+.header.mf-angers {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-mf-angers.jpg");
+}
+.footer {
+  background: #F3F2F3;
+}
+.footer-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.footer-section:first-child {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.footer-section:last-child {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.footer-elem {
+  margin: 0 5px;
+}
+.footer-elem.social {
+  margin: 0 20px;
+}
+.footer-elem.social a {
+  margin-left: 5px;
+}
+.footer-elem a {
+  color: black;
+  font-size: 14px;
+  transition: all ease-in-out 0.3s;
+}
+.footer-elem a:hover,
+.footer-elem a:focus {
+  text-decoration: none;
+  color: #E57B28;
+}
+.footer-elem img {
+  width: 40px;
+}
 .menu {
   position: fixed;
   top: 0;
@@ -56,33 +179,6 @@ body {
   color: #E57B28;
   text-shadow: 1px 1px #969696;
 }
-.header {
-  display: table !important;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/garden.jpg");
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
-  background-position: center, center;
-  width: 100%;
-  height: 500px;
-  margin-top: 100px;
-}
-.header-title {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  font-family: "Lobster", cursive;
-  color: white;
-  float: none;
-}
-.header-title-main {
-  font-size: 100px;
-  text-shadow: 5px 5px black;
-  font-weight: normal;
-}
-.header-title-sub {
-  font-size: 40px;
-  font-weight: normal;
-}
 .concept {
   padding-top: 80px;
   margin-bottom: 90px;
@@ -102,6 +198,27 @@ body {
   background-color: #FF9000;
   box-shadow: 15px 15px #FF7300;
   font-size: 20px;
+}
+.vision {
+  padding-top: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/visuel-vision.jpg") no-repeat center;
+  background-size: cover;
+}
+.vision-title {
+  font-family: "Lobster", cursive;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+.vision-content {
+  max-width: 1170px;
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  padding-bottom: 100px;
 }
 .schema {
   margin-bottom: 80px;
@@ -140,27 +257,6 @@ body {
   font-weight: bolder;
   text-align: center;
   line-height: 190px;
-}
-.vision {
-  padding-top: 40px;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../images/visuel-vision.jpg") no-repeat center;
-  background-size: cover;
-}
-.vision-title {
-  font-family: "Lobster", cursive;
-  font-size: 60px;
-  text-align: center;
-  color: white;
-  margin-top: 70px;
-  margin-bottom: 40px;
-}
-.vision-content {
-  max-width: 1170px;
-  margin: auto;
-  text-align: center;
-  font-size: 20px;
-  color: white;
-  padding-bottom: 100px;
 }
 .solution {
   padding-top: 80px;
@@ -224,10 +320,34 @@ body {
 .solution-step.select h3 {
   color: #E57B28;
 }
-.solution-step.advice {
+.solution-step.search {
   background: url("../images/mid-way.png") no-repeat center top;
 }
+.solution-step.search h3 {
+  color: #91C37D;
+}
+.solution-step.config {
+  background: url("../images/end-way.png") no-repeat center top;
+}
+.solution-step.config h3 {
+  color: #91C37D;
+}
+.solution-step.receive {
+  background: url("../images/mid-way.png") no-repeat center top;
+}
+.solution-step.receive h3 {
+  color: #91C37D;
+}
+.solution-step.advice {
+  background: url("../images/end-way.png") no-repeat center top;
+}
 .solution-step.advice h3 {
+  color: #91C37D;
+}
+.solution-step.share {
+  background: url("../images/mid-way.png") no-repeat center top;
+}
+.solution-step.share h3 {
   color: #91C37D;
 }
 .process {
@@ -306,31 +426,10 @@ body {
 .team-member-img {
   width: 100%;
 }
-.footer {
-  justify-content: center;
-  align-items: center;
-  height: 120px;
-  background: #F3F2F3;
-}
-.footer-elem {
-  margin: 0 30px;
-}
-.footer-elem a {
-  margin-left: 5px;
-  color: black;
-  font-size: 14px;
+.team-member-link {
   transition: all ease-in-out 0.3s;
 }
-.footer-elem a:hover,
-.footer-elem a:focus {
-  text-decoration: none;
-  color: #E57B28;
-}
-.footer-elem img {
-  width: 40px;
-}
-.footer-copy {
-  width: 100%;
-  text-align: center;
+.team-member-link:hover img {
+  opacity: 0.7;
 }
 /*# sourceMappingURL=style.css.map */
