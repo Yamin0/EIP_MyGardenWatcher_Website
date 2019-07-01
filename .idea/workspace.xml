@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.less" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-phone-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -25,7 +18,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="416">
+                <state relative-caret-position="5831">
                   <caret line="343" column="45" lean-forward="true" selection-start-line="343" selection-start-column="45" selection-end-line="343" selection-end-column="45" />
                 </state>
               </provider>
@@ -183,7 +176,7 @@
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../emma/emma/node_modules/.bin/lessc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -221,12 +214,12 @@
       <workItem from="1559034253479" duration="531000" />
       <workItem from="1559034842309" duration="5000" />
       <workItem from="1559403737815" duration="2155000" />
-      <workItem from="1559553190287" duration="19180000" />
+      <workItem from="1559553190287" duration="19779000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21871000" />
+    <option name="totallyTimeSpent" value="22470000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -334,7 +327,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
+        <state relative-caret-position="5831">
           <caret line="343" column="45" lean-forward="true" selection-start-line="343" selection-start-column="45" selection-end-line="343" selection-end-column="45" />
         </state>
       </provider>
