@@ -1,0 +1,9 @@
+stages:
+  - build
+#  - test
+#  - deploy
+
+job:build:
+  stage: build
+  script:
+    - echo 'my first job'
