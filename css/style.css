@@ -92,6 +92,11 @@ body {
 .header.forward {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-final-forward.jpg");
 }
+.header.nmc {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/NMC_banniere.png");
+  background-size: contain, cover;
+  background-position: center, left;
+}
 .header.epitech-exp {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/MGW-epitech-experience.jpg");
 }
