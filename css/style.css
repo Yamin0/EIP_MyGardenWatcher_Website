@@ -369,7 +369,7 @@ body {
   width: 46%;
 }
 .process-element.select {
-  border: 10px solid #FF6900;
+  border: 10px solid #FF7300;
   float: right;
   position: relative;
   width: 46%;
@@ -423,7 +423,7 @@ body {
 .team-member-name {
   font-size: 24px;
   font-family: "Lobster", cursive;
-  color: #FF6900;
+  color: #FF7300;
 }
 .team-member-post {
   font-size: 18px;
