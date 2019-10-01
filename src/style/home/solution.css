@@ -1,0 +1,142 @@
+.solution {
+  padding-top: 80px;
+}
+.solution h3 {
+  text-align: center;
+  font-size: 40px;
+  font-family: "Lobster", cursive;
+}
+.solution-title {
+  font-family: "Lobster", cursive;
+  font-size: 60px;
+  text-align: center;
+  color: black;
+  margin-bottom: 0;
+}
+.solution-subtitle {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 24px;
+  text-align: center;
+  color: #E57B28;
+}
+.solution-connect {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: radial-gradient(rgba(170, 170, 170, 0.7) 20%, rgba(200, 200, 200, 0.2) 60%, white 70%);
+  height: 500px;
+}
+.solution-connect-img {
+  width: 30%;
+  height: 65%;
+}
+.solution-connect-text {
+  width: 40%;
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 18%;
+}
+.solution-connect-dots {
+  position: absolute;
+  top: 50%;
+}
+.solution-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 120px;
+}
+.solution-step-img {
+  width: 35%;
+  height: 100%;
+}
+.solution-step-text {
+  font-size: 18px;
+  padding: 50px;
+}
+.solution-step.select {
+  background: url("/images/start-way.png") no-repeat center top;
+}
+.solution-step.select h3 {
+  color: #E57B28;
+}
+.solution-step.search {
+  background: url("/images/mid-way.png") no-repeat center top;
+}
+.solution-step.search h3 {
+  color: #91C37D;
+}
+.solution-step.config {
+  background: url("/images/end-way.png") no-repeat center top;
+}
+.solution-step.config h3 {
+  color: #91C37D;
+}
+.solution-step.receive {
+  background: url("/images/mid-way.png") no-repeat center top;
+}
+.solution-step.receive h3 {
+  color: #91C37D;
+}
+.solution-step.advice {
+  background: url("/images/end-way.png") no-repeat center top;
+}
+.solution-step.advice h3 {
+  color: #91C37D;
+}
+.solution-step.share {
+  background: url("/images/mid-way.png") no-repeat center top;
+}
+.solution-step.share h3 {
+  color: #91C37D;
+}
+.process {
+  display: block;
+}
+.process-element {
+  margin-top: 70px;
+  padding: 0;
+}
+.process-element.connect {
+  border: 10px solid #00A84E;
+  float: left;
+  position: relative;
+  width: 46%;
+}
+.process-element.select {
+  border: 10px solid #FF7300;
+  float: right;
+  position: relative;
+  width: 46%;
+}
+.process-element.grow {
+  border: 10px solid #95A6B1;
+}
+.process-element:hover .overlay {
+  opacity: 1;
+}
+.process-element-img {
+  width: 100%;
+}
+.process-element .overlay {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  transition: all ease-in-out 0.5s;
+}
+.process-element-text {
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  text-align: center;
+  -webkit-transform: translate(-30%, -30%);
+  -ms-transform: translate(-30%, -30%);
+  transform: translate(-30%, -30%);
+}
+/*# sourceMappingURL=solution.css.map */

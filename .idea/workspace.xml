@@ -2,100 +2,92 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/header.less" beforeDir="false" afterPath="$PROJECT_DIR$/css/layout/header.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/common.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/footer.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/header.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/layout/menu.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sections/concept.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sections/schema.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sections/solution.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sections/team.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sections/vision.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MGW-epitech-experience.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MGW-final-forward.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MGW-mf-angers.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MGW-mf-nantes.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MGW-tech-inn.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/NMC_banniere.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/carousel/NMC_banniere.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/carrots.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/carrots.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/chemin.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/chemin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/connect.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/connected-app.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/connected-carrot.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/dots.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/dots.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/end-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/end-way.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/favicon-mgw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-carrot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-delph.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-help-select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-kiwi-flav-hugo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-leo-tual.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-phone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-plant-info.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-plant-select.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-receive-notif.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-reminder-config.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-share-result.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-visage-female.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-visage-male.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/garden.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/icon-facebook.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/icon-mail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/icon-twitter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo-gris-transparent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo-transparent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo-vert-transparent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo-vert.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/mid-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mid-way.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-carrot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-connect.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-phone-blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-phone-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-plant.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/schema-smile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/start-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/start-way.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/team.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/visuel-connect.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-connect.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/visuel-pousse.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-pousse.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/visuel-select.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-select.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/visuel-vision.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-vision.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/bootstrap.min.js" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5285101">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="880">
-                  <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/.gitlab-ci.yml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
-                  <caret line="9" selection-start-line="9" selection-end-line="9" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/css/style.less">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" selection-start-line="10" selection-end-line="10" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/css/layout/header.less">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="254">
-                  <caret line="90" selection-start-line="90" selection-end-line="90" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>visi</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/css/footer.less" />
-        <option value="$PROJECT_DIR$/css/menu.less" />
-        <option value="$PROJECT_DIR$/css/header.less" />
-        <option value="$PROJECT_DIR$/css/concept.less" />
-        <option value="$PROJECT_DIR$/css/team.less" />
-        <option value="$PROJECT_DIR$/css/vision.less" />
-        <option value="$PROJECT_DIR$/css/solution.less" />
-        <option value="$PROJECT_DIR$/css/schema.less" />
-        <option value="$PROJECT_DIR$/css/layout/common.less" />
-        <option value="$PROJECT_DIR$/css/style.less" />
-        <option value="$PROJECT_DIR$/css/style.css" />
-        <option value="$PROJECT_DIR$/css/layout/footer.less" />
-        <option value="$PROJECT_DIR$/css/sections/solution.less" />
-        <option value="$PROJECT_DIR$/css/sections/team.less" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/.gitlab-ci.yml" />
-        <option value="$PROJECT_DIR$/css/layout/header.less" />
-        <option value="$PROJECT_DIR$/index.html" />
-      </list>
-    </option>
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -109,61 +101,31 @@
     <option name="width" value="1110" />
     <option name="height" value="1092" />
   </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="kirby" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kirby" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kirby" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kirby" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kirby" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kirby" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kirby" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kirby" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-              <item name="sections" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kirby" type="b2602c69:ProjectViewProjectNode" />
-              <item name="kirby" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
+  <component name="ProjectId" id="1P0jsNHXxMfk0TTpyQH82JnyBZA" />
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/mgw-website/node_modules/less/bin/lessc" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.stylelint" value="" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/mgw-website/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\$LBR000-R0UHB8RT27LQ\Documents\kirby\css\sections" />
-      <recent name="C:\Users\$LBR000-R0UHB8RT27LQ\Documents\kirby\css\layout" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/mgw-website/src/views" />
+      <recent name="$PROJECT_DIR$/mgw-website/public/images/carousel" />
+      <recent name="$PROJECT_DIR$/mgw-website/src/style/layout" />
+      <recent name="$PROJECT_DIR$/mgw-website/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -193,137 +155,33 @@
       <workItem from="1559403737815" duration="2155000" />
       <workItem from="1559553190287" duration="19779000" />
       <workItem from="1561984234055" duration="5509000" />
+      <workItem from="1565018121209" duration="6622000" />
+      <workItem from="1565101797201" duration="11226000" />
+      <workItem from="1565351689532" duration="6932000" />
+      <workItem from="1567522265075" duration="606000" />
+      <workItem from="1568107463375" duration="723000" />
+      <workItem from="1568733357125" duration="7758000" />
+      <workItem from="1569339582415" duration="2134000" />
+      <workItem from="1569511793465" duration="23813000" />
+      <workItem from="1569599095977" duration="481000" />
+      <workItem from="1569849114356" duration="5551000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27979000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1406744" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.49894625" visible="true" weight="0.2524377" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50105375" side_tool="true" weight="0.2524377" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-    <option name="exactExcludedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/../Internship_Solocal/pybossa/build/pybossa-code.js" />
-      </list>
-    </option>
   </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/css/layout/menu.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/sections/concept.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/sections/schema.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="160" column="18" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/style.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/layout/footer.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/sections/vision.less">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="6" selection-start-column="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitlab-ci.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/sections/team.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/layout/common.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/sections/solution.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="934">
-          <caret line="65" column="7" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/layout/header.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="90" selection-start-line="90" selection-end-line="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="79" lean-forward="true" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

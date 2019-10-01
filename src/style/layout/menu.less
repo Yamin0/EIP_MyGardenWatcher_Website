@@ -1,0 +1,56 @@
+
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: @color-secondary-light;
+  z-index: 100;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100px;
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  &-logo {
+    width: 300px;
+
+    &-image {
+      width: 100%;
+    }
+  }
+
+  &-elem {
+    margin-left: 30px;
+
+    &-link {
+      color: @color-secondary-dark;
+      font-size: 22px;
+      transition: all ease-in-out .3s;
+
+      &:hover, &:focus {
+        text-decoration: none;
+        color: @color-primary-orange-dark;
+        text-shadow: 1px 1px @color-secondary;
+      }
+    }
+
+    &.account {
+      .menu-elem-link {
+        padding: 33px 20px;
+        line-height: 100px;
+        font-family: "Lobster", cursive;
+        font-size: 26px;
+
+        &:hover {
+          text-shadow: none;
+        }
+      }
+    }
+  }
+}

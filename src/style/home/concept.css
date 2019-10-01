@@ -1,0 +1,25 @@
+.concept {
+  padding-top: 80px;
+  margin-bottom: 90px !important;
+}
+.concept-title {
+  font-family: "Lobster", cursive;
+  font-size: 60px;
+  text-align: center;
+  color: black;
+  margin-bottom: 0;
+}
+.concept-content {
+  margin-top: 70px;
+  text-align: center;
+  padding: 30px;
+  color: white;
+  background-color: #FF9000;
+  box-shadow: 15px 15px #FF7300;
+  font-size: 20px;
+}
+.concept-way-to-use {
+  width: 100%;
+  margin-bottom: 90px;
+}
+/*# sourceMappingURL=concept.css.map */

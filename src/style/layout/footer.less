@@ -1,0 +1,41 @@
+
+.footer {
+  background: @color-secondary-light;
+  &-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &:first-child {
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    &:last-child {
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+  }
+  &-elem {
+    margin: 0 5px;
+    &.social {
+      margin: 0 20px;
+      a {
+        margin-left: 5px;
+      }
+    }
+
+    a {
+      color: black;
+      font-size: 14px;
+      transition: all ease-in-out .3s;
+      &:hover, &:focus {
+        text-decoration: none;
+        color: @color-primary-orange-dark;
+      }
+    }
+
+    img {
+      width: 40px;
+    }
+  }
+}

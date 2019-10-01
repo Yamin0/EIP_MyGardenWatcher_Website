@@ -1,0 +1,22 @@
+.vision {
+  padding-top: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/visuel-vision.jpg") no-repeat center;
+  background-size: cover;
+}
+.vision-title {
+  font-family: "Lobster", cursive;
+  font-size: 60px;
+  text-align: center;
+  color: white;
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+.vision-content {
+  max-width: 1170px;
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  padding-bottom: 100px;
+}
+/*# sourceMappingURL=vision.css.map */

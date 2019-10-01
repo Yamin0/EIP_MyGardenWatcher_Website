@@ -1,0 +1,39 @@
+.footer {
+  background: #F3F2F3;
+}
+.footer-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.footer-section:first-child {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.footer-section:last-child {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.footer-elem {
+  margin: 0 5px;
+}
+.footer-elem.social {
+  margin: 0 20px;
+}
+.footer-elem.social a {
+  margin-left: 5px;
+}
+.footer-elem a {
+  color: black;
+  font-size: 14px;
+  transition: all ease-in-out 0.3s;
+}
+.footer-elem a:hover,
+.footer-elem a:focus {
+  text-decoration: none;
+  color: #E57B28;
+}
+.footer-elem img {
+  width: 40px;
+}
+/*# sourceMappingURL=footer.css.map */

@@ -1,0 +1,38 @@
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  z-index: 100;
+}
+.menu ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  margin-bottom: 0;
+  padding: 0;
+}
+.menu-logo {
+  width: 300px;
+}
+.menu-logo-image {
+  width: 100%;
+}
+.menu-elem {
+  margin-left: 30px;
+}
+.menu-elem-link {
+  color: black;
+  font-size: 22px;
+  transition: all ease-in-out 0.3s;
+}
+.menu-elem-link:hover,
+.menu-elem-link:focus {
+  text-decoration: none;
+  color: #E57B28;
+  text-shadow: 1px 1px #969696;
+}
+/*# sourceMappingURL=menu.css.map */

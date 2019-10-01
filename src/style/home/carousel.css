@@ -1,0 +1,91 @@
+.header {
+  display: table !important;
+  background-repeat: no-repeat, no-repeat;
+  background-size: contain, contain;
+  background-position: center, center;
+  background-color: black;
+  width: 100%;
+  height: 600px;
+  margin-top: 100px;
+}
+.header-title {
+  display: table-cell;
+  vertical-align: bottom;
+  text-align: center;
+  font-family: "Lobster", cursive;
+  padding-bottom: 100px;
+  color: white;
+  float: none;
+}
+.header-title-main {
+  font-size: 100px;
+  text-shadow: 5px 5px black;
+  font-weight: normal;
+}
+.header-title-medium {
+  font-size: 70px;
+  text-shadow: 5px 5px black;
+  vertical-align: top;
+  color: #FF7300;
+}
+.header-title-medium.green {
+  color: #00A84E;
+}
+.header-title-sub {
+  font-size: 50px;
+  font-weight: normal;
+}
+.header-description {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 22px;
+  width: 80%;
+  margin: 40px auto 20px auto;
+}
+.header-link {
+  color: #91C37D;
+  text-shadow: 2px 2px black;
+  font-size: 30px;
+  transition: all ease-in-out 0.3s;
+}
+.header-link.orange {
+  color: #E57B28;
+}
+.header-link.orange:hover {
+  color: #FF9000;
+}
+.header-link:hover {
+  color: #00A84E;
+  text-decoration: none;
+}
+.header.main {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/carousel/garden.jpg");
+  background-size: cover, cover;
+}
+.header.main .header-title {
+  vertical-align: middle;
+  padding-bottom: 0;
+}
+.header.main .header-description {
+  color: #E57B28;
+}
+.header.forward {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-final-forward.jpg");
+}
+.header.nmc {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/NMC_banniere.png");
+  background-size: contain, cover;
+  background-position: center, left;
+}
+.header.epitech-exp {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-epitech-experience.jpg");
+}
+.header.tech-inn {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-tech-inn.jpg");
+}
+.header.mf-nantes {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-mf-nantes.jpeg");
+}
+.header.mf-angers {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-mf-angers.jpg");
+}
+/*# sourceMappingURL=carousel.css.map */
