@@ -19,7 +19,7 @@ class SignIn extends React.Component<ISignInProps, ISignInState> {
         return (
             <div className="sign-in container">
                 <h1 className="main-title">
-                    Mon Compte
+                    Connexion
                 </h1>
                 <div className="row">
                     <Register/>

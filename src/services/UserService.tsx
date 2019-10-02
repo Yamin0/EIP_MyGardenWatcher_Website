@@ -1,29 +1,31 @@
+import $ from "jquery";
+
 const register = (mail: string, password: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
+        headers: new Headers({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({mail, password})
     };
 
-    return fetch("http://www.mygardenwatcher.fr:3001/auth/register", reqOpt)
+    return fetch("http://192.168.0.17:3001/auth/register", reqOpt)
         .then(handleResponse)
         .then((user) => {
             alert("Compte créé: " + user.mail);
-            login(mail, password);
+            return login(mail, password);
         }, (err) => {
             alert("fail register:" + err);
             return Promise.reject(err);
-        })
+        });
 };
 
 const login = (mail: string, password: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' },
+        headers: new Headers({ 'Content-Type': 'application/json' }),
         body: JSON.stringify({mail, password})
     };
 
-    return fetch("http://www.mygardenwatcher.fr:3001/auth/login", reqOpt)
+    return fetch("http://192.168.0.17:3001/auth/login", reqOpt)
         .then(handleResponse)
         .then((user) => {
             alert("Connexion réussie: " + mail);

@@ -17,7 +17,7 @@ class Contact extends React.Component<IContactProps, IContactState> {
         return (
             <div className="contact container">
                 <h1 className="main-title">
-                    Contactez-nous
+                    Nous contacter
                 </h1>
                 <Form/>
             </div>

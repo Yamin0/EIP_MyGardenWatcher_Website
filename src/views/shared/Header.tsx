@@ -2,7 +2,11 @@ import * as React from "react";
 import {Link} from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 
-const Header: React.FunctionComponent<{}> =  () => {
+interface IHeaderProps {
+    isAuthenticated: boolean
+}
+
+const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated}) => {
     return (
         <header className="row menu">
             <ul>
@@ -25,13 +29,21 @@ const Header: React.FunctionComponent<{}> =  () => {
                     <HashLink to="/#team" className="menu-elem-link">L'équipe</HashLink>
                 </li>
                 <li className="menu-elem">
-                    <Link to="/contact" className="menu-elem-link">Contact</Link>
+                    <Link to="/contact-pro" className="menu-elem-link">Nous contacter</Link>
                 </li>
+
                 <li className="menu-elem account">
-                    <Link to="/sign-in" className="menu-elem-link btn-orange">
-                        <span className="oi oi-person icon-right"/>
-                        Mon Compte
-                    </Link>
+                    {isAuthenticated ?
+                        <Link to="/sign-out" className="menu-elem-link btn-orange">
+                            <span className="oi oi-person icon-right"/>
+                            Mon Compte
+                        </Link>
+                        :
+                        <Link to="/sign-in" className="menu-elem-link btn-orange">
+                            <span className="oi oi-lock-locked icon-right"/>
+                            Espace Client
+                        </Link>
+                    }
                 </li>
             </ul>
         </header>

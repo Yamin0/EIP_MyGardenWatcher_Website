@@ -2,83 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap-theme.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/common.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/footer.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/header.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/layout/menu.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/sections/concept.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/sections/schema.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/sections/solution.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/sections/team.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/sections/vision.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/MGW-epitech-experience.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/MGW-final-forward.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/MGW-mf-angers.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/MGW-mf-nantes.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/MGW-tech-inn.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/NMC_banniere.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/carousel/NMC_banniere.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/carrots.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/carrots.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/chemin.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/chemin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/connect.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/connected-app.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/connected-carrot.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/dots.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/dots.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/end-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/end-way.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/favicon-mgw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-carrot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-delph.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-help-select.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-kiwi-flav-hugo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-leo-tual.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-phone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-plant-info.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-plant-select.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-receive-notif.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-reminder-config.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-share-result.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-visage-female.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-visage-male.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/garden.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/icon-facebook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/icon-mail.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/icon-twitter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo-gris-transparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo-transparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo-vert-transparent.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo-vert.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/mid-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mid-way.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-arrow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-carrot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-connect.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-phone-blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-phone-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-plant.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/schema-smile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/start-way.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/start-way.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/team.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/visuel-connect.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-connect.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/visuel-pousse.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-pousse.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/visuel-select.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-select.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/visuel-vision.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/visuel-vision.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/UserService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/contact/form.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/form.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/contact/form.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/form.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/contact/form.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/form.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/contact/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/contact/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/shared/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/shared/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/SignIn.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -95,19 +36,13 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="588" />
-    <option name="y" value="-14" />
-    <option name="width" value="1110" />
-    <option name="height" value="1092" />
-  </component>
   <component name="ProjectId" id="1P0jsNHXxMfk0TTpyQH82JnyBZA" />
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mgw-website/node_modules/less/bin/lessc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../yoshi/package.json" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -117,15 +52,15 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/mgw-website/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/style/layout" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/mgw-website/src/views" />
       <recent name="$PROJECT_DIR$/mgw-website/public/images/carousel" />
       <recent name="$PROJECT_DIR$/mgw-website/src/style/layout" />
-      <recent name="$PROJECT_DIR$/mgw-website/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -164,7 +99,9 @@
       <workItem from="1569339582415" duration="2134000" />
       <workItem from="1569511793465" duration="23813000" />
       <workItem from="1569599095977" duration="481000" />
-      <workItem from="1569849114356" duration="5551000" />
+      <workItem from="1569849114356" duration="12377000" />
+      <workItem from="1569947601495" duration="1284000" />
+      <workItem from="1569950227820" duration="8178000" />
     </task>
     <servers />
   </component>
