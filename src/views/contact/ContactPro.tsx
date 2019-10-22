@@ -8,7 +8,7 @@ interface IContactState {
 
 }
 
-class Contact extends React.Component<IContactProps, IContactState> {
+class ContactPro extends React.Component<IContactProps, IContactState> {
     constructor(props: any) {
         super(props);
     }
@@ -17,12 +17,12 @@ class Contact extends React.Component<IContactProps, IContactState> {
         return (
             <div className="contact container">
                 <h1 className="main-title">
-                    Nous contacter
+                    Contact professionnel
                 </h1>
-                <Form/>
+                <Form isFormPro={true}/>
             </div>
         )
     }
 }
 
-export default Contact;
+export default ContactPro;

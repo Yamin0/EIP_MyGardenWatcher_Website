@@ -66,7 +66,16 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
                     <h2 className="second-title">Accéder à mon espace personnel</h2>
                     <div className="form-group">
                         <label className="col-form-label">Email</label>
-                        <input id="registerEmail" className="form-control" type="email" name="email" value={this.state.email} onChange={this.handleChange} required={true}/>
+                        <input
+                            id="loginEmail"
+                            className="form-control"
+                            type="email"
+                            name="email"
+                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            required={true}
+                        />
                         <div className="invalid-feedback">
                             Merci d'entrer une adresse email valide.
                         </div>
@@ -74,7 +83,7 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
                     <div className="form-group">
                         <label>Mot de passe</label>
                         <input
-                            id="registerPassword"
+                            id="loginPassword"
                             className="form-control"
                             type="password"
                             name="password"

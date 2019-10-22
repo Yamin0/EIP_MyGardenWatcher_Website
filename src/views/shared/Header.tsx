@@ -29,7 +29,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated}) => {
                     <HashLink to="/#team" className="menu-elem-link">L'équipe</HashLink>
                 </li>
                 <li className="menu-elem">
-                    <Link to="/contact-pro" className="menu-elem-link">Nous contacter</Link>
+                    <Link to="/contact-single" className="menu-elem-link">Nous contacter</Link>
                 </li>
 
                 <li className="menu-elem account">

@@ -73,10 +73,24 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         return (
             <form className="form col-6 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                 <div className="form-wrapper">
+                    <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
+                        <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
                     <h2 className="second-title">Créer un compte</h2>
                     <div className="form-group">
                         <label className="col-form-label">Email</label>
-                        <input id="registerEmail" className="form-control" type="email" name="email" value={this.state.email} onChange={this.handleChange} required={true}/>
+                        <input
+                            id="registerEmail"
+                            className="form-control"
+                            type="email"
+                            name="email"
+                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            required={true}
+                        />
                         <div className="invalid-feedback">
                             Merci d'entrer une adresse email valide.
                         </div>
