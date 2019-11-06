@@ -160,11 +160,21 @@ footer {
 .form {
   padding: 10px;
   font-size: 16px;
-  margin-bottom: 30px;
 }
 .form-wrapper {
+  position: relative;
   background-color: #F3F3F3;
   padding: 30px;
+}
+.form-loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 5px;
+}
+.form-annex {
+  margin-top: 20px;
 }
 .header {
   display: table !important;
@@ -470,5 +480,30 @@ footer {
   font-size: 20px;
   color: white;
   padding-bottom: 100px;
+}
+.contact-single {
+  padding-bottom: 150px;
+}
+.contact-single .main-title {
+  padding-bottom: 0;
+  padding-left: 10px;
+}
+.contact-pro {
+  padding-bottom: 180px;
+}
+.contact-pro-form {
+  padding-left: 10px;
+  color: #95A6B1;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.contact-pro-form-link {
+  margin-left: 3px;
+  color: #91C37D;
+  transition: all ease-in-out 0.2s;
+}
+.contact-pro-form-link:hover {
+  color: #7C9872;
+  text-decoration: none;
 }
 /*# sourceMappingURL=index.css.map */

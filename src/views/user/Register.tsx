@@ -73,11 +73,17 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
         return (
             <form className="form col-6 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                 <div className="form-wrapper">
-                    <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
-                        <div className="spinner-border text-light" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
+                    {
+                        this.state.loading ?
+                            <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
+                                <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            :
+                            ""
+                    }
+
                     <h2 className="second-title">Créer un compte</h2>
                     <div className="form-group">
                         <label className="col-form-label">Email</label>

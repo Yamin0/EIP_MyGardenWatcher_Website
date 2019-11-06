@@ -15,7 +15,7 @@ class ContactPro extends React.Component<IContactProps, IContactState> {
 
     render() {
         return (
-            <div className="contact container">
+            <div className="contact-pro container">
                 <h1 className="main-title">
                     Contact professionnel
                 </h1>

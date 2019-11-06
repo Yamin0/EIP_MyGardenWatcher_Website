@@ -7,7 +7,7 @@ const register = (mail: string, password: string) => {
         body: JSON.stringify({mail, password})
     };
 
-    return fetch("http://192.168.0.17:3001/auth/register", reqOpt)
+    return fetch("http://www.mygardenwatcher.fr:3001/auth/register", reqOpt)
         .then(handleResponse)
         .then((user) => {
             alert("Compte créé: " + user.mail);
@@ -25,7 +25,7 @@ const login = (mail: string, password: string) => {
         body: JSON.stringify({mail, password})
     };
 
-    return fetch("http://192.168.0.17:3001/auth/login", reqOpt)
+    return fetch("http://www.mygardenwatcher.fr:3001/auth/login", reqOpt)
         .then(handleResponse)
         .then((user) => {
             alert("Connexion réussie: " + mail);
