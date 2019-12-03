@@ -1,12 +1,20 @@
 import * as React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
+import Login from "../user/Login";
+import {UserService} from "../../services/UserService";
 
 interface IHeaderProps {
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
+    isLoginOpen: boolean,
+    connect(): void,
+    toggleLogin(status: boolean): void
 }
 
-const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated}) => {
+const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLoginOpen, connect, toggleLogin}) => {
+    const closeLogin = () => toggleLogin(false);
+    const toggle = () => toggleLogin(!isLoginOpen);
+
     return (
         <header className="row menu">
             <ul>
@@ -28,22 +36,41 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated}) => {
                 <li className="menu-elem">
                     <HashLink to="/#team" className="menu-elem-link">L'équipe</HashLink>
                 </li>
+
+                {
+                    isAuthenticated ?
+                        <li className="menu-elem">
+                            <Link to="/plants" className="menu-elem-link">Nos plantes</Link>
+                        </li>
+                        : ""
+                }
+
                 <li className="menu-elem">
                     <Link to="/contact-single" className="menu-elem-link">Nous contacter</Link>
                 </li>
 
                 <li className="menu-elem account">
                     {isAuthenticated ?
-                        <Link to="/sign-out" className="menu-elem-link btn-orange">
-                            <span className="oi oi-person icon-right"/>
-                            Mon Compte
-                        </Link>
+                            <Link to="/edit-profile" className="menu-elem-link btn-orange">
+                                <span className="oi oi-person icon-right"/>
+                                Mon Compte
+                            </Link>
                         :
-                        <Link to="/sign-in" className="menu-elem-link btn-orange">
+                        <button id="btn-login" className="menu-elem-link btn-orange" onClick={toggle}>
                             <span className="oi oi-lock-locked icon-right"/>
                             Espace Client
-                        </Link>
+                        </button>
                     }
+                    {
+                        isAuthenticated ?
+                            <button onClick={UserService.logout} style={{paddingTop: "30px"}}>Se déconnecter</button>
+                            : ""
+                    }
+                    {
+                        !isAuthenticated && isLoginOpen &&
+                        <Login closePopin={closeLogin} connect={connect}/>
+                    }
+
                 </li>
             </ul>
         </header>

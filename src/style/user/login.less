@@ -1,0 +1,108 @@
+.login {
+  position: absolute;
+  top: 90px;
+  left: -10px;
+  width: 230px;
+  z-index: 1;
+  border: 1px solid @color-secondary;
+
+  .form {
+    padding: 0;
+    font-size: 12px;
+
+    &-wrapper {
+      padding: 15px;
+    }
+    &-control {
+      height: 25px;
+      font-size: 12px;
+    }
+
+    &-group {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      font-size: 12px;
+    }
+  }
+
+  &-title {
+    font-size: 30px;
+  }
+  &-close {
+    cursor: pointer;
+    font-size: 22px;
+    position: absolute;
+    top: 10px;
+    line-height: 1;
+    right: 10px;
+    z-index: 2;
+    transition: all ease-in-out 0.3s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &-password-link {
+    float: right;
+    line-height: 19px;
+    font-size: 11px;
+    font-style: italic;
+    color: @color-secondary;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      color: @color-secondary-dark;
+      text-decoration: underline;
+    }
+  }
+
+  &-link {
+    padding: 4px 3px;
+    float: right;
+    font-size: 15px;
+    text-decoration: underline;
+    font-style: italic;
+    color: @color-primary-orange-light;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      color: @color-primary-orange-dark;
+      text-decoration: none;
+    }
+  }
+
+  &:after, &:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: @color-secondary-light;
+    border-width: 10px;
+    margin-left: -10px;
+  }
+
+  &:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: @color-secondary;
+    border-width: 11px;
+    margin-left: -11px;
+  }
+
+  &.loading {
+    &:before {
+      border-bottom-color: white;
+    }
+    &:after {
+      border-bottom-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}

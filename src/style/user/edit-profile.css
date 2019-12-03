@@ -1,0 +1,22 @@
+.edit-profile {
+  padding-bottom: 150px;
+}
+.edit-profile .form {
+  position: inherit;
+}
+.edit-profile-label {
+  padding-left: 15px !important;
+}
+.edit-profile-datepicker {
+  border: none;
+  width: 35%;
+}
+.edit-profile-datepicker:focus,
+.edit-profile-datepicker:hover {
+  border: none;
+  box-shadow: none;
+}
+.edit-profile .form-group {
+  margin-bottom: 15px !important;
+}
+/*# sourceMappingURL=edit-profile.css.map */

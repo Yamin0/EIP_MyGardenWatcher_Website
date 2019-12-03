@@ -2,20 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/carousel/garden.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/visuel-vision.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HoC/ProtectedRoute.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/HoC/ProtectedRoute.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/UserService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/contact/contact.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/contact/contact.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/contact/contact.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/contact/contact.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/contact/contact.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/contact/contact.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/home/carousel.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/home/carousel.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/home/vision.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/home/vision.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/layout/form.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/form.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/contact/ContactPro.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/contact/ContactPro.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/contact/ContactSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/contact/ContactSingle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/layout/menu.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/menu.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/contact/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/contact/Form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/shared/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/shared/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Register.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/user/SignIn.tsx" beforeDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,11 +33,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="kirby" />
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>less</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,19 +43,18 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="588" />
-    <option name="y" value="-14" />
-    <option name="width" value="1110" />
-    <option name="height" value="1092" />
-  </component>
   <component name="ProjectId" id="1P0jsNHXxMfk0TTpyQH82JnyBZA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules/less/bin/lessc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -63,6 +67,9 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/services" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/style/layout" />
       <recent name="$PROJECT_DIR$" />
@@ -71,15 +78,15 @@
       <recent name="$PROJECT_DIR$/mgw-website/src/style/layout" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -116,6 +123,15 @@
       <workItem from="1571727004266" duration="3455000" />
       <workItem from="1571735127375" duration="196000" />
       <workItem from="1573076485402" duration="4612000" />
+      <workItem from="1573081144009" duration="716000" />
+      <workItem from="1573233794737" duration="1820000" />
+      <workItem from="1574432405072" duration="8007000" />
+      <workItem from="1574782307737" duration="498000" />
+      <workItem from="1574782824170" duration="158000" />
+      <workItem from="1574783123681" duration="8273000" />
+      <workItem from="1575037650541" duration="18778000" />
+      <workItem from="1575386682074" duration="7453000" />
+      <workItem from="1575396406425" duration="13007000" />
     </task>
     <servers />
   </component>
@@ -157,6 +173,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="705" y="343" width="573" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1575403468433">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="705" y="343" width="573" height="388" key="#com.intellij.fileTypes.FileTypeChooser/65.24.1855.1056@65.24.1855.1056" timestamp="1575403468433" />
+    <state x="754" y="233" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575407170608">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="754" y="233" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/65.24.1855.1056@65.24.1855.1056" timestamp="1575407170608" />
+    <state x="655" y="236" width="672" height="678" key="search.everywhere.popup" timestamp="1575397228383">
+      <screen x="65" y="24" width="1855" height="1056" />
+    </state>
+    <state x="655" y="236" width="672" height="678" key="search.everywhere.popup/65.24.1855.1056@65.24.1855.1056" timestamp="1575397228383" />
   </component>
   <component name="masterDetails">
     <states>

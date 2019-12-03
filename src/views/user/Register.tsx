@@ -3,6 +3,7 @@ import {UserService} from "../../services/UserService";
 import { createBrowserHistory } from 'history';
 
 interface IRegisterProps {
+    connect(): void,
 }
 
 interface IRegisterState {
@@ -43,10 +44,10 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
             (document.getElementById("registerRepeatPassword") as HTMLInputElement).setCustomValidity("");
         }
 
-        this.setState({
-            ...this.state,
+        this.setState((state) => ({
+            ...state,
             [name]: value,
-        });
+        }));
     }
 
     private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -58,9 +59,10 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
             UserService.register(this.state.email, this.state.password)
                 .then(
                     () => {
-                        const from ={ pathname: "/" };
+                        const from ={ pathname: "/edit-profile" };
                         createBrowserHistory().push(from);
                         window.location.reload();
+                        this.props.connect();
                     },
                     error => {
                         this.setState({ error: error.statusText, loading: false })
@@ -71,66 +73,107 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 
     render() {
         return (
-            <form className="form col-6 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
-                <div className="form-wrapper">
-                    {
-                        this.state.loading ?
-                            <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
-                                <div className="spinner-border text-light" role="status">
-                                    <span className="sr-only">Loading...</span>
+            <div className="register container">
+                <h1 className="main-title text-center">
+                    Créer un compte
+                </h1>
+                <div className="row no-gutters">
+
+                    <div className="col-6">
+                        <img src="/images/visuel-register.jpeg" className="img-fluid" alt=""/>
+                    </div>
+
+                    <form className="form col-6 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
+                        <div className="form-wrapper">
+                            {
+                                this.state.loading ?
+                                    <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
+                                        <div className="spinner-border text-light" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                    :
+                                    ""
+                            }
+
+                            {
+                                this.state.error !== "" ?
+                                    <div className="">
+                                        {this.state.error}
+                                    </div>
+                                    :
+                                    ""
+                            }
+
+                            <div className="form-group">
+                                <label className="col-form-label">Email</label>
+                                <input
+                                    id="registerEmail"
+                                    className="form-control"
+                                    type="email"
+                                    name="email"
+                                    pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                    value={this.state.email}
+                                    onChange={this.handleChange}
+                                    required={true}
+                                />
+                                <div className="invalid-feedback">
+                                    Merci d'entrer une adresse email valide.
                                 </div>
                             </div>
-                            :
-                            ""
-                    }
 
-                    <h2 className="second-title">Créer un compte</h2>
-                    <div className="form-group">
-                        <label className="col-form-label">Email</label>
-                        <input
-                            id="registerEmail"
-                            className="form-control"
-                            type="email"
-                            name="email"
-                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            required={true}
-                        />
-                        <div className="invalid-feedback">
-                            Merci d'entrer une adresse email valide.
+                            <div className="form-group">
+                                <label>Mot de passe</label>
+                                <input
+                                    id="registerPassword"
+                                    className="form-control"
+                                    type="password"
+                                    name="password"
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                    minLength={8}
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                                    required={true}/>
+                                <div className="invalid-feedback">
+                                    Votre mot de passe doit faire au moins 8 caractères, contenir une lettre minuscule, une lettre majuscule et un chiffre.
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Confirmation du mot de passe</label>
+                                <input
+                                    id="registerRepeatPassword"
+                                    className="form-control"
+                                    type="password"
+                                    name="repeatPassword"
+                                    value={this.state.repeatPassword}
+                                    onChange={this.handleChange}
+                                    required={true}
+                                />
+                                <div className="invalid-feedback">
+                                    Les mots de passe que vous avez entré ne sont pas identiques.
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn btn-green register-btn"
+                                disabled={this.state.loading}
+                            >
+                                Je m'inscris
+                            </button>
+
+                            {
+                                this.state.error &&
+                                <div className="alert alert-danger">
+                                    {this.state.error}
+                                </div>
+                            }
                         </div>
-                    </div>
-                    <div className="form-group">
-                        <label>Mot de passe</label>
-                        <input
-                            id="registerPassword"
-                            className="form-control"
-                            type="password"
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            minLength={8}
-                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-                            required={true}/>
-                        <div className="invalid-feedback">
-                            Votre mot de passe doit faire au moins 8 caractères, contenir une lettre minuscule, une lettre majuscule et un chiffre.
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label>Confirmation du mot de passe</label>
-                        <input id="registerRepeatPassword" className="form-control" type="password" name="repeatPassword" value={this.state.repeatPassword} onChange={this.handleChange} required={true}/>
-                        <div className="invalid-feedback">
-                            Les mots de passe que vous avez entré ne sont pas identiques.
-                        </div>
-                    </div>
-                    <button type="submit" className="btn btn-green" disabled={this.state.loading}>Je m'inscris</button>
-                    {this.state.error &&
-                    <div className="alert alert-danger">
-                        {this.state.error}
-                    </div>}
+                    </form>
+
                 </div>
-            </form>
+            </div>
         )
     }
 }

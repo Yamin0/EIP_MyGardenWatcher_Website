@@ -12,7 +12,7 @@
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    height: 100px;
+    height: 80px;
     margin-bottom: 0;
     padding: 0;
   }
@@ -41,11 +41,22 @@
     }
 
     &.account {
+      position: relative;
+
+      &:focus {
+        outline: none;
+      }
+
       .menu-elem-link {
-        padding: 33px 20px;
-        line-height: 100px;
+        border: none;
+        line-height: 80px;
+        padding: 0 20px;
         font-family: "Lobster", cursive;
         font-size: 26px;
+
+        &:focus {
+          outline: none;
+        }
 
         &:hover {
           text-shadow: none;

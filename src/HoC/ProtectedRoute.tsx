@@ -4,12 +4,13 @@ import {Redirect, Route, RouteProps} from 'react-router';
 interface ProtectedRouteProps extends RouteProps {
     isAuthenticated: boolean;
     authenticationPath: string;
+    needAuth: boolean;
 }
 
 class ProtectedRoute extends Route<ProtectedRouteProps> {
     public render() {
         let redirectPath: string = '';
-        if (!this.props.isAuthenticated) {
+        if (this.props.isAuthenticated !== this.props.needAuth) {
             redirectPath = this.props.authenticationPath;
         }
 
