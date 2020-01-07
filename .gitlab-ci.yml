@@ -1,13 +1,54 @@
-stages:
+image: hahoo/nodejs-dind:latest
+
+before_script: # Exécution d'une commande avant chaque `job`
+  - echo 'start jobs'
+  - echo 'installing docker'
+  #- apk add --no-cache py-pip
+  #- apk add --no-cache npm
+  - 'which ssh-agent || ( apk update && apk add openssh-client )'
+  # Run ssh-agent (inside the build environment)
+  - eval $(ssh-agent -s)
+  - mkdir -p ~/.ssh
+
+  # Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
+
+  - echo "$SSH_PUBLIC_KEY" | tr -d '\r' > ~/.ssh/id_rsa.pub
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa.pub
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-keyscan -p 4242 -H '51.38.38.139' >> ~/.ssh/known_hosts
+  - ssh-keyscan -p 4242 51.38.38.139 | sort -u - ~/.ssh/known_hosts -o ~/.ssh/known_hosts
+  - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+
+after_script: # Exécution d'une commande après chaque `job`
+  - echo 'end jobs'
+
+stages: # Ici on déclare toutes nos étapes
   - build
-#  - test
+  - test
   - deploy
 
-job:build:
-  stage: build
-  script:
-    - echo 'start build'
-    - docker build -t mgw .
-    - docker run --name mgwcontainer mgw
-    - rm mgwcontainer
+#job:build:
+#  stage: build # On déclare que ce `job` fait partie de l'étape build
+#  script:
+#    - yarn install
+#    - CI=false yarn build
 
+  #job:test:unit:
+  # stage: test # On déclare que ce `job` fait partie de l'étape test
+  #script: make test-unit
+
+  #job:test:functional:
+  # stage: test # On déclare que ce `job` fait partie de l'étape test
+  #script: make test-functional
+
+job:deploy:
+  stage: deploy
+  environment:
+    name: staging
+  script:
+    - ssh -p 4242 api@51.38.38.139 "cd website && git fetch --all && git reset --hard origin/master; echo 'start build'; docker build -t mgw; docker run --name mgwcontainer mgw; rm mgwcontainer; exit"
+      #only:
+    #refs:
+  #    - master
