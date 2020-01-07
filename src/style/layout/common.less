@@ -89,3 +89,42 @@ footer {
   font-size: 35px;
   color: @color-secondary-dark
 }
+
+.module {
+  margin-top: 20px;
+  overflow: hidden;
+  font-size: 16px;
+  font-family: "Lato";
+  padding: 0;
+}
+
+.module p {
+  margin: 0;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.page-link {
+  color: @color-secondary;
+  background-color: @color-secondary-lighten;
+  border-color: @color-secondary;
+  &:hover {
+    color: @color-primary-orange;
+    background-color: @color-secondary-lighten;
+    border-color: @color-primary-orange;
+  }
+}
+
+.page-item {
+  &.active {
+    .page-link {
+      @color: @color-secondary-lighten;
+      background-color: @color-primary-orange-dark;
+      border-color: @color-primary-orange-dark;
+    }
+  }
+}

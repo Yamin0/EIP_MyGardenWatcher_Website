@@ -42,9 +42,25 @@
 
     &.account {
       position: relative;
+      height: 100%;
 
       &:focus {
         outline: none;
+      }
+
+      .btn-logout {
+        cursor: pointer;
+        position: absolute;
+        bottom: 3px;
+        right: 5px;
+        margin: 0;
+        color: @color-secondary-lighten;
+        transition: all ease-in-out .3s;
+        &:hover, &:focus {
+          background-color: @color-primary-orange-dark;
+          border-radius: 10px;
+          padding: 0 5px;
+        }
       }
 
       .menu-elem-link {
@@ -54,11 +70,18 @@
         font-family: "Lobster", cursive;
         font-size: 26px;
 
+        &.btn-account {
+          display: block;
+          position: relative;
+          height: 100%;
+          line-height: 75px !important;
+        }
+
         &:focus {
           outline: none;
         }
 
-        &:hover {
+        &:hover, &:focus {
           text-shadow: none;
         }
       }

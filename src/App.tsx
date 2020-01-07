@@ -69,7 +69,7 @@ class App extends React.Component<{}, IAppState> {
                 <Route exact path="/contact-pro" component={ContactPro} />
                 <ProtectedRoute path="/register" exact isAuthenticated={isAuthenticated} authenticationPath="/edit-profile" needAuth={false} render={() => <Register connect={connect} />} />
                 <ProtectedRoute path="/edit-profile" exact isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <EditProfile user={userInit} checkToken={this.checkToken} />} />
-                <ProtectedRoute path="/plants" exact isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <PlantList checkToken={this.checkToken} />} />
+                <ProtectedRoute path="/plants/:pageNumber?" isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <PlantList checkToken={this.checkToken} />} />
                 <ProtectedRoute path="/sign-out" exact isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <div>
                     <button onClick={UserService.logout} style={{paddingTop: "300px"}}>Se déconnecter</button>
                 </div>} />

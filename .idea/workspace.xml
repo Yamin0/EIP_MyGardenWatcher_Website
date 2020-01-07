@@ -3,28 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="aa5f40db-04e2-4fa0-a200-e0e800698458" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/carousel/garden.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/visuel-vision.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HoC/ProtectedRoute.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/HoC/ProtectedRoute.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/UserService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/contact/contact.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/contact/contact.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/home/carousel.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/home/carousel.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/home/vision.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/home/vision.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interfaces/Plant.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/Plant.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/PlantService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/PlantService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/index.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/layout/form.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/form.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/layout/common.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/common.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/style/layout/menu.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/layout/menu.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/sign-in/sign-in.less" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/contact/Form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/contact/Form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/style/plants/plant-list.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/style/plants/plant-list.less" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/plants/PlantList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/plants/PlantList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/shared/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/shared/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/user/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/user/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/user/Register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/user/SignIn.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,18 +119,12 @@
       <workItem from="1574783123681" duration="8273000" />
       <workItem from="1575037650541" duration="18778000" />
       <workItem from="1575386682074" duration="7453000" />
-      <workItem from="1575396406425" duration="13007000" />
+      <workItem from="1575396406425" duration="13319000" />
+      <workItem from="1578071876736" duration="2573000" />
+      <workItem from="1578271759846" duration="12615000" />
+      <workItem from="1578408838701" duration="6706000" />
     </task>
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

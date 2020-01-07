@@ -38,11 +38,10 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                 </li>
 
                 {
-                    isAuthenticated ?
+                    isAuthenticated &&
                         <li className="menu-elem">
                             <Link to="/plants" className="menu-elem-link">Nos plantes</Link>
                         </li>
-                        : ""
                 }
 
                 <li className="menu-elem">
@@ -51,10 +50,10 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
 
                 <li className="menu-elem account">
                     {isAuthenticated ?
-                            <Link to="/edit-profile" className="menu-elem-link btn-orange">
-                                <span className="oi oi-person icon-right"/>
-                                Mon Compte
-                            </Link>
+                        <Link to="/edit-profile" className="menu-elem-link btn-orange btn-account">
+                            <span className="oi oi-person icon-right"/>
+                            Mon Compte
+                        </Link>
                         :
                         <button id="btn-login" className="menu-elem-link btn-orange" onClick={toggle}>
                             <span className="oi oi-lock-locked icon-right"/>
@@ -63,7 +62,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                     }
                     {
                         isAuthenticated ?
-                            <button onClick={UserService.logout} style={{paddingTop: "30px"}}>Se déconnecter</button>
+                            <p onClick={UserService.logout} className="btn-logout" title="Se déconnecter"><span className="oi oi-power-standby"/></p>
                             : ""
                     }
                     {

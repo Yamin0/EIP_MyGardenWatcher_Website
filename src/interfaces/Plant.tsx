@@ -1,7 +1,12 @@
 export default interface Plant {
     id: number,
     name: string,
-    temperature: number,
+    minTemp: number,
+    maxTemp: number,
     humidity: number,
-    img: string
+    light: string,
+    image: string,
+    description: string,
+    link: string,
+    caracteristics: string
 }
