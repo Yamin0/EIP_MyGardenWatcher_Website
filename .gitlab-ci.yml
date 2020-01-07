@@ -1,9 +1,13 @@
 stages:
   - build
 #  - test
-#  - deploy
+  - deploy
 
 job:build:
   stage: build
   script:
-    - echo 'my first job'
+    - echo 'start build'
+    - docker build -t mgw .
+    - docker run --name mgwcontainer mgw
+    - rm mgwcontainer
+

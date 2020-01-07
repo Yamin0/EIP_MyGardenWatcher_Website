@@ -1,2 +1,6 @@
-FROM httpd:2.4
-COPY ./build/ /var/www/html/
+FROM node:10
+WORKDIR ./
+RUN yarn install
+RUN yarn build
+
+COPY ./build/ /var/www/html
