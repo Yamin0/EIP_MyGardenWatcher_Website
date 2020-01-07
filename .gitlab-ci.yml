@@ -48,7 +48,7 @@ job:deploy:
   environment:
     name: staging
   script:
-    - ssh -p 4242 api@51.38.38.139 "cd website && git fetch --all && git reset --hard origin/master; echo 'start build'; docker build -t mgw .; docker run --name mgwcontainer mgw; exit"
+    - ssh -p 4242 api@51.38.38.139 "cd website && git fetch --all && git reset --hard origin/master; echo 'start build'; docker build -t mgw .; docker run --name mgwcontainer mgw; docker rm mgwcontainer; exit"
       #only:
     #refs:
   #    - master
