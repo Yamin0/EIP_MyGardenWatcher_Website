@@ -34,6 +34,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
             error: ""
         };
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -43,6 +44,19 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
             formUser: {
                 ...state.formUser,
                 birthDay: new Date(date)
+            }
+        }));
+    }
+
+    private handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const name = e.target.name;
+        const value = e.target.checked;
+
+        this.setState((state) => ({
+            ...state,
+            formUser: {
+                ...state.formUser,
+                [name]: value,
             }
         }));
     }
@@ -123,7 +137,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
     }
 
     render() {
-        const { email, password, newPassword, firstName, lastName, address, birthDay } = this.state.formUser;
+        const { email, password, newPassword, firstName, lastName, address, birthDay, acceptMails } = this.state.formUser;
 
         return (
             <div className="edit-profile container">
@@ -307,6 +321,17 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 Votre mot de passe ne contient pas assez de caractères.
                             </div>
                         </div>
+
+                        <input
+                            id="AcceptNewsletter"
+                            type="checkbox"
+                            checked={acceptMails}
+                            name="acceptMails"
+                            onChange={this.handleCheckboxChange}
+                        />
+                        <label htmlFor="AcceptNewsletter" className="col-form-label col-md-11">
+                            J'accepte de recevoir des mails de promotion de la part de MyGardenWatcher.
+                        </label>
 
                         <button
                             type="submit"

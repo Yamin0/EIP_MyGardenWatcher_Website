@@ -6,6 +6,7 @@ export default interface User {
     lastName: string,
     birthDay: Date,
     address: string,
+    acceptMails: boolean
 }
 
 export const userInit: User = {
@@ -16,4 +17,5 @@ export const userInit: User = {
     lastName: "",
     birthDay: new Date(),
     address: "",
+    acceptMails: true
 };
