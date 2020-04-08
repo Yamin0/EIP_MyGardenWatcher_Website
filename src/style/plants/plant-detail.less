@@ -1,0 +1,69 @@
+.plant-detail {
+  padding-bottom: 150px;
+  &-fetching {
+    margin-top: 200px;
+  }
+  &-subtitle {
+    margin-bottom: 20px;
+    font-family: "Lobster", cursive;
+  }
+    &-link {
+      background-color: @color-primary-green-light;
+      color: @color-secondary-dark;
+      transition: all ease-in-out .3s;
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 10px 0;
+      margin-top: 15px;
+      border: 2px solid @color-primary-green-dark;
+      .oi {
+        margin-left: 8px;
+        font-size: 14px;
+      }
+      &:hover {
+        text-decoration: none;
+        color: @color-secondary-dark;
+        background-color: @color-primary-green-dark;
+      }
+    }
+    &-img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      object-position: top;
+    }
+    &-data {
+      width: 100%;
+      text-align: center;
+      &-thumb {
+        padding: 10px 0;
+        background-color: @color-secondary-light;
+      }
+    }
+    &-icon {
+      width: 15%;
+      margin-right: 5px;
+    }
+  &-more {
+    position: relative;
+  }
+  &-text {
+    padding: 20px;
+    margin: 30px 30px;
+    color: @color-secondary;
+    background-color: @color-secondary-light;
+    box-shadow: -15px -15px @color-secondary;
+    &.left {
+      box-shadow: 15px 15px @color-secondary !important;
+    }
+  }
+  .border-carrot {
+    margin: 30px 0;
+  }
+
+  &-visual {
+    margin-bottom: 40px;
+  }
+}

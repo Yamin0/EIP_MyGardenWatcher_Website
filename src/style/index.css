@@ -22,10 +22,10 @@ body {
   background-size: 20%;
 }
 .green {
-  color: #00A84E;
+  color: #00A84E !important;
 }
 .orange {
-  color: #FF7300;
+  color: #FF7300 !important;
 }
 .btn-orange {
   color: white !important;
@@ -181,6 +181,39 @@ footer {
 .menu-elem.account .menu-elem-link:focus {
   text-shadow: none;
 }
+.user-menu {
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 250px;
+  left: 200px;
+  background: #F3F3F3;
+  overflow-x: hidden;
+  text-align: center;
+  border: 1px solid #95A6B1;
+}
+.user-menu .menu-elem-link {
+  padding: 10px 0;
+  display: block;
+  border-bottom: 1px solid #95A6B1;
+}
+.user-menu-logout {
+  background-color: #91C37D;
+  padding: 10px 0;
+  margin: 0;
+  font-size: 24px;
+  font-family: "Lobster", cursive;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+.user-menu-logout:hover {
+  background-color: #7C9872;
+  color: black;
+}
+.user-menu .oi {
+  padding-right: 10px;
+  font-size: 20px;
+}
 .footer {
   background: #F3F3F3;
 }
@@ -240,6 +273,16 @@ footer {
 }
 .form-annex {
   margin-top: 20px;
+}
+.form .error {
+  background-color: #FF9000;
+  text-align: center;
+  padding: 10px 0;
+  color: white;
+  margin-bottom: 15px;
+}
+.form .error .oi {
+  padding-right: 10px;
 }
 .header {
   display: table !important;
@@ -574,6 +617,13 @@ footer {
 .register-btn {
   margin-top: 10px;
 }
+.forgot-password-btn {
+  margin-top: 10px;
+}
+.forgot-password-help {
+  text-align: center;
+  margin-bottom: 30px;
+}
 .login {
   position: absolute;
   top: 90px;
@@ -680,7 +730,7 @@ footer {
 }
 .edit-profile-datepicker {
   border: none;
-  width: 35%;
+  width: 60%;
 }
 .edit-profile-datepicker:focus,
 .edit-profile-datepicker:hover {
@@ -737,5 +787,73 @@ footer {
 .plant-list-search {
   background-color: #F3F3F3;
   padding: 10px;
+}
+.plant-detail {
+  padding-bottom: 150px;
+}
+.plant-detail-fetching {
+  margin-top: 200px;
+}
+.plant-detail-subtitle {
+  margin-bottom: 20px;
+  font-family: "Lobster", cursive;
+}
+.plant-detail-link {
+  background-color: #91C37D;
+  color: black;
+  transition: all ease-in-out 0.3s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 15px;
+  border: 2px solid #7C9872;
+}
+.plant-detail-link .oi {
+  margin-left: 8px;
+  font-size: 14px;
+}
+.plant-detail-link:hover {
+  text-decoration: none;
+  color: black;
+  background-color: #7C9872;
+}
+.plant-detail-img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  object-position: top;
+}
+.plant-detail-data {
+  width: 100%;
+  text-align: center;
+}
+.plant-detail-data-thumb {
+  padding: 10px 0;
+  background-color: #F3F3F3;
+}
+.plant-detail-icon {
+  width: 15%;
+  margin-right: 5px;
+}
+.plant-detail-more {
+  position: relative;
+}
+.plant-detail-text {
+  padding: 20px;
+  margin: 30px 30px;
+  color: #95A6B1;
+  background-color: #F3F3F3;
+  box-shadow: -15px -15px #95A6B1;
+}
+.plant-detail-text.left {
+  box-shadow: 15px 15px #95A6B1 !important;
+}
+.plant-detail .border-carrot {
+  margin: 30px 0;
+}
+.plant-detail-visual {
+  margin-bottom: 40px;
 }
 /*# sourceMappingURL=index.css.map */

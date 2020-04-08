@@ -1,13 +1,26 @@
 import * as React from "react";
 import {PlantService} from "../../services/PlantService";
 import Plant from "../../interfaces/Plant";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 
-interface RouteInfo {
-    pageNumber: string;
+export enum ESortType {
+    NAME_ASC,
+    NAME_DESC,
+    MIN_TEMP_ASC,
+    MIN_TEMP_DESC,
+    MAX_TEMP_ASC,
+    MAX_TEMP_DESC,
+    HUM_ASC,
+    HUM_DESC,
+    SUN_ASC,
+    SUN_DESC,
 }
 
-interface IPlantListProps extends RouteComponentProps<RouteInfo> {
+interface RouteInfo {
+    page: string;
+}
+
+interface IPlantListProps {
     checkToken(): void
 }
 
@@ -15,72 +28,112 @@ interface IPlantListState {
     currentPage: number,
     totalPages: number,
     isFetching: boolean,
+    error: string,
     plants: Plant[],
-    filteredPlants: Plant[],
-    sort: string,
-    search: string
+    displayedPlants: Plant[],
+    sort: ESortType,
+    search: string,
 }
+
+const itemsPerPage: number = 9;
 
 class PlantList extends React.Component<IPlantListProps, IPlantListState> {
     constructor(props: any) {
         super(props);
+
         this.state = {
             currentPage: 1,
             totalPages: 0,
             isFetching: false,
+            error: "",
             plants: [],
-            filteredPlants: [],
-            sort: "alpha_asc",
+            displayedPlants: [],
+            sort: ESortType.NAME_ASC,
             search: ""
         };
+
+        this.fetchAllPlants = this.fetchAllPlants.bind(this);
+        this.fetchPagePlants = this.fetchPagePlants.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount(): void {
-        if (this.props.match.params.pageNumber) {
-            this.setState({
-                currentPage: parseInt(this.props.match.params.pageNumber)
-            })
-        }
         this.props.checkToken();
-        this.fetchPlants();
+        this.fetchAllPlants(this.fetchPagePlants);
     }
 
-    private fetchPlants() {
+    private fetchAllPlants(callback: () => void) {
         this.setState({ isFetching: true }, () => {
-            PlantService.fetchPlantList().then(data => {
-                let sortedData: Plant[] = (data as Plant[]).sort((a, b) => a.name.localeCompare(b.name));
+            PlantService.fetchPlantList(["id"]).then(data => {
+                const plants: Plant[] = data as Plant[];
                 this.setState({
-                    plants: sortedData,
-                    filteredPlants: sortedData,
-                    totalPages: Math.trunc(sortedData.length / 9) + (sortedData.length % 9 > 0 ? 1 : 0),
-                    isFetching: false
-                });
+                    plants,
+                    totalPages: Math.trunc(plants.length / itemsPerPage) + (plants.length % itemsPerPage > 0 ? 1 : 0),
+                    isFetching: false,
+                    error: ""
+                }, callback);
+            }, error => {
+                this.setState({ error: error.toString(), isFetching: false })
             });
         });
     }
 
+    private fetchPagePlants() {
+        this.setState({ isFetching: true }, () => {
+            PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description"],
+                PlantService.calculateIdsOfPage(
+                    this.state.currentPage,
+                    itemsPerPage,
+                    this.state.plants.map(plant => plant.id))
+                    .join(";"))
+                .then(data => {
+                const plants: Plant[] = data as Plant[];
+                this.setState({
+                    displayedPlants: plants,
+                    isFetching: false,
+                    error: ""
+                });
+            }, error => {
+                    this.setState({ error: error.toString(), isFetching: false })
+                });
+        });
+    }
+
+    private sortPlants() {
+        // call api par attr pour order => PlantService, remplace onSelectChange
+        // modifie uniquement this.state.plants
+        // puis appelle fetchPagePlants
+    }
+
+    private filterPlants() {
+        // call api par attr to filter => PlantService, remplace handleSearch
+        // modifie uniquement this.state.plants
+        // puis appelle fetchPagePlants
+    }
+
+    //voué a dégager
     private onSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const value = e.target.value;
 
-        if (value !== this.state.sort) {
+        if (parseInt(value) !== this.state.sort) {
             let sortedList: Plant[] = this.state.plants.sort((a, b) => a.name.localeCompare(b.name));
             if (value === "alpha_desc")
                 sortedList = sortedList.reverse();
 
-            let filteredSortedList: Plant[] = this.state.filteredPlants.sort((a, b) => a.name.localeCompare(b.name));
-            if (value === "alpha_desc")
-                filteredSortedList = filteredSortedList.reverse();
+//            let filteredSortedList: Plant[] = this.state.filteredPlants.sort((a, b) => a.name.localeCompare(b.name));
+//            if (value === "alpha_desc")
+//                filteredSortedList = filteredSortedList.reverse();
 
             this.setState({
-                sort: e.target.value,
+                sort: parseInt(e.target.value),
                 plants: sortedList,
-                filteredPlants: filteredSortedList
+//                filteredPlants: filteredSortedList
             });
         }
     }
 
+    //voué a dégager
     private handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
         const searchString: string = e.target.value;
         let filteredData: Plant[] = [ ...this.state.plants ];
@@ -88,8 +141,18 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
         filteredData = filteredData.filter((plant) => plant.name.toLowerCase().indexOf(searchString) !== -1);
         this.setState({
             search: searchString,
-            filteredPlants: filteredData
+//            filteredPlants: filteredData
         });
+    }
+
+    private onPageChange(e: React.MouseEvent, page: number) {
+        e.preventDefault();
+        this.setState({
+            currentPage: page
+        }, () => {
+            this.fetchAllPlants(this.fetchPagePlants);
+        })
+
     }
 
     private createPagination() {
@@ -104,24 +167,16 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                     </span>
                 </li>
                 :
-                <li className="page-item" key={i.toString()}><a className="page-link" href={"/plants/" + i}>{i}</a></li>)
+                <li className="page-item" key={i.toString()}><a className="page-link" href="#" onClick={e => this.onPageChange(e, i)}>{i}</a></li>)
         }
 
         return pages
     }
 
-    private paginatePlants() {
-        const minPlantId: number = 9 * (this.state.currentPage - 1);
-
-        const paginatedPlants: Plant[] = this.state.filteredPlants.slice(minPlantId, minPlantId + 9);
-
-        return paginatedPlants;
-    }
-
     render() {
         return (
             <div className="plant-list container">
-                <h1 className="main-title orange text-center">
+                <h1 className="main-title text-center">
                     Nos plantes
                 </h1>
                 <div className="row plant-list-bar justify-content-between">
@@ -141,8 +196,16 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                     <div className="col-2">
                         Trier par:
                         <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
-                            <option value="alpha_asc">Nom croissant</option>
-                            <option value="alpha_desc">Nom décroissant</option>
+                            <option value={ESortType.NAME_ASC}>Nom croissant</option>
+                            <option value={ESortType.NAME_DESC}>Nom décroissant</option>
+                            <option value={ESortType.MIN_TEMP_ASC}>Température min croissante</option>
+                            <option value={ESortType.MIN_TEMP_DESC}>Température min décroissante</option>
+                            <option value={ESortType.MAX_TEMP_ASC}>Température max croissante</option>
+                            <option value={ESortType.MAX_TEMP_DESC}>Température max décroissante</option>
+                            <option value={ESortType.HUM_ASC}>Humidité croissante</option>
+                            <option value={ESortType.HUM_DESC}>Humidité décroissante</option>
+                            <option value={ESortType.SUN_ASC}>Luminosité croissante</option>
+                            <option value={ESortType.SUN_DESC}>Luminosité décroissante</option>
                         </select>
                     </div>
                 </div>
@@ -152,16 +215,26 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                             <p>Récupération des données...</p>
                             : ""
                     }
+
                     {
-                        this.paginatePlants().map((plant, id) =>
-                            id < 9 ?
+                        this.state.error !== "" ?
+                            <div className="error">
+                                <span className="oi oi-warning"/>
+                                {this.state.error}
+                            </div>
+                            :
+                            ""
+                    }
+
+                    {
+                        !this.state.isFetching && this.state.error === "" && this.state.displayedPlants.map((plant) =>
                             <div className="col-4 plant-list-thumb" key={plant.id}>
                                 <h3 className="text-center plant-list-thumb-title">
                                     {plant.name}
                                 </h3>
-                                <a className="plant-list-thumb-link" href={plant.link}>
+                                <Link to={"/plants/" + plant.id + "/" + plant.name} className="plant-list-thumb-link">
                                     <img src={plant.image} alt={plant.name} className="plant-list-thumb-img"/>
-                                </a>
+                                </Link>
 
                                 <div className="row plant-list-thumb-data">
                                     <div className="col-4 plant-list-thumb-data-thumb">
@@ -180,7 +253,7 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                                 <div className="module line-clamp col-12">
                                     <p>{plant.description}</p>
                                 </div>
-                            </div>:"")
+                            </div>)
                     }
                 </div>
 
@@ -219,4 +292,4 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
     }
 }
 
-export default withRouter(PlantList);
+export default PlantList;

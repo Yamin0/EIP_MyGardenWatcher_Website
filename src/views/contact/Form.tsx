@@ -1,8 +1,20 @@
 import * as React from "react";
 import {ContactService} from "../../services/ContactService";
 
+enum EFormType {
+    SINGLE,
+    PRO,
+}
+
 enum EAskingType {
     NONE,
+    BUILD,
+    USE,
+    SUPPORT,
+    BREAK,
+    USER,
+    APPMOBILE,
+    PROJECT,
 }
 
 interface IFormProps {
@@ -10,10 +22,11 @@ interface IFormProps {
 }
 
 interface IFormState {
+    formType: EFormType,
     companyName: string,
     firstName: string,
     lastName: string,
-    type: EAskingType,
+    askingType: EAskingType,
     email: string,
     phone: string,
     companyDescription: string,
@@ -27,10 +40,11 @@ class Form extends React.Component<IFormProps, IFormState> {
     constructor(props: any) {
         super(props);
         this.state = {
+            formType: this.props.isFormPro ? EFormType.PRO : EFormType.SINGLE,
             companyName: "",
             firstName: "",
             lastName: "",
-            type: EAskingType.NONE,
+            askingType: EAskingType.SUPPORT,
             email: "",
             phone: "",
             companyDescription: "",
@@ -44,7 +58,7 @@ class Form extends React.Component<IFormProps, IFormState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    private handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
+    private handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) {
         const name = e.target.name;
         const value = e.target.value;
 
@@ -59,9 +73,11 @@ class Form extends React.Component<IFormProps, IFormState> {
         if (!e.target.checkValidity()) {
             (e.target.parentElement as HTMLElement).classList.add("was-validated");
         }
+
+        let type: number = parseInt(value);
         this.setState((state) => ({
             ...state,
-            [name]: value
+            [name]: name === "askingType" ? type : value
         }));
     }
 
@@ -71,10 +87,12 @@ class Form extends React.Component<IFormProps, IFormState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            (this.props.isFormPro ? ContactService.contactPro() : ContactService.contactSingle())
-                .then(() => { window.location.reload(); },
-                    (error) => {
-                    this.setState({ error: error.statusText, loading: false })
+            (this.props.isFormPro ?
+                ContactService.contactPro(this.state.message) :
+                ContactService.contactSingle(this.state.message))
+                .then(() => { alert("Votre demande de contact a bien été transmise !"); window.location.reload(); },
+                    error => {
+                    this.setState({ error: error.toString(), loading: false });
                 });
         }
     }
@@ -95,7 +113,8 @@ class Form extends React.Component<IFormProps, IFormState> {
 
                     {
                         this.state.error !== "" ?
-                            <div className="">
+                            <div className="error">
+                                <span className="oi oi-warning"/>
                                 {this.state.error}
                             </div>
                             :
@@ -206,17 +225,19 @@ class Form extends React.Component<IFormProps, IFormState> {
                                 </label>
                                 <select
                                     className="form-control"
-                                    value={this.state.title}
+                                    name="askingType"
+                                    value={this.state.askingType}
                                     required={true}
+                                    onChange={this.handleChange}
                                 >
                                     <option value={EAskingType.NONE}>Autre</option>
-                                    <option value={EAskingType.NONE}>Mise en place du produit</option>
-                                    <option value={EAskingType.NONE}>Utilisation du produit</option>
-                                    <option value={EAskingType.NONE}>Support technique pour l'objet connecté</option>
-                                    <option value={EAskingType.NONE}>Matériel cassé / détérioré</option>
-                                    <option value={EAskingType.NONE}>Problème de compte utilisateur</option>
-                                    <option value={EAskingType.NONE}>Problème d'utilisation de l'application mobile</option>
-                                    <option value={EAskingType.NONE}>A propos du projet</option>
+                                    <option value={EAskingType.BUILD}>Mise en place du produit</option>
+                                    <option value={EAskingType.USE}>Utilisation du produit</option>
+                                    <option value={EAskingType.SUPPORT}>Support technique pour l'objet connecté</option>
+                                    <option value={EAskingType.BREAK}>Matériel cassé / détérioré</option>
+                                    <option value={EAskingType.USER}>Problème de compte utilisateur</option>
+                                    <option value={EAskingType.APPMOBILE}>Problème d'utilisation de l'application mobile</option>
+                                    <option value={EAskingType.PROJECT}>A propos du projet</option>
                                 </select>
                                 <div className="invalid-feedback">
                                     Ce champ est obligatoire.

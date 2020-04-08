@@ -2,18 +2,7 @@ import * as React from "react";
 import Form from "./Form";
 import {Link} from "react-router-dom";
 
-interface IContactProps {
-}
-
-interface IContactState {
-
-}
-
-class ContactSingle extends React.Component<IContactProps, IContactState> {
-    constructor(props: any) {
-        super(props);
-    }
-
+class ContactSingle extends React.Component<{}> {
     render() {
         return (
             <div className="contact-single container">

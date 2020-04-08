@@ -2,24 +2,32 @@
   padding: 0 10px;
   font-size: 16px;
   font-family: "Noto Sans KR", sans-serif;
-}
+  &-wrapper {
+    position: relative;
+    background-color: @color-secondary-light;
+    padding: 30px;
+    height: 100%;
+  }
+  &-loading {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  &-annex {
+    margin-top: 20px;
+  }
 
-.form-wrapper {
-  position: relative;
-  background-color: @color-secondary-light;
-  padding: 30px;
-  height: 100%;
-}
-
-.form-loading {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-
-.form-annex {
-  margin-top: 20px;
+  .error {
+    background-color: @color-primary-orange-light;
+    text-align: center;
+    padding: 10px 0;
+    color: @color-secondary-lighten;
+    margin-bottom: 15px;
+    .oi {
+      padding-right: 10px;
+    }
+  }
 }

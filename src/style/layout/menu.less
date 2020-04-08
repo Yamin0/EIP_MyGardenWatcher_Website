@@ -88,3 +88,38 @@
     }
   }
 }
+
+.user-menu {
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 250px;
+  left: 200px;
+  background: @color-secondary-light;
+  overflow-x: hidden;
+  text-align: center;
+  border: 1px solid @color-secondary;
+  .menu-elem-link {
+    padding: 10px 0;
+    display: block;
+    border-bottom: 1px solid @color-secondary;
+  }
+  &-logout {
+    background-color: @color-primary-green-light;
+    padding: 10px 0;
+    margin: 0;
+    font-size: 24px;
+    font-family: "Lobster", cursive;
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+    &:hover {
+      background-color: @color-primary-green-dark;
+      color: @color-secondary-dark;
+    }
+  }
+
+  .oi {
+    padding-right: 10px;
+    font-size: 20px;
+  }
+}

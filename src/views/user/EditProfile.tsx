@@ -7,6 +7,7 @@ import { registerLocale } from  "react-datepicker";
 import fr from 'date-fns/locale/fr';
 import "react-datepicker/dist/react-datepicker.css";
 import User from "../../interfaces/User";
+import UserMenu from "../shared/UserMenu";
 
 registerLocale('fr', fr);
 
@@ -141,9 +142,10 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
         return (
             <div className="edit-profile container">
-                <h1 className="main-title text-center">
+                <h1 className="main-title orange text-center">
                     Mes informations personnelles
                 </h1>
+                <UserMenu/>
                 <div className="row">
                     <form className="form col-9 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                         {this.state.loading ?

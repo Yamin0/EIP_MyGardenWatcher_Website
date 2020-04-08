@@ -8,13 +8,16 @@ import ContactPro from "./views/contact/ContactPro";
 import Header from "./views/shared/Header";
 import Footer from "./views/shared/Footer";
 import ProtectedRoute from "./HoC/ProtectedRoute";
-import {UserService} from "./services/UserService";
 import Register from "./views/user/Register";
 import EditProfile from "./views/user/EditProfile";
 import User, {userInit} from "./interfaces/User";
 import PlantList from "./views/plants/PlantList";
+import PlantDetail from "./views/plants/PlantDetail";
+import ForgotPassword from "./views/user/ForgotPassword";
 
 export let history = createBrowserHistory();
+
+export const apiUrl = "http://www.mygardenwatcher.fr:3001";
 
 interface IAppState {
     user: User,
@@ -57,22 +60,59 @@ class App extends React.Component<{}, IAppState> {
     render() {
         const { isAuthenticated, isLoginOpen } = this.state;
         const connect = () => this.authenticate(true);
-        const disconnect = () => this.authenticate(false);
 
         return (
             <Router history={history}>
 
-                <Header isAuthenticated={isAuthenticated} isLoginOpen={isLoginOpen} connect={connect} toggleLogin={this.toggleLogin}/>
+                <Header
+                    isAuthenticated={isAuthenticated}
+                    isLoginOpen={isLoginOpen}
+                    connect={connect}
+                    toggleLogin={this.toggleLogin}
+                />
 
                 <Route exact path="/" component={Home} />
                 <Route exact path="/contact-single" component={ContactSingle} />
                 <Route exact path="/contact-pro" component={ContactPro} />
-                <ProtectedRoute path="/register" exact isAuthenticated={isAuthenticated} authenticationPath="/edit-profile" needAuth={false} render={() => <Register connect={connect} />} />
-                <ProtectedRoute path="/edit-profile" exact isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <EditProfile user={userInit} checkToken={this.checkToken} />} />
-                <ProtectedRoute path="/plants/:pageNumber?" isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <PlantList checkToken={this.checkToken} />} />
-                <ProtectedRoute path="/sign-out" exact isAuthenticated={isAuthenticated} authenticationPath="/register" needAuth={true} render={() => <div>
-                    <button onClick={UserService.logout} style={{paddingTop: "300px"}}>Se déconnecter</button>
-                </div>} />
+                <ProtectedRoute
+                    path="/register"
+                    exact
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/edit-profile"
+                    needAuth={false}
+                    render={() => <Register connect={connect} />}
+                />
+                <ProtectedRoute
+                    path="/forgot-password"
+                    exact
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/edit-profile"
+                    needAuth={false}
+                    render={() => <ForgotPassword />}
+                />
+                <ProtectedRoute
+                    path="/edit-profile"
+                    exact
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/register"
+                    needAuth={true}
+                    render={() => <EditProfile user={userInit} checkToken={this.checkToken} />}
+                />
+                <ProtectedRoute
+                    path="/plants/:id/:name"
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/register"
+                    needAuth={true}
+                    render={() => <PlantDetail checkToken={this.checkToken} />}
+                />
+                <ProtectedRoute
+                    path="/plants"
+                    exact
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/register"
+                    needAuth={true}
+                    render={() => <PlantList checkToken={this.checkToken} />}
+                />
 
                 <Footer/>
 

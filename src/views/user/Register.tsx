@@ -63,9 +63,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                         createBrowserHistory().push(from);
                         window.location.reload();
                         this.props.connect();
-                    },
-                    error => {
-                        this.setState({ error: error.statusText, loading: false })
+                    }, error => {
+                        this.setState({ error: error.toString(), loading: false })
                     }
                 );
         }
@@ -74,7 +73,7 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
     render() {
         return (
             <div className="register container">
-                <h1 className="main-title text-center">
+                <h1 className="main-title orange text-center">
                     Créer un compte
                 </h1>
                 <div className="row no-gutters">
@@ -98,7 +97,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
 
                             {
                                 this.state.error !== "" ?
-                                    <div className="">
+                                    <div className="error">
+                                        <span className="oi oi-warning"/>
                                         {this.state.error}
                                     </div>
                                     :
@@ -162,13 +162,6 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                             >
                                 Je m'inscris
                             </button>
-
-                            {
-                                this.state.error &&
-                                <div className="alert alert-danger">
-                                    {this.state.error}
-                                </div>
-                            }
                         </div>
                     </form>
 

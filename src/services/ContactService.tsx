@@ -1,42 +1,59 @@
-/*const log = (mail: string, password: string) => {
+import {UserService} from "./UserService";
+import {apiUrl} from "../App";
+
+const contactPro = (object: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
-        headers: new Headers({ 'Content-Type': 'application/json' }),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        }),
+        body: JSON.stringify({object})
     };
 
-    return fetch("http://www.mygardenwatcher.fr:3001/auth/login", reqOpt)
+    return (fetch(apiUrl + "/forms", reqOpt)
         .then(handleResponse)
-        .then((user) => {
-            alert("Connexion réussie: " + mail);
-        }, (err) => {
-            alert("fail login" + err);
+        .then(() => {}, (err) => {
             return Promise.reject(err);
-        })
-};*/
+        }))
+};
 
-const contactPro = () => new Promise((resolve) => {
-    setTimeout(() => {
-        resolve();
-    }, 5000);
-});
+const contactSingle = (object: string) => {
+    const reqOpt: RequestInit = {
+        method: "POST",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        }),
+        body: JSON.stringify({object})
+    };
 
-const contactSingle = () => new Promise((resolve, reject) => {
-    setTimeout(() => {
-        resolve();
-    }, 5000);
-});
+    return (fetch(apiUrl + "forms", reqOpt)
+        .then(handleResponse)
+        .then(() => {}, (err) => {
+            return Promise.reject(err);
+        }))
+};
 
-/*function handleResponse(response: Response) {
+function handleResponse(response: Response) {
     return response.text().then(text => {
-        const data = text && JSON.parse(text);
+        let data;
+        try {
+            data = {text} && JSON.parse(text);
+        } catch (e) {
+            data = text;
+        }
         if (!response.ok) {
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+            if (response.status === 404) {
+                return Promise.reject("Votre compte utilisateur n'a pas été trouvé. Veuillez vérifier que vous êtes connecté.");
+            } else {
+                return Promise.reject("Oups, une erreur s'est produite lors de l'envoi de votre message. Merci de réessayer plus tard.");
+            }
         }
 
         return data;
     });
-}*/
+}
 
 export const ContactService = {
     contactPro,

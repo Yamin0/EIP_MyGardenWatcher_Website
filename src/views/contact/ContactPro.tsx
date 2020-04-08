@@ -1,18 +1,7 @@
 import * as React from "react";
 import Form from "./Form";
 
-interface IContactProps {
-}
-
-interface IContactState {
-
-}
-
-class ContactPro extends React.Component<IContactProps, IContactState> {
-    constructor(props: any) {
-        super(props);
-    }
-
+class ContactPro extends React.Component<{}> {
     render() {
         return (
             <div className="contact-pro container">
