@@ -28,7 +28,7 @@ const contactSingle = (object: string) => {
         body: JSON.stringify({object})
     };
 
-    return (fetch(apiUrl + "forms", reqOpt)
+    return (fetch(apiUrl + "/forms", reqOpt)
         .then(handleResponse)
         .then(() => {}, (err) => {
             return Promise.reject(err);
