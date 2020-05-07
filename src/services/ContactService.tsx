@@ -19,7 +19,11 @@ const sendContact = (object: object, isAuthenticated: boolean, formType: string)
         });
     }
 
+<<<<<<< HEAD
     return (fetch(url, reqOpt)
+=======
+    return (fetch(apiUrl + "/forms", reqOpt)
+>>>>>>> cda648f8406565794c51b160662a080308c95375
         .then(handleResponse)
         .then(() => {}, (err) => {
             return Promise.reject(err);
