@@ -1,6 +1,6 @@
 import * as React from "react";
 import {UserService} from "../../services/UserService";
-import { createBrowserHistory } from 'history';
+import {history} from "../../App";
 
 interface IRegisterProps {
     connect(): void,
@@ -59,9 +59,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
             UserService.register(this.state.email, this.state.password)
                 .then(
                     () => {
-                        const from ={ pathname: "/edit-profile" };
-                        createBrowserHistory().push(from);
-                        window.location.reload();
+                        alert("Félicitations, votre compte a bien été créé ! Vous recevrez également une confirmations par mail.");
+                        history.push("/edit-profile");
                         this.props.connect();
                     }, error => {
                         this.setState({ error: error.toString(), loading: false })

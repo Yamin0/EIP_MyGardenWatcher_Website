@@ -2,6 +2,7 @@ import * as React from "react";
 import {PlantService} from "../../services/PlantService";
 import Plant from "../../interfaces/Plant";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
+import PlantSearchEngine from "./PlantSearchEngine";
 
 export enum ESortType {
     NAME_ASC,
@@ -14,14 +15,6 @@ export enum ESortType {
     HUM_DESC,
     SUN_ASC,
     SUN_DESC,
-}
-
-interface RouteInfo {
-    page: string;
-}
-
-interface IPlantListProps {
-    checkToken(): void
 }
 
 interface IPlantListState {
@@ -37,13 +30,13 @@ interface IPlantListState {
 
 const itemsPerPage: number = 9;
 
-class PlantList extends React.Component<IPlantListProps, IPlantListState> {
+class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     constructor(props: any) {
         super(props);
 
         this.state = {
             currentPage: 1,
-            totalPages: 0,
+            totalPages: 1,
             isFetching: false,
             error: "",
             plants: [],
@@ -55,18 +48,25 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
         this.fetchAllPlants = this.fetchAllPlants.bind(this);
         this.fetchPagePlants = this.fetchPagePlants.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount(): void {
-        this.props.checkToken();
+        console.log(this.props.location.search);
         this.fetchAllPlants(this.fetchPagePlants);
     }
 
     private fetchAllPlants(callback: () => void) {
         this.setState({ isFetching: true }, () => {
-            PlantService.fetchPlantList(["id"]).then(data => {
-                const plants: Plant[] = data as Plant[];
+            PlantService.fetchPlantList(["id", "name"]).then(data => {
+
+                let plants: Plant[] = data as Plant[];
+                plants = plants.sort((a, b) => {
+//                        return a.name.localeCompare(b.name, 'en', {sensitivity: 'base'});
+                        if (a < b) return -1;
+                        else if (a > b) return 1;
+                        return 0;
+                    });
+
                 this.setState({
                     plants,
                     totalPages: Math.trunc(plants.length / itemsPerPage) + (plants.length % itemsPerPage > 0 ? 1 : 0),
@@ -133,18 +133,6 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
         }
     }
 
-    //voué a dégager
-    private handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-        const searchString: string = e.target.value;
-        let filteredData: Plant[] = [ ...this.state.plants ];
-
-        filteredData = filteredData.filter((plant) => plant.name.toLowerCase().indexOf(searchString) !== -1);
-        this.setState({
-            search: searchString,
-//            filteredPlants: filteredData
-        });
-    }
-
     private onPageChange(e: React.MouseEvent, page: number) {
         e.preventDefault();
         this.setState({
@@ -158,16 +146,36 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
     private createPagination() {
         let pages: React.ReactNode[] = [];
 
+        if (this.state.totalPages === 1)
+            return pages;
+
+        let status: boolean = false;
         for (let i = 1; i <= this.state.totalPages; i++) {
-            pages.push(i === this.state.currentPage ?
-                <li className="page-item active" key={i.toString()}>
+            if (i < 5 || (i > this.state.currentPage - 3 && i < this.state.currentPage + 3) || i > this.state.totalPages - 3) {
+                status = false;
+                pages.push(i === this.state.currentPage ?
+                    <li className="page-item active" key={i.toString()}>
                     <span className="page-link">
                         {i}
                         <span className="sr-only">(current)</span>
                     </span>
-                </li>
-                :
-                <li className="page-item" key={i.toString()}><a className="page-link" href="#" onClick={e => this.onPageChange(e, i)}>{i}</a></li>)
+                    </li>
+                    :
+                    <li className="page-item" key={i.toString()}>
+                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, i)}>{i}</a>
+                    </li>
+                )
+
+            } else {
+                if (!status) {
+                    status = true;
+                    pages.push(<li className="page-item" key={i.toString()}>
+                        <span className="page-link disabled">
+                            ...
+                        </span>
+                    </li>)
+                }
+            }
         }
 
         return pages
@@ -180,19 +188,7 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                     Nos plantes
                 </h1>
                 <div className="row plant-list-bar justify-content-between">
-                    <div className="col-5 plant-list-search row">
-                        <label htmlFor="search" className="col-form-label col-md-4">
-                            Rechercher
-                        </label>
-                        <input
-                            className="form-control plant-list-search-input col-md-8"
-                            type="text"
-                            name="search"
-                            id="search"
-                            value={this.state.search}
-                            onChange={this.handleSearch}
-                        />
-                    </div>
+                    <PlantSearchEngine/>
                     <div className="col-2">
                         Trier par:
                         <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
@@ -218,9 +214,11 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
 
                     {
                         this.state.error !== "" ?
-                            <div className="error">
-                                <span className="oi oi-warning"/>
-                                {this.state.error}
+                            <div className="form">
+                                <div className="error">
+                                    <span className="oi oi-warning"/>
+                                    {this.state.error}
+                                </div>
                             </div>
                             :
                             ""
@@ -265,7 +263,7 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                                 {
                                     this.state.currentPage !== 1 &&
                                     <li className="page-item">
-                                        <a className="page-link" href={"/plants/" + (this.state.currentPage - 1)} aria-label="Previous">
+                                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, this.state.currentPage - 1)} aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span className="sr-only">Previous</span>
                                         </a>
@@ -277,7 +275,7 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
                                 {
                                     this.state.currentPage !== this.state.totalPages &&
                                     <li className="page-item">
-                                        <a className="page-link" href={"/plants/" + (this.state.currentPage + 1)} aria-label="Next">
+                                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, this.state.currentPage + 1)} aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span className="sr-only">Next</span>
                                         </a>
@@ -292,4 +290,4 @@ class PlantList extends React.Component<IPlantListProps, IPlantListState> {
     }
 }
 
-export default PlantList;
+export default withRouter(PlantList);

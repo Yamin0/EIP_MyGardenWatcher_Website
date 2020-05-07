@@ -1,6 +1,6 @@
 import * as React from "react";
 import {UserService} from "../../services/UserService";
-import { createBrowserHistory } from 'history';
+import {history} from "../../App";
 
 interface IForgotPasswordState {
     email: string,
@@ -38,9 +38,7 @@ class ForgotPassword extends React.Component<{}, IForgotPasswordState> {
             UserService.forgotPassword(this.state.email)
                 .then(() => {
                     alert("Votre demande de réinitialisation de mot de passe a bien été envoyée. Vous allez recevoir un mail à l'adresse indiquée, merci de le consulter et d'en suivre les instructions.");
-                    const from ={ pathname: "/" };
-                    createBrowserHistory().push(from);
-                    window.location.reload();
+                    history.push("/");
                 }, error => {
                         this.setState({ error: error.toString(), loading: false })
                     }
@@ -103,7 +101,7 @@ class ForgotPassword extends React.Component<{}, IForgotPasswordState> {
                                 className="btn btn-orange forgot-password-btn"
                                 disabled={this.state.loading}
                             >
-                                Je m'inscris
+                                Valider
                             </button>
                         </div>
                     </form>

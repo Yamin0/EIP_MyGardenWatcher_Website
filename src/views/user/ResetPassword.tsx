@@ -1,35 +1,32 @@
 import * as React from "react";
 import {UserService} from "../../services/UserService";
-//import {history} from "../../App";
-// @ts-ignore
-import ClickOutComponent from "react-clickout-handler";
-import {Link} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {history} from "../../App";
 
-interface IRegisterProps {
-    connect(): void,
-    closePopin(): void
+interface RouteInfo {
+    token: string,
 }
 
-interface IRegisterState {
+interface IResetPasswordState {
     email: string,
     password: string,
+    repeatPassword: string,
     loading: boolean,
     error: string
 }
 
-class Login extends React.Component<IRegisterProps, IRegisterState> {
+class ResetPassword extends React.Component<RouteComponentProps<RouteInfo>, IResetPasswordState> {
     constructor(props: any) {
         super(props);
         this.state = {
             email: "",
             password: "",
+            repeatPassword: "",
             loading: false,
             error: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleOnClickOutsidePopin = this.handleOnClickOutsidePopin.bind(this);
     }
 
     private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -39,6 +36,14 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
 
         const name = e.target.name;
         const value = e.target.value;
+
+        if ((name === "password" && value !== this.state.repeatPassword) ||
+            (name === "repeatPassword" && value !== this.state.password)) {
+            (document.getElementById("repeatPassword") as HTMLInputElement).setCustomValidity("password mismatch");
+        } else if ((name === "password" && value === this.state.repeatPassword) ||
+            (name === "repeatPassword" && value === this.state.password)) {
+            (document.getElementById("repeatPassword") as HTMLInputElement).setCustomValidity("");
+        }
 
         this.setState((state) => ({
             ...state,
@@ -52,31 +57,28 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            UserService.login(this.state.email, this.state.password)
-                .then(
-                    () => {
-                        history.push(window.location.pathname);
-                        this.props.connect();
-                    },
-                    error => {
+            UserService.resetPassword(this.state.email, this.state.password, this.props.match.params.token)
+                .then(() => {
+                        alert("Votre mot de passe a bien été changé. Vous pouvez désormais vous connecter à votre espace client avec vos nouveaux identifiants.");
+                        history.push("/");
+                    }, error => {
                         this.setState({ error: error.toString(), loading: false })
                     }
                 );
         }
     }
 
-    private handleOnClickOutsidePopin(event: React.MouseEvent): void {
-        if ((event.target as HTMLButtonElement).id !== "btn-login") {
-            this.props.closePopin();
-        }
-    }
-
     render() {
         return (
-            <ClickOutComponent onClickOut={this.handleOnClickOutsidePopin}>
-                <div className={"login" + (this.state.loading ? " loading" : "")} id="popin-login">
-                    <span title="Fermer la popin" onClick={this.props.closePopin} className="login-close">&times;</span>
-                    <form className="form needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
+            <div className="reset-password container">
+                <h1 className="main-title text-center">
+                    Réinitialisation de mot de passe
+                </h1>
+                <p className="reset-password-help">
+                    Pour réinitialiser votre mot de passe, merci de rentrer votre adresse email ainsi que le nouveau mot de passe choisi. Lorsque le changement aura été validé, vous pourrez vous connecter à votre espace client avec vos nouveaux identifiants.
+                </p>
+                <div className="row no-gutters">
+                    <form className="form col-6 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                         <div className="form-wrapper">
                             {
                                 this.state.loading ?
@@ -89,12 +91,20 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
                                     ""
                             }
 
-                            <h2 className="second-title login-title">Se connecter</h2>
+                            {
+                                this.state.error !== "" ?
+                                    <div className="error">
+                                        <span className="oi oi-warning"/>
+                                        {this.state.error}
+                                    </div>
+                                    :
+                                    ""
+                            }
 
                             <div className="form-group">
                                 <label className="col-form-label">Email</label>
                                 <input
-                                    id="loginEmail"
+                                    id="resetPasswordEmail"
                                     className="form-control"
                                     type="email"
                                     name="email"
@@ -102,57 +112,59 @@ class Login extends React.Component<IRegisterProps, IRegisterState> {
                                     value={this.state.email}
                                     onChange={this.handleChange}
                                     required={true}
-                                    tabIndex={1}
                                 />
                                 <div className="invalid-feedback">
                                     Merci d'entrer une adresse email valide.
                                 </div>
                             </div>
+
                             <div className="form-group">
                                 <label>Mot de passe</label>
-                                <Link to="/forgot-password" className="login-password-link">Mot de passe oublié ?</Link>
                                 <input
-                                    id="loginPassword"
+                                    id="password"
                                     className="form-control"
                                     type="password"
                                     name="password"
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                     minLength={8}
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                                    required={true}/>
+                                <div className="invalid-feedback">
+                                    Votre mot de passe doit faire au moins 8 caractères, contenir une lettre minuscule, une lettre majuscule et un chiffre.
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Confirmation du mot de passe</label>
+                                <input
+                                    id="repeatPassword"
+                                    className="form-control"
+                                    type="password"
+                                    name="repeatPassword"
+                                    value={this.state.repeatPassword}
+                                    onChange={this.handleChange}
                                     required={true}
-                                    tabIndex={2}
                                 />
                                 <div className="invalid-feedback">
-                                    Votre mot de passe ne contient pas assez de caractères.
+                                    Les mots de passe que vous avez entré ne sont pas identiques.
                                 </div>
                             </div>
 
                             <button
                                 type="submit"
-                                className="btn btn-green"
+                                className="btn btn-orange reset-password-btn"
                                 disabled={this.state.loading}
                             >
-                                Connexion
+                                Valider
                             </button>
-
-                            <Link to="/register" className="login-link">S'inscrire</Link>
-
-                            {
-                                this.state.error !== "" ?
-                                    <div className="error under">
-                                        <span className="oi oi-warning"/>
-                                        {this.state.error}
-                                    </div>
-                                    :
-                                    ""
-                            }
                         </div>
                     </form>
 
                 </div>
-            </ClickOutComponent>
+            </div>
         )
     }
 }
 
-export default Login;
+export default withRouter(ResetPassword);

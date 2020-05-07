@@ -1,34 +1,25 @@
 import {UserService} from "./UserService";
 import {apiUrl} from "../App";
 
-const contactPro = (object: string) => {
+const sendContact = (object: object, isAuthenticated: boolean, formType: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
         headers: new Headers({
             'Content-Type': 'application/json',
-            'auth': UserService.getToken() as string
         }),
-        body: JSON.stringify({object})
+        body: JSON.stringify({...object, formType })
     };
 
-    return (fetch(apiUrl + "/forms", reqOpt)
-        .then(handleResponse)
-        .then(() => {}, (err) => {
-            return Promise.reject(err);
-        }))
-};
+    let url: string = apiUrl + "/forms/" + (isAuthenticated ? "user" : "nonUser");
 
-const contactSingle = (object: string) => {
-    const reqOpt: RequestInit = {
-        method: "POST",
-        headers: new Headers({
+    if (isAuthenticated) {
+        reqOpt.headers = new Headers({
             'Content-Type': 'application/json',
             'auth': UserService.getToken() as string
-        }),
-        body: JSON.stringify({object})
-    };
+        });
+    }
 
-    return (fetch(apiUrl + "forms", reqOpt)
+    return (fetch(url, reqOpt)
         .then(handleResponse)
         .then(() => {}, (err) => {
             return Promise.reject(err);
@@ -56,7 +47,6 @@ function handleResponse(response: Response) {
 }
 
 export const ContactService = {
-    contactPro,
-    contactSingle
+    sendContact,
 };
 

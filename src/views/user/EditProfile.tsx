@@ -8,17 +8,21 @@ import fr from 'date-fns/locale/fr';
 import "react-datepicker/dist/react-datepicker.css";
 import User from "../../interfaces/User";
 import UserMenu from "../shared/UserMenu";
+import {history} from "../../App";
 
 registerLocale('fr', fr);
 
 interface IEditProfileProps {
     user: User,
-    checkToken(): void
+    checkToken(): void,
+    getUser(): void;
+    disconnect(): void
 }
 
 interface IEditProfileState {
     formUser: User,
     repeatEmail: string,
+    newPassword: string,
     repeatNewPassword: string,
     loading: boolean,
     error: string
@@ -30,6 +34,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         this.state = {
             formUser: this.props.user,
             repeatEmail: "",
+            newPassword: "",
             repeatNewPassword: "",
             loading: false,
             error: ""
@@ -38,13 +43,14 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteAccount = this.handleDeleteAccount.bind(this);
     }
 
-    private handleDateChange(date: string) {
+    private handleDateChange(date: Date) {
         this.setState((state) => ({
             formUser: {
                 ...state.formUser,
-                birthDay: new Date(date)
+                birthdate: date
             }
         }));
     }
@@ -74,31 +80,31 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
             (e.target.parentElement as HTMLElement).classList.remove("was-validated");
         }
 
-        if (this.state.formUser.newPassword !== "") {
+        if (this.state.newPassword !== "") {
             if ((name === "newPassword" && value !== "" && value !== this.state.repeatNewPassword) ||
-                (name === "repeatNewPassword" && value !== this.state.formUser.newPassword)) {
+                (name === "repeatNewPassword" && value !== this.state.newPassword)) {
                 (document.getElementById("EditProfileRepeatNewPassword") as HTMLInputElement).setCustomValidity("password mismatch");
             } else if ((name === "newPassword" && value !== "" && value === this.state.repeatNewPassword) ||
-                (name === "repeatNewPassword" && value === this.state.formUser.newPassword)) {
+                (name === "repeatNewPassword" && value === this.state.newPassword)) {
                 (document.getElementById("EditProfileRepeatNewPassword") as HTMLInputElement).setCustomValidity("");
             }
         }
 
-        if (this.state.formUser.email !== this.props.user.email) {
+        if (this.state.formUser.mail !== this.props.user.mail) {
             if ((name === "email" && value !== this.state.repeatEmail) ||
-                (name === "repeatEmail" && value !== this.state.formUser.email)) {
+                (name === "repeatEmail" && value !== this.state.formUser.mail)) {
                 (document.getElementById("EditProfileRepeatEmail") as HTMLInputElement).setCustomValidity("email mismatch");
             } else if ((name === "email" && value === this.state.repeatEmail) ||
-                (name === "repeatEmail" && value === this.state.formUser.email)) {
+                (name === "repeatEmail" && value === this.state.formUser.mail)) {
                 (document.getElementById("EditProfileRepeatEmail") as HTMLInputElement).setCustomValidity("");
             }
         }
 
         let repeatProps = {};
-        if (name === "email" && value === this.props.user.email) repeatProps = { repeatEmail: "" };
+        if (name === "email" && value === this.props.user.mail) repeatProps = { repeatEmail: "" };
         if (name === "newPassword" && value === "") repeatProps = { repeatNewPassword: "" };
 
-        if (name === "repeatEmail" || name === "repeatNewPassword") {
+        if (name === "repeatEmail" || name === "newPassword" || name === "repeatNewPassword") {
             this.setState((state) => ({
                 ...state,
                 [name]: value,
@@ -117,33 +123,89 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        const changePwd: boolean = this.state.newPassword !== "";
+        const oldUser: User = { ...this.props.user };
+        delete oldUser.password;
+        const newUser: User = { ...this.state.formUser };
+        delete newUser.password;
+
+        const editInfo: boolean = JSON.stringify(oldUser) !== JSON.stringify(newUser);
+
         if (!e.currentTarget.checkValidity()) {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
+        } else if (changePwd && editInfo) {
+            this.setState({
+                error: "Vous ne pouvez pas éditer vos informations personnelles et modifier votre mot de passe en même temps. Merci de recommencer.",
+                formUser: this.props.user,
+                newPassword: "",
+                repeatNewPassword: "",
+                repeatEmail: ""
+            });
         } else {
             this.setState({ loading: true });
-/*            UserService.editProfile()
-                .then(
-                    () => {
-                        window.location.reload();
-                    },
-                    error => {
-                        this.setState({ error: error.statusText, loading: false })
-                    }
-                );*/
+            if (changePwd && !editInfo) {
+                UserService.changePassword(this.props.user.mail, this.state.formUser.password, this.state.newPassword)
+                    .then(
+                        () => {
+                            alert("Votre mot de passe a bien été modifié.");
+                            this.setState({loading: false});
+                            this.props.getUser();
+                            history.push(window.location.pathname);
+                        },
+                        error => {
+                            this.setState({ error: error.toString(), loading: false })
+                        }
+                    );
+            }
+
+            if (editInfo && !changePwd) {
+                UserService.setUser(this.state.formUser)
+                    .then(
+                        () => {
+                            alert("Vos informations personnelles ont bien été modifiées.");
+                            this.setState({loading: false});
+                            this.props.getUser();
+                            history.push(window.location.pathname);
+                        },
+                        error => {
+                            this.setState({ error: error.toString(), loading: false })
+                        }
+                    );
+            }
         }
+    }
+
+    private handleDeleteAccount(e: React.MouseEvent<HTMLButtonElement>) {
+        e.preventDefault();
+        this.setState({loading: true});
+        UserService.deleteAccount()
+            .then(this.props.disconnect,
+                error => {
+                this.setState({error: error.toString(), loading: false});
+                }
+            )
     }
 
     componentDidMount(): void {
         this.props.checkToken();
+        this.props.getUser();
+    }
+
+    componentDidUpdate(prevProps: Readonly<IEditProfileProps>, prevState: Readonly<IEditProfileState>, snapshot?: any) {
+        if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)) {
+            this.setState({
+                formUser: this.props.user
+            })
+        }
     }
 
     render() {
-        const { email, password, newPassword, firstName, lastName, address, birthDay, acceptMails } = this.state.formUser;
+        const { mail, password, firstName, lastName, geoLoc, birthdate, receiveMail } = this.state.formUser;
 
         return (
             <div className="edit-profile container">
                 <h1 className="main-title orange text-center">
-                    Mes informations personnelles
+                    Mon espace client
                 </h1>
                 <UserMenu/>
                 <div className="row">
@@ -157,18 +219,23 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             : ""}
                         {
                             this.state.error !== "" ?
-                                <div className="">
+                                <div className="error">
+                                    <span className="oi oi-warning"/>
                                     {this.state.error}
                                 </div>
-                                : ""
+                                :
+                                ""
                         }
+                        <div className="row">
+                            <h4 className="text-left col-12 edit-profile-subtitle">Modifier mes informations personnelles</h4>
+                        </div>
 
                         <div className="form-group row">
                             <label htmlFor="LastName" className="col-form-label col-md-3">
                                 Nom
                             </label>
                             <input
-                                className="form-control  col-md-9"
+                                className="form-control col-md-9"
                                 type="text"
                                 name="lastName"
                                 id="LastName"
@@ -197,9 +264,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             <input
                                 className="form-control col-md-9"
                                 type="text"
-                                name="address"
+                                name="geoLoc"
                                 id="Address"
-                                value={address}
+                                value={geoLoc}
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -210,7 +277,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             </label>
                             <div className="col-md-9">
                                 <DatePicker
-                                    selected={birthDay}
+                                    selected={birthdate}
                                     onChange={this.handleDateChange}
                                     id="EditProfileBirthDate"
                                     dropdownMode="select"
@@ -231,9 +298,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 id="EditProfileEmail"
                                 className="form-control col-md-9"
                                 type="email"
-                                name="email"
+                                name="mail"
                                 pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                value={email}
+                                value={mail}
                                 onChange={this.handleChange}
                                 required={true}
                             />
@@ -243,9 +310,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                         </div>
 
                         {
-                            email !== this.props.user.email ?
+                            mail !== this.props.user.mail ?
                                 <div className="form-group row">
-                                    <label htmlFor="EditProfileEmail" className="col-form-label col-md-3">
+                                    <label htmlFor="EditProfileRepeatEmail" className="col-form-label col-md-3">
                                         Confirmation du nouvel email
                                     </label>
                                     <input
@@ -264,6 +331,23 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 : ""
                         }
 
+                        <input
+                            className="edit-profile-newsletter"
+                            id="AcceptNewsletter"
+                            type="checkbox"
+                            checked={receiveMail}
+                            name="receiveMail"
+                            onChange={this.handleCheckboxChange}
+                        />
+                        <label htmlFor="AcceptNewsletter" className="col-form-label col-md-11">
+                            J'accepte de recevoir des mails de promotion de la part de MyGardenWatcher.
+                        </label>
+
+
+                        <div className="row">
+                            <h4 className="text-left col-12 edit-profile-subtitle second">Changer de mot de passe</h4>
+                        </div>
+
                         <div className="form-group row">
                             <label htmlFor="EditProfileNewPassword" className="col-form-label col-md-3">
                                 Nouveau mot de passe
@@ -273,7 +357,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 className="form-control col-md-9"
                                 type="password"
                                 name="newPassword"
-                                value={newPassword}
+                                value={this.state.newPassword}
                                 onChange={this.handleChange}
                                 minLength={8}
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
@@ -283,27 +367,29 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             </div>
                         </div>
 
-                        {
-                            newPassword !== "" ?
-                                <div className="form-group row">
-                                    <label htmlFor="EditProfileRepeatNewPassword" className="col-form-label col-md-3">
-                                        Confirmation du mot de passe
-                                    </label>
-                                    <input
-                                        id="EditProfileRepeatNewPassword"
-                                        className="form-control col-md-9"
-                                        type="password"
-                                        name="repeatNewPassword"
-                                        value={this.state.repeatNewPassword}
-                                        onChange={this.handleChange}
-                                        required={true}
-                                    />
-                                    <div className="invalid-feedback">
-                                        Les mots de passe que vous avez entrés ne sont pas identiques.
-                                    </div>
-                                </div>
-                                : ""
-                        }
+                        <div className="form-group row">
+                            <label htmlFor="EditProfileRepeatNewPassword" className="col-form-label col-md-3">
+                                Confirmation du mot de passe
+                            </label>
+                            <input
+                                id="EditProfileRepeatNewPassword"
+                                className="form-control col-md-9"
+                                type="password"
+                                name="repeatNewPassword"
+                                value={this.state.repeatNewPassword}
+                                onChange={this.handleChange}
+                                required={true}
+                            />
+                            <div className="invalid-feedback">
+                                Les mots de passe que vous avez entrés ne sont pas identiques.
+                            </div>
+                        </div>
+
+                        <div className="row">
+                            <p className="text-left col-12 edit-profile-password">
+                                Pour valider vos changements, merci de rentrer votre mot de passe actuel.
+                            </p>
+                        </div>
 
                         <div className="form-group row">
                             <label htmlFor="EditProfilePassword" className="col-form-label col-md-3">
@@ -324,32 +410,22 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             </div>
                         </div>
 
-                        <input
-                            id="AcceptNewsletter"
-                            type="checkbox"
-                            checked={acceptMails}
-                            name="acceptMails"
-                            onChange={this.handleCheckboxChange}
-                        />
-                        <label htmlFor="AcceptNewsletter" className="col-form-label col-md-11">
-                            J'accepte de recevoir des mails de promotion de la part de MyGardenWatcher.
-                        </label>
-
                         <button
                             type="submit"
-                            className="btn btn-green register-btn"
+                            className="btn btn-green edit-profile-button"
                             disabled={this.state.loading}
                         >
                             Valider
                         </button>
-
-                        {
-                            this.state.error &&
-                            <div className="alert alert-danger">
-                                {this.state.error}
-                            </div>
-                        }
                     </form>
+                </div>
+                <div className="row">
+                    <button
+                        onClick={this.handleDeleteAccount}
+                        className="btn btn-orange edit-profile-delete"
+                    >
+                        Supprimer mon compte
+                    </button>
                 </div>
             </div>
         )

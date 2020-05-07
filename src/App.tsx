@@ -14,6 +14,8 @@ import User, {userInit} from "./interfaces/User";
 import PlantList from "./views/plants/PlantList";
 import PlantDetail from "./views/plants/PlantDetail";
 import ForgotPassword from "./views/user/ForgotPassword";
+import ResetPassword from "./views/user/ResetPassword";
+import {UserService} from "./services/UserService";
 
 export let history = createBrowserHistory();
 
@@ -36,12 +38,33 @@ class App extends React.Component<{}, IAppState> {
         this.authenticate = this.authenticate.bind(this);
         this.toggleLogin = this.toggleLogin.bind(this);
         this.checkToken = this.checkToken.bind(this);
+        this.getUser = this.getUser.bind(this);
+        this.clearUser = this.clearUser.bind(this);
+    }
+
+    componentDidMount(): void {
+        if (this.state.isAuthenticated) this.getUser();
     }
 
     private authenticate(status: boolean) {
         this.setState({
             isAuthenticated: status
         });
+    }
+
+    private getUser() {
+        UserService.getUser()
+            .then(user => {
+                this.setState({
+                    user: user as User
+                })
+            });
+    }
+
+    private clearUser() {
+        this.setState({
+            user: userInit
+        })
     }
 
     private toggleLogin(status: boolean) {
@@ -53,13 +76,21 @@ class App extends React.Component<{}, IAppState> {
     checkToken() {
         if (!window.localStorage.getItem("mgwAuthToken")) {
             this.authenticate(false);
-            window.location.reload();
+            history.push(window.location.pathname);
         }
     }
 
     render() {
         const { isAuthenticated, isLoginOpen } = this.state;
-        const connect = () => this.authenticate(true);
+        const connect = () => {
+            this.authenticate(true);
+            this.getUser();
+        }
+        const disconnect = () => {
+            this.authenticate(false);
+            this.clearUser();
+        }
+        const activateLogin = () => this.toggleLogin(true);
 
         return (
             <Router history={history}>
@@ -68,18 +99,24 @@ class App extends React.Component<{}, IAppState> {
                     isAuthenticated={isAuthenticated}
                     isLoginOpen={isLoginOpen}
                     connect={connect}
+                    disconnect={disconnect}
                     toggleLogin={this.toggleLogin}
                 />
 
                 <Route exact path="/" component={Home} />
-                <Route exact path="/contact-single" component={ContactSingle} />
-                <Route exact path="/contact-pro" component={ContactPro} />
+                <Route exact path="/contact-single"
+                       render={() => <ContactSingle isAuthenticated={isAuthenticated} />}
+                />
+                <Route exact path="/contact-pro"
+                       render={() => <ContactPro isAuthenticated={isAuthenticated} />}
+                />
                 <ProtectedRoute
                     path="/register"
                     exact
                     isAuthenticated={isAuthenticated}
                     authenticationPath="/edit-profile"
                     needAuth={false}
+                    activateLogin={activateLogin}
                     render={() => <Register connect={connect} />}
                 />
                 <ProtectedRoute
@@ -88,7 +125,16 @@ class App extends React.Component<{}, IAppState> {
                     isAuthenticated={isAuthenticated}
                     authenticationPath="/edit-profile"
                     needAuth={false}
+                    activateLogin={activateLogin}
                     render={() => <ForgotPassword />}
+                />
+                <ProtectedRoute
+                    path="/reset-password/:token"
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/edit-profile"
+                    needAuth={false}
+                    activateLogin={activateLogin}
+                    render={() => <ResetPassword />}
                 />
                 <ProtectedRoute
                     path="/edit-profile"
@@ -96,22 +142,17 @@ class App extends React.Component<{}, IAppState> {
                     isAuthenticated={isAuthenticated}
                     authenticationPath="/register"
                     needAuth={true}
-                    render={() => <EditProfile user={userInit} checkToken={this.checkToken} />}
+                    activateLogin={activateLogin}
+                    render={() => <EditProfile user={this.state.user} getUser={this.getUser} checkToken={this.checkToken} disconnect={disconnect} />}
                 />
-                <ProtectedRoute
-                    path="/plants/:id/:name"
-                    isAuthenticated={isAuthenticated}
-                    authenticationPath="/register"
-                    needAuth={true}
-                    render={() => <PlantDetail checkToken={this.checkToken} />}
+                <Route
+                    path="/plants/:id/:name?"
+                    render={() => <PlantDetail isAuthenticated={isAuthenticated} />}
                 />
-                <ProtectedRoute
-                    path="/plants"
+                <Route
                     exact
-                    isAuthenticated={isAuthenticated}
-                    authenticationPath="/register"
-                    needAuth={true}
-                    render={() => <PlantList checkToken={this.checkToken} />}
+                    path="/plants"
+                    render={() => <PlantList />}
                 />
 
                 <Footer/>

@@ -8,12 +8,17 @@ interface IHeaderProps {
     isAuthenticated: boolean,
     isLoginOpen: boolean,
     connect(): void,
+    disconnect(): void,
     toggleLogin(status: boolean): void
 }
 
-const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLoginOpen, connect, toggleLogin}) => {
+const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLoginOpen, connect, disconnect, toggleLogin}) => {
     const closeLogin = () => toggleLogin(false);
     const toggle = () => toggleLogin(!isLoginOpen);
+    const logout = () => {
+        UserService.logout();
+        disconnect();
+    }
 
     return (
         <header className="row menu">
@@ -37,12 +42,9 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                     <HashLink to="/#team" className="menu-elem-link">L'équipe</HashLink>
                 </li>
 
-                {
-                    isAuthenticated &&
-                        <li className="menu-elem">
-                            <Link to="/plants" className="menu-elem-link">Nos plantes</Link>
-                        </li>
-                }
+                <li className="menu-elem">
+                    <Link to="/plants" className="menu-elem-link">Nos plantes</Link>
+                </li>
 
                 <li className="menu-elem">
                     <Link to="/contact-single" className="menu-elem-link">Nous contacter</Link>
@@ -62,7 +64,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                     }
                     {
                         isAuthenticated ?
-                            <p onClick={UserService.logout} className="btn-logout" title="Se déconnecter"><span className="oi oi-power-standby"/></p>
+                            <p onClick={logout} className="btn-logout" title="Se déconnecter"><span className="oi oi-power-standby"/></p>
                             : ""
                     }
                     {

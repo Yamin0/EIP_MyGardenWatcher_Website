@@ -1,11 +1,6 @@
 import * as React from "react";
 import {ContactService} from "../../services/ContactService";
 
-enum EFormType {
-    SINGLE,
-    PRO,
-}
-
 enum EAskingType {
     NONE,
     BUILD,
@@ -18,11 +13,11 @@ enum EAskingType {
 }
 
 interface IFormProps {
-    isFormPro: boolean
+    isFormPro: boolean,
+    isAuthenticated: boolean
 }
 
 interface IFormState {
-    formType: EFormType,
     companyName: string,
     firstName: string,
     lastName: string,
@@ -40,7 +35,6 @@ class Form extends React.Component<IFormProps, IFormState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            formType: this.props.isFormPro ? EFormType.PRO : EFormType.SINGLE,
             companyName: "",
             firstName: "",
             lastName: "",
@@ -87,9 +81,10 @@ class Form extends React.Component<IFormProps, IFormState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            (this.props.isFormPro ?
-                ContactService.contactPro(this.state.message) :
-                ContactService.contactSingle(this.state.message))
+            let obj = {...this.state};
+            delete obj.loading;
+            delete obj.error;
+            ContactService.sendContact(obj, this.props.isAuthenticated, this.props.isFormPro ? "PRO" : "SINGLE")
                 .then(() => { alert("Votre demande de contact a bien été transmise !"); window.location.reload(); },
                     error => {
                     this.setState({ error: error.toString(), loading: false });

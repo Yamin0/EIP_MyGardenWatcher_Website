@@ -98,6 +98,11 @@ footer {
   background-color: white;
   border-color: #FF7300;
 }
+.page-link.disabled {
+  color: #95A6B1 !important;
+  background-color: white !important;
+  border-color: #95A6B1 !important;
+}
 .page-item.active .page-link {
   background-color: #E57B38;
   border-color: #E57B38;
@@ -277,12 +282,16 @@ footer {
 .form .error {
   background-color: #FF9000;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px;
   color: white;
   margin-bottom: 15px;
 }
 .form .error .oi {
   padding-right: 10px;
+}
+.form .error.under {
+  margin-bottom: 0;
+  margin-top: 15px;
 }
 .header {
   display: table !important;
@@ -624,6 +633,13 @@ footer {
   text-align: center;
   margin-bottom: 30px;
 }
+.reset-password-btn {
+  margin-top: 10px;
+}
+.reset-password-help {
+  text-align: center;
+  margin-bottom: 50px;
+}
 .login {
   position: absolute;
   top: 90px;
@@ -722,6 +738,21 @@ footer {
 .edit-profile {
   padding-bottom: 150px;
 }
+.edit-profile-subtitle {
+  color: #95A6B1;
+  font-size: 22px;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+.edit-profile-subtitle.second {
+  margin-top: 30px;
+}
+.edit-profile-password {
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 20px;
+  color: #FF7300;
+}
 .edit-profile .form {
   position: inherit;
 }
@@ -736,6 +767,15 @@ footer {
 .edit-profile-datepicker:hover {
   border: none;
   box-shadow: none;
+}
+.edit-profile-button {
+  margin-top: 10px;
+}
+.edit-profile-delete {
+  margin-top: 30px;
+}
+.edit-profile-newsletter {
+  margin-left: 15px;
 }
 .edit-profile .form-group {
   margin-bottom: 15px !important;
@@ -790,6 +830,9 @@ footer {
 }
 .plant-detail {
   padding-bottom: 150px;
+}
+.plant-detail .form {
+  padding-top: 150px;
 }
 .plant-detail-fetching {
   margin-top: 200px;

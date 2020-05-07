@@ -1,6 +1,23 @@
 .edit-profile {
   padding-bottom: 150px;
 
+  &-subtitle {
+    color: @color-secondary;
+    font-size: 22px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    &.second {
+      margin-top: 30px;
+    }
+  }
+
+  &-password {
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 20px;
+    color: @color-primary-orange;
+  }
+
   .form {
     position: inherit;
   }
@@ -14,6 +31,16 @@
       border: none;
       box-shadow: none;
     }
+  }
+  &-button {
+    margin-top: 10px;
+  }
+  &-delete {
+    margin-top: 30px;
+  }
+
+  &-newsletter {
+    margin-left: 15px;
   }
 
   .form-group {

@@ -1,21 +1,19 @@
 export default interface User {
-    email: string,
+    mail: string,
     password: string,
-    newPassword: string,
     firstName: string,
     lastName: string,
-    birthDay: Date,
-    address: string,
-    acceptMails: boolean
+    birthdate: Date,
+    geoLoc: string,
+    receiveMail: boolean
 }
 
 export const userInit: User = {
-    email: "",
+    mail: "",
     password: "",
-    newPassword: "",
     firstName: "",
     lastName: "",
-    birthDay: new Date(),
-    address: "",
-    acceptMails: true
+    birthdate: new Date(),
+    geoLoc: "",
+    receiveMail: true
 };

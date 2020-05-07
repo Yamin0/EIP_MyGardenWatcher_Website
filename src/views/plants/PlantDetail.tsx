@@ -9,7 +9,7 @@ interface RouteInfo {
 }
 
 interface IPlantDetailProps extends RouteComponentProps<RouteInfo> {
-    checkToken(): void
+    isAuthenticated: boolean
 }
 
 interface IPlantDetailState {
@@ -24,12 +24,11 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
         this.state = {
             plant: plantInit,
             isFetching: false,
-            error: ""
+            error: "lol"
         };
     }
 
     componentDidMount(): void {
-        console.log(this.props.match.params.id);
         this.fetchPlant(parseInt(this.props.match.params.id));
     }
 
@@ -62,10 +61,12 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                     </div>
                     :
                     this.state.error !== "" ?
-                        <div className="form">
-                            <div className="error">
-                                <span className="oi oi-warning"/>
-                                {this.state.error}
+                        <div className="plant-detail container">
+                            <div className="form">
+                                <div className="error">
+                                    <span className="oi oi-warning"/>
+                                    {this.state.error}
+                                </div>
                             </div>
                         </div>
                         :

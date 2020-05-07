@@ -5,6 +5,7 @@ interface ProtectedRouteProps extends RouteProps {
     isAuthenticated: boolean;
     authenticationPath: string;
     needAuth: boolean;
+    activateLogin(): void;
 }
 
 class ProtectedRoute extends Route<ProtectedRouteProps> {
@@ -15,7 +16,10 @@ class ProtectedRoute extends Route<ProtectedRouteProps> {
         }
 
         if (redirectPath) {
-            const renderComponent = () => (<Redirect to={{pathname: redirectPath}}/>);
+            const renderComponent = () => {
+                if (this.props.needAuth) this.props.activateLogin();
+                return <Redirect to={{pathname: redirectPath}}/>
+            };
             return <Route {...this.props} component={renderComponent} render={undefined}/>;
         } else {
             return <Route {...this.props}/>;
