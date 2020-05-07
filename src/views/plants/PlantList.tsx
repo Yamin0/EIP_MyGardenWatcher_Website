@@ -3,6 +3,8 @@ import {PlantService} from "../../services/PlantService";
 import Plant from "../../interfaces/Plant";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import PlantSearchEngine from "./PlantSearchEngine";
+import Search, {searchInit} from "../../interfaces/Search";
+const queryString = require('query-string');
 
 export enum ESortType {
     NAME_ASC,
@@ -22,10 +24,10 @@ interface IPlantListState {
     totalPages: number,
     isFetching: boolean,
     error: string,
-    plants: Plant[],
+    plants: number[],
     displayedPlants: Plant[],
     sort: ESortType,
-    search: string,
+    search: Search
 }
 
 const itemsPerPage: number = 9;
@@ -42,17 +44,28 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
             plants: [],
             displayedPlants: [],
             sort: ESortType.NAME_ASC,
-            search: ""
+            search: searchInit
         };
 
+        this.parseSearchQuery = this.parseSearchQuery.bind(this);
         this.fetchAllPlants = this.fetchAllPlants.bind(this);
         this.fetchPagePlants = this.fetchPagePlants.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
     }
 
     componentDidMount(): void {
-        console.log(this.props.location.search);
+        this.parseSearchQuery();
         this.fetchAllPlants(this.fetchPagePlants);
+    }
+
+    componentDidUpdate(prevProps: Readonly<RouteComponentProps>, prevState: Readonly<IPlantListState>, snapshot?: any) {
+    }
+
+    private parseSearchQuery() {
+        const parsed = queryString.parse(this.props.location.search);
+        this.setState({
+            search: parsed as Search
+        }, () => console.log(this.state.search));
     }
 
     private fetchAllPlants(callback: () => void) {
@@ -68,7 +81,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     });
 
                 this.setState({
-                    plants,
+                    plants: plants.map(plant => plant.id),
                     totalPages: Math.trunc(plants.length / itemsPerPage) + (plants.length % itemsPerPage > 0 ? 1 : 0),
                     isFetching: false,
                     error: ""
@@ -85,7 +98,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                 PlantService.calculateIdsOfPage(
                     this.state.currentPage,
                     itemsPerPage,
-                    this.state.plants.map(plant => plant.id))
+                    this.state.plants)
                     .join(";"))
                 .then(data => {
                 const plants: Plant[] = data as Plant[];
@@ -106,20 +119,14 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
         // puis appelle fetchPagePlants
     }
 
-    private filterPlants() {
-        // call api par attr to filter => PlantService, remplace handleSearch
-        // modifie uniquement this.state.plants
-        // puis appelle fetchPagePlants
-    }
-
     //voué a dégager
     private onSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
         const value = e.target.value;
 
         if (parseInt(value) !== this.state.sort) {
-            let sortedList: Plant[] = this.state.plants.sort((a, b) => a.name.localeCompare(b.name));
+/*            let sortedList: Plant[] = this.state.plants.sort((a, b) => a.name.localeCompare(b.name));
             if (value === "alpha_desc")
-                sortedList = sortedList.reverse();
+                sortedList = sortedList.reverse();*/
 
 //            let filteredSortedList: Plant[] = this.state.filteredPlants.sort((a, b) => a.name.localeCompare(b.name));
 //            if (value === "alpha_desc")
@@ -127,7 +134,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
 
             this.setState({
                 sort: parseInt(e.target.value),
-                plants: sortedList,
+//                plants: sortedList,
 //                filteredPlants: filteredSortedList
             });
         }
@@ -188,7 +195,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     Nos plantes
                 </h1>
                 <div className="row plant-list-bar justify-content-between">
-                    <PlantSearchEngine/>
+                    <PlantSearchEngine prevSearch={this.state.search}/>
                     <div className="col-2">
                         Trier par:
                         <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>

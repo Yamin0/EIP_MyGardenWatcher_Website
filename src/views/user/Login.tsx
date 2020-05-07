@@ -1,6 +1,5 @@
 import * as React from "react";
 import {UserService} from "../../services/UserService";
-//import {history} from "../../App";
 // @ts-ignore
 import ClickOutComponent from "react-clickout-handler";
 import {Link} from "react-router-dom";

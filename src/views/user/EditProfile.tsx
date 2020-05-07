@@ -378,7 +378,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 name="repeatNewPassword"
                                 value={this.state.repeatNewPassword}
                                 onChange={this.handleChange}
-                                required={true}
+                                required={this.state.newPassword !== ""}
                             />
                             <div className="invalid-feedback">
                                 Les mots de passe que vous avez entrés ne sont pas identiques.

@@ -1,35 +1,20 @@
 import * as React from "react";
 import {history} from "../../App";
-
-const lightValues: string[] = [
-    "",
-    "low",
-    "partial",
-    "full",
-    "low:partial",
-    "partial:full"
-];
+import Search, {lightValues} from "../../interfaces/Search";
 
 interface IPlantSearchEngineProps {
+    prevSearch: Search
 }
 
 interface IPlantSearchEngineState {
-    name: string,
-    minTemp: string,
-    maxTemp: string,
-    humidity: string,
-    light: string,
+    formSearch: Search
 }
 
 class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantSearchEngineState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            name: "",
-            minTemp: "",
-            maxTemp: "",
-            humidity: "",
-            light: lightValues[0]
+            formSearch: this.props.prevSearch
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,11 +23,13 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
     private handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
         const name = e.target.name;
         const value = e.target.value;
-        console.log(name + ": " + value);
 
         this.setState((state) => ({
             ...state,
-            [name]: value,
+            formSearch: {
+                ...state.formSearch,
+                [name]: value,
+            }
         }));
     }
 
@@ -50,11 +37,11 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
         e.preventDefault();
 
         let queryUrl: string = "/plants?";
-        if (this.state.name !== "") queryUrl += "name=" + this.state.name;
-        if (this.state.minTemp !== "") queryUrl += "&minTemp=" + this.state.minTemp;
-        if (this.state.maxTemp !== "") queryUrl += "&maxTemp=" + this.state.maxTemp;
-        if (this.state.humidity !== "") queryUrl += "&humidity=" + this.state.humidity;
-        if (this.state.light !== "") queryUrl += "&light=" + this.state.light;
+        if (this.state.formSearch.name !== "") queryUrl += "name=" + this.state.formSearch.name;
+        if (this.state.formSearch.minTemp !== "") queryUrl += "&minTemp=" + this.state.formSearch.minTemp;
+        if (this.state.formSearch.maxTemp !== "") queryUrl += "&maxTemp=" + this.state.formSearch.maxTemp;
+        if (this.state.formSearch.humidity !== "") queryUrl += "&humidity=" + this.state.formSearch.humidity;
+        if (this.state.formSearch.light !== "") queryUrl += "&light=" + this.state.formSearch.light;
 
         history.push(queryUrl);
     }
@@ -71,7 +58,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="text"
                         name="name"
                         id="SearchName"
-                        value={this.state.name}
+                        value={this.state.formSearch.name}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -84,7 +71,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="number"
                         name="minTemp"
                         id="SearchMinTemp"
-                        value={this.state.minTemp}
+                        value={this.state.formSearch.minTemp}
                         onChange={this.handleChange}
                     />
                     <input
@@ -92,7 +79,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="number"
                         name="maxTemp"
                         id="SearchMaxTemp"
-                        value={this.state.maxTemp}
+                        value={this.state.formSearch.maxTemp}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -105,7 +92,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="number"
                         name="humidity"
                         id="SearchHumidity"
-                        value={this.state.humidity}
+                        value={this.state.formSearch.humidity}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -119,7 +106,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         className="form-control plant-list-search-input col-md-8"
                         name="light"
                         id="Light"
-                        value={this.state.light}
+                        value={this.state.formSearch.light}
                         required={true}
                         onChange={this.handleChange}
                     >
