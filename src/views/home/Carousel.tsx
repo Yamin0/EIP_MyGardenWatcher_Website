@@ -23,6 +23,17 @@ interface ICarouselIndicatorsProps {
 
 const slides: ICarouselSlide[] = [
     {
+        className: "forward",
+        title: "Lancement de la bêta",
+        subtitle: "",
+        description: "MyGardenWatcher lance sa Bêta ! Donnez nous vos retours sur notre site Web, téléchargez notre application mobile et testez notre carotte connectée !",
+        link: "http://www.mygardenwatcher.fr/beta",
+        linkText: "Découvrir la Bêta",
+        colorTitle: "",
+        colorDescription: " orange",
+        colorLink: "",
+    },
+    {
         className: "main",
         title: "My Garden Watcher",
         subtitle: "Gardez un oeil sur vos plantations",

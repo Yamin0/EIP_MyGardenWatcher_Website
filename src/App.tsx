@@ -16,6 +16,8 @@ import PlantDetail from "./views/plants/PlantDetail";
 import ForgotPassword from "./views/user/ForgotPassword";
 import ResetPassword from "./views/user/ResetPassword";
 import {UserService} from "./services/UserService";
+import ScrollToTop from "./HoC/ScrollToTop";
+import Beta from "./views/beta/Beta";
 
 export let history = createBrowserHistory();
 
@@ -94,6 +96,7 @@ class App extends React.Component<{}, IAppState> {
 
         return (
             <Router history={history}>
+                <ScrollToTop />
 
                 <Header
                     isAuthenticated={isAuthenticated}
@@ -104,6 +107,7 @@ class App extends React.Component<{}, IAppState> {
                 />
 
                 <Route exact path="/" component={Home} />
+                <Route exact path="/beta" component={Beta} />
                 <Route exact path="/contact-single"
                        render={() => <ContactSingle isAuthenticated={isAuthenticated} />}
                 />

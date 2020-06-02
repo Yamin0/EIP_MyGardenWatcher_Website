@@ -5,7 +5,7 @@ import Vision from "./Vision";
 import Team from "./Team";
 import Solution from "./Solution";
 
-const Home: React.FunctionComponent<{}> = () => (
+const Home: React.FunctionComponent = () => (
             <div>
                 <div className="container-fluid">
                     <Carousel/>

@@ -24,7 +24,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
         <header className="row menu">
             <ul>
                 <li className="menu-logo">
-                    <Link to="/">
+                    <Link to="/" onClick={() => {window.scrollTo(0, 0);}}>
                         <img src="/images/logos/mgw-logo-text-black-carrot-grey-shadowed.png" className="menu-logo-image"
                              alt="My Garden Watcher"/>
                     </Link>

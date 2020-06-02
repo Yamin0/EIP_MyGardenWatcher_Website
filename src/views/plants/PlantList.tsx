@@ -59,10 +59,15 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     }
 
     componentDidUpdate(prevProps: Readonly<RouteComponentProps>, prevState: Readonly<IPlantListState>, snapshot?: any) {
+        if (JSON.stringify(prevProps.location.search) !== JSON.stringify(this.props.location.search)) {
+            this.parseSearchQuery();
+            this.fetchAllPlants(this.fetchPagePlants);
+        }
     }
 
     private parseSearchQuery() {
         const parsed = queryString.parse(this.props.location.search);
+
         this.setState({
             search: parsed as Search
         }, () => console.log(this.state.search));
@@ -70,9 +75,18 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
 
     private fetchAllPlants(callback: () => void) {
         this.setState({ isFetching: true }, () => {
-            PlantService.fetchPlantList(["id", "name"]).then(data => {
+            PlantService.fetchPlantList(["id", "name", ...Object.keys(this.state.search)]).then(data => {
 
                 let plants: Plant[] = data as Plant[];
+
+                Object.keys(this.state.search).forEach((key) => {
+                    console.log(key);
+                    plants.filter((plant) => {
+//                        console.log(plant[key]);
+                        return false;
+                    });
+                });
+
                 plants = plants.sort((a, b) => {
 //                        return a.name.localeCompare(b.name, 'en', {sensitivity: 'base'});
                         if (a < b) return -1;
@@ -80,6 +94,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                         return 0;
                     });
 
+                console.log(plants);
                 this.setState({
                     plants: plants.map(plant => plant.id),
                     totalPages: Math.trunc(plants.length / itemsPerPage) + (plants.length % itemsPerPage > 0 ? 1 : 0),

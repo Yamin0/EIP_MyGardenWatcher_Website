@@ -899,4 +899,13 @@ footer {
 .plant-detail-visual {
   margin-bottom: 40px;
 }
+.beta-links {
+  margin-top: 70px;
+  text-align: center;
+  padding: 30px;
+  color: white;
+  background-color: #FF9000;
+  box-shadow: 15px 15px #FF7300;
+  font-size: 20px;
+}
 /*# sourceMappingURL=index.css.map */
