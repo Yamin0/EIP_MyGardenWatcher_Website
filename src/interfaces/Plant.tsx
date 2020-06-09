@@ -8,6 +8,7 @@ export default interface Plant {
     image: string,
     description: string,
     link: string,
+    type: string,
     caracteristics: string
 }
 
@@ -21,5 +22,6 @@ export const plantInit: Plant = {
     image: "",
     description: "",
     link: "",
+    type: "",
     caracteristics: ""
 };

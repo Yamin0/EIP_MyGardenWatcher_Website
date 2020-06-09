@@ -1,6 +1,6 @@
 import * as React from "react";
 import {history} from "../../App";
-import Search, {lightValues} from "../../interfaces/Search";
+import Search from "../../interfaces/Search";
 
 interface IPlantSearchEngineProps {
     prevSearch: Search
@@ -28,7 +28,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
             ...state,
             formSearch: {
                 ...state.formSearch,
-                [name]: value,
+                [name]: name === "humidity" ? parseInt(value) : value,
             }
         }));
     }
@@ -37,24 +37,96 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
         e.preventDefault();
 
         let queryUrl: string = "/plants?";
-        if (this.state.formSearch.name !== "") queryUrl += "name=" + this.state.formSearch.name;
-        if (this.state.formSearch.minTemp !== "") queryUrl += "&minTemp=" + this.state.formSearch.minTemp;
-        if (this.state.formSearch.maxTemp !== "") queryUrl += "&maxTemp=" + this.state.formSearch.maxTemp;
-        if (this.state.formSearch.humidity !== "") queryUrl += "&humidity=" + this.state.formSearch.humidity;
-        if (this.state.formSearch.light !== "") queryUrl += "&light=" + this.state.formSearch.light;
+        let variables: string[] = [];
+
+        if (this.state.formSearch.name && this.state.formSearch.name !== "") variables.push("name=" + this.state.formSearch.name);
+        if (this.state.formSearch.temperature && this.state.formSearch.temperature !== 0) variables.push("temperature=" + this.state.formSearch.temperature);
+        if (this.state.formSearch.humidity && this.state.formSearch.humidity !== 0) variables.push("humidity=" + this.state.formSearch.humidity);
+        if (this.state.formSearch.light && this.state.formSearch.light !== "") variables.push("light=" + this.state.formSearch.light);
+
+        queryUrl += variables.join("&");
 
         history.push(queryUrl);
+    }
+
+    private renderRadioTemperature() {
+        let listButtons: React.ReactNode[] = [];
+
+        for (let i = 1; i <= 6; i++) {
+            listButtons.push(
+                <div className="radio" key={i.toString()}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="temperature"
+                            value={i}
+                            checked={this.state.formSearch.temperature === i}
+                            onChange={this.handleChange}
+                        />
+                        <img alt={"temperature " + i.toString()} className="plant-list-search-icon" src={"/images/icons/temperature/" + i.toString() + ".png"}/>
+                    </label>
+                </div>
+            );
+        }
+
+        return listButtons;
+    }
+
+    private renderRadioHumidity() {
+        let listButtons: React.ReactNode[] = [];
+
+        for (let i = 1; i <= 5; i++) {
+            listButtons.push(
+                <div className="radio" key={i.toString()}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="humidity"
+                            value={i}
+                            checked={this.state.formSearch.humidity === i}
+                            onChange={this.handleChange}
+                        />
+                        <img alt={"humidity " + i.toString()} className="plant-list-search-icon" src={"/images/icons/humidity/" + i.toString() + ".png"}/>
+                    </label>
+            </div>
+            );
+        }
+
+        return listButtons;
+    }
+
+    private renderRadioLight() {
+        let listButtons: React.ReactNode[] = [];
+
+        for (let i = 1; i <= 3; i++) {
+            listButtons.push(
+                <div className="radio" key={i.toString()}>
+                    <label>
+                        <input
+                            type="radio"
+                            name="light"
+                            value={i === 1 ? "none" : (i === 2 ? "partial" : "full")}
+                            checked={this.state.formSearch.light === (i === 1 ? "none" : (i === 2 ? "partial" : "full"))}
+                            onChange={this.handleChange}
+                        />
+                        <img alt={"light " + i.toString()} className="plant-list-search-icon" src={"/images/icons/light/" + i.toString() + ".png"}/>
+                    </label>
+                </div>
+            );
+        }
+
+        return listButtons;
     }
 
     render() {
         return (
             <form className="form col-9 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
-                <div className="form-group col-6 row">
-                    <label htmlFor="SearchName" className="col-form-label col-md-4">
+                <div className="form-group col-6">
+                    <div className="text-center  plant-list-search-name">
                         Nom
-                    </label>
+                    </div>
                     <input
-                        className="form-control plant-list-search-input col-md-8"
+                        className="form-control plant-list-search-input"
                         type="text"
                         name="name"
                         id="SearchName"
@@ -62,60 +134,32 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group col-6 row">
-                    <label htmlFor="SearchMinTemp" className="col-form-label col-md-4">
-                        Température
-                    </label>
-                    <input
-                        className="form-control plant-list-search-input col-md-4"
-                        type="number"
-                        name="minTemp"
-                        id="SearchMinTemp"
-                        value={this.state.formSearch.minTemp}
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        className="form-control plant-list-search-input col-md-4"
-                        type="number"
-                        name="maxTemp"
-                        id="SearchMaxTemp"
-                        value={this.state.formSearch.maxTemp}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group col-6 row">
-                    <label htmlFor="SearchHumidity" className="col-form-label col-md-4">
+
+                <div className="form-group col-6">
+                    <div className="text-center">
                         Humidité
-                    </label>
-                    <input
-                        className="form-control plant-list-search-input col-md-8"
-                        type="number"
-                        name="humidity"
-                        id="SearchHumidity"
-                        value={this.state.formSearch.humidity}
-                        onChange={this.handleChange}
-                    />
+                    </div>
+                    <div className="plant-list-search-buttons">
+                        {this.renderRadioHumidity()}
+                    </div>
                 </div>
 
-                <div className="form-group col-6 row">
-                    <label htmlFor="SearchLight" className="col-form-label col-md-4">
-                        Lumière
-                    </label>
+                <div className="form-group col-6">
+                    <div className="text-center">
+                        Température
+                    </div>
+                    <div className="plant-list-search-buttons">
+                        {this.renderRadioTemperature()}
+                    </div>
+                </div>
 
-                    <select
-                        className="form-control plant-list-search-input col-md-8"
-                        name="light"
-                        id="Light"
-                        value={this.state.formSearch.light}
-                        required={true}
-                        onChange={this.handleChange}
-                    >
-                        {lightValues.map((elem, i) => {
-                            if (elem === "")
-                                return <option value={elem} key={i}>-- Choisir une valeur --</option>
-                            return <option value={elem} key={i}>{elem}</option>
-                        })}
-                    </select>
+                <div className="form-group col-6">
+                    <div className="text-center">
+                        Luminosité
+                    </div>
+                    <div className="plant-list-search-buttons">
+                        {this.renderRadioLight()}
+                    </div>
                 </div>
 
                 <button

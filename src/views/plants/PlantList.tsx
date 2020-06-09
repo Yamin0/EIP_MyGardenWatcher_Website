@@ -1,9 +1,11 @@
 import * as React from "react";
 import {PlantService} from "../../services/PlantService";
 import Plant from "../../interfaces/Plant";
-import {Link, RouteComponentProps, withRouter} from "react-router-dom";
+import { RouteComponentProps, withRouter} from "react-router-dom";
 import PlantSearchEngine from "./PlantSearchEngine";
-import Search, {searchInit} from "../../interfaces/Search";
+import Search from "../../interfaces/Search";
+import PlantThumb from "./PlantThumb";
+import Pagination from "../shared/Pagination";
 const queryString = require('query-string');
 
 export enum ESortType {
@@ -17,6 +19,22 @@ export enum ESortType {
     HUM_DESC,
     SUN_ASC,
     SUN_DESC,
+}
+
+const getSortAttrName = (sort: ESortType) => {
+    switch (sort) {
+        case ESortType.NAME_ASC:
+        case ESortType.NAME_DESC: return "name";
+        case ESortType.MIN_TEMP_ASC:
+        case ESortType.MIN_TEMP_DESC: return "minTemp";
+        case ESortType.MAX_TEMP_ASC:
+        case ESortType.MAX_TEMP_DESC: return "maxTemp";
+        case ESortType.HUM_ASC:
+        case ESortType.HUM_DESC: return "humidity";
+        case ESortType.SUN_ASC:
+        case ESortType.SUN_DESC: return "light";
+        default: return "";
+    }
 }
 
 interface IPlantListState {
@@ -36,6 +54,10 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     constructor(props: any) {
         super(props);
 
+        const parsed = queryString.parse(this.props.location.search);
+        if (parsed.humidity) parsed.humidity = parseInt(parsed.humidity);
+        if (parsed.temperature) parsed.temperature = parseInt(parsed.temperature);
+
         this.state = {
             currentPage: 1,
             totalPages: 1,
@@ -44,63 +66,46 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
             plants: [],
             displayedPlants: [],
             sort: ESortType.NAME_ASC,
-            search: searchInit
+            search: parsed
         };
 
-        this.parseSearchQuery = this.parseSearchQuery.bind(this);
         this.fetchAllPlants = this.fetchAllPlants.bind(this);
         this.fetchPagePlants = this.fetchPagePlants.bind(this);
+        this.filterTemperature = this.filterTemperature.bind(this);
+        this.filterHumidity = this.filterHumidity.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onPageChange = this.onPageChange.bind(this);
     }
 
+    // React Life Cycle
     componentDidMount(): void {
+        console.log("lol");
         this.parseSearchQuery();
-        this.fetchAllPlants(this.fetchPagePlants);
     }
 
     componentDidUpdate(prevProps: Readonly<RouteComponentProps>, prevState: Readonly<IPlantListState>, snapshot?: any) {
         if (JSON.stringify(prevProps.location.search) !== JSON.stringify(this.props.location.search)) {
             this.parseSearchQuery();
-            this.fetchAllPlants(this.fetchPagePlants);
         }
     }
 
-    private parseSearchQuery() {
-        const parsed = queryString.parse(this.props.location.search);
-
-        this.setState({
-            search: parsed as Search
-        }, () => console.log(this.state.search));
-    }
-
-    private fetchAllPlants(callback: () => void) {
+    // Fetch plants
+    private fetchAllPlants() {
         this.setState({ isFetching: true }, () => {
-            PlantService.fetchPlantList(["id", "name", ...Object.keys(this.state.search)]).then(data => {
+            PlantService.fetchPlantList(["id", "name", getSortAttrName(this.state.sort), ...Object.keys(this.state.search)]).then(data => {
 
                 let plants: Plant[] = data as Plant[];
 
-                Object.keys(this.state.search).forEach((key) => {
-                    console.log(key);
-                    plants.filter((plant) => {
-//                        console.log(plant[key]);
-                        return false;
-                    });
-                });
+                plants = this.filterPlants(plants);
+                plants = this.sortPlants(plants, this.state.sort);
 
-                plants = plants.sort((a, b) => {
-//                        return a.name.localeCompare(b.name, 'en', {sensitivity: 'base'});
-                        if (a < b) return -1;
-                        else if (a > b) return 1;
-                        return 0;
-                    });
-
-                console.log(plants);
                 this.setState({
                     plants: plants.map(plant => plant.id),
+                    currentPage: 1,
                     totalPages: Math.trunc(plants.length / itemsPerPage) + (plants.length % itemsPerPage > 0 ? 1 : 0),
                     isFetching: false,
                     error: ""
-                }, callback);
+                }, this.fetchPagePlants);
             }, error => {
                 this.setState({ error: error.toString(), isFetching: false })
             });
@@ -116,91 +121,166 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     this.state.plants)
                     .join(";"))
                 .then(data => {
-                const plants: Plant[] = data as Plant[];
-                this.setState({
-                    displayedPlants: plants,
-                    isFetching: false,
-                    error: ""
-                });
-            }, error => {
+                    let plants: Plant[] = data as Plant[];
+                    plants = this.sortPlants(plants, this.state.sort);
+
+                    this.setState({
+                        displayedPlants: plants,
+                        isFetching: false,
+                        error: ""
+                    });
+                }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
         });
     }
 
-    private sortPlants() {
-        // call api par attr pour order => PlantService, remplace onSelectChange
-        // modifie uniquement this.state.plants
-        // puis appelle fetchPagePlants
+    // Search engine management
+    private parseSearchQuery() {
+        const parsed = queryString.parse(this.props.location.search);
+        if (parsed.humidity) parsed.humidity = parseInt(parsed.humidity);
+        if (parsed.temperature) parsed.temperature = parseInt(parsed.temperature);
+
+        this.setState({
+            search: parsed as Search
+        }, this.fetchAllPlants);
     }
 
-    //voué a dégager
+    private filterPlants(plants: Plant[]) {
+        Object.keys(this.state.search).forEach((key) => {
+            switch (key) {
+                case "temperature":  plants = plants.filter(this.filterTemperature); break;
+                case "humidity":  plants = plants.filter(this.filterHumidity); break;
+                case "light":
+                    plants = plants.filter(plant => {
+                        return plant.light.toLowerCase().includes(this.state.search.light.toLowerCase())
+                    });
+                    break;
+                case "name":
+                    plants = plants.filter(plant => {
+                        return plant.name.toLowerCase().includes(this.state.search.name.toLowerCase())
+                    });
+                    break;
+                default: break;
+            }
+        });
+        return plants;
+    }
+
+    private filterTemperature(plant: Plant) {
+        switch (this.state.search.temperature) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case 5: break;
+            case 6: break;
+            default: return true;
+        }
+    }
+
+    private filterHumidity(plant: Plant) {
+        switch (this.state.search.temperature) {
+            case 1: break;
+            case 2: break;
+            case 3: break;
+            case 4: break;
+            case 5: break;
+            case 6: break;
+            default: break;
+        }
+    }
+
+    // Sort management
+    private createSortSelect() {
+        return <div className="col-2">
+            Trier par:
+            <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
+                <option value={ESortType.NAME_ASC}>Nom croissant</option>
+                <option value={ESortType.NAME_DESC}>Nom décroissant</option>
+                <option value={ESortType.MIN_TEMP_ASC}>Température min croissante</option>
+                <option value={ESortType.MIN_TEMP_DESC}>Température min décroissante</option>
+                <option value={ESortType.MAX_TEMP_ASC}>Température max croissante</option>
+                <option value={ESortType.MAX_TEMP_DESC}>Température max décroissante</option>
+                <option value={ESortType.HUM_ASC}>Humidité croissante</option>
+                <option value={ESortType.HUM_DESC}>Humidité décroissante</option>
+                <option value={ESortType.SUN_ASC}>Luminosité croissante</option>
+                <option value={ESortType.SUN_DESC}>Luminosité décroissante</option>
+            </select>
+        </div>
+
+    }
+
     private onSelectChange(e: React.ChangeEvent<HTMLSelectElement>) {
-        const value = e.target.value;
+        const value = parseInt(e.target.value);
 
-        if (parseInt(value) !== this.state.sort) {
-/*            let sortedList: Plant[] = this.state.plants.sort((a, b) => a.name.localeCompare(b.name));
-            if (value === "alpha_desc")
-                sortedList = sortedList.reverse();*/
+        if (value !== this.state.sort) {
+            this.setState({ isFetching: true }, () => {
+                PlantService.fetchPlantList(["id", getSortAttrName(value)], this.state.plants.join(";")).then(data => {
+                    let plants: Plant[] = data as Plant[];
+                    plants = this.sortPlants(plants, value);
 
-//            let filteredSortedList: Plant[] = this.state.filteredPlants.sort((a, b) => a.name.localeCompare(b.name));
-//            if (value === "alpha_desc")
-//                filteredSortedList = filteredSortedList.reverse();
-
-            this.setState({
-                sort: parseInt(e.target.value),
-//                plants: sortedList,
-//                filteredPlants: filteredSortedList
+                    this.setState({
+                        sort: value,
+                        plants: plants.map(plant => plant.id),
+                        isFetching: false,
+                    }, this.fetchPagePlants);
+                }, error => {
+                    this.setState({ error: error.toString(), isFetching: false })
+                });
             });
         }
     }
 
+    private sortPlants(plants: Plant[], sort: ESortType) {
+        switch (sort) {
+            case ESortType.NAME_ASC: plants = plants.sort(this.nameSort(1)); break;
+            case ESortType.NAME_DESC: plants = plants.sort(this.nameSort(-1)); break;
+            case ESortType.MIN_TEMP_ASC: plants = plants.sort((a, b) => a.minTemp - b.minTemp); break;
+            case ESortType.MIN_TEMP_DESC: plants = plants.sort((a, b) => b.minTemp - a.minTemp); break;
+            case ESortType.MAX_TEMP_ASC: plants = plants.sort((a, b) => a.maxTemp - b.maxTemp); break;
+            case ESortType.MAX_TEMP_DESC: plants = plants.sort((a, b) => b.maxTemp - a.maxTemp); break;
+            case ESortType.HUM_ASC: plants = plants.sort((a, b) => a.humidity - b.humidity); break;
+            case ESortType.HUM_DESC: plants = plants.sort((a, b) => b.humidity - a.humidity); break;
+            case ESortType.SUN_ASC: plants = plants.sort(this.lightSort(1)); break;
+            case ESortType.SUN_DESC: plants = plants.sort(this.lightSort(-1)); break;
+            default: break;
+        }
+
+        return plants;
+    }
+
+    private nameSort(dir: number){
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZaàâäbcçdeéèêëfghiïîjklmnñoôöpqrstuûüvwxyÿz';
+        return function(a: Plant, b: Plant){
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+            let pos = 0,
+                min = Math.min(aName.length, bName.length);
+            dir = dir || 1;
+            while(aName.charAt(pos) === bName.charAt(pos) && pos < min){ pos++; }
+            return alphabet.indexOf(aName.charAt(pos)) > alphabet.indexOf(bName.charAt(pos)) ?
+                dir:-dir;
+        };
+    };
+
+    private lightSort(dir: number) {
+        const lightValues: string[] = ["none", "none:partial","partial", "partial:full", "full", "none:partial:full"];
+        return function(a: Plant, b: Plant){
+            const aLight = a.light.toLowerCase();
+            const bLight = b.light.toLowerCase();
+            dir = dir || 1;
+
+            return lightValues.indexOf(aLight) > lightValues.indexOf(bLight) ? dir:-dir;
+        };
+    }
+
+    //Pagination
     private onPageChange(e: React.MouseEvent, page: number) {
         e.preventDefault();
         this.setState({
             currentPage: page
-        }, () => {
-            this.fetchAllPlants(this.fetchPagePlants);
-        })
-
-    }
-
-    private createPagination() {
-        let pages: React.ReactNode[] = [];
-
-        if (this.state.totalPages === 1)
-            return pages;
-
-        let status: boolean = false;
-        for (let i = 1; i <= this.state.totalPages; i++) {
-            if (i < 5 || (i > this.state.currentPage - 3 && i < this.state.currentPage + 3) || i > this.state.totalPages - 3) {
-                status = false;
-                pages.push(i === this.state.currentPage ?
-                    <li className="page-item active" key={i.toString()}>
-                    <span className="page-link">
-                        {i}
-                        <span className="sr-only">(current)</span>
-                    </span>
-                    </li>
-                    :
-                    <li className="page-item" key={i.toString()}>
-                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, i)}>{i}</a>
-                    </li>
-                )
-
-            } else {
-                if (!status) {
-                    status = true;
-                    pages.push(<li className="page-item" key={i.toString()}>
-                        <span className="page-link disabled">
-                            ...
-                        </span>
-                    </li>)
-                }
-            }
-        }
-
-        return pages
+        }, this.fetchPagePlants)
     }
 
     render() {
@@ -211,21 +291,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                 </h1>
                 <div className="row plant-list-bar justify-content-between">
                     <PlantSearchEngine prevSearch={this.state.search}/>
-                    <div className="col-2">
-                        Trier par:
-                        <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
-                            <option value={ESortType.NAME_ASC}>Nom croissant</option>
-                            <option value={ESortType.NAME_DESC}>Nom décroissant</option>
-                            <option value={ESortType.MIN_TEMP_ASC}>Température min croissante</option>
-                            <option value={ESortType.MIN_TEMP_DESC}>Température min décroissante</option>
-                            <option value={ESortType.MAX_TEMP_ASC}>Température max croissante</option>
-                            <option value={ESortType.MAX_TEMP_DESC}>Température max décroissante</option>
-                            <option value={ESortType.HUM_ASC}>Humidité croissante</option>
-                            <option value={ESortType.HUM_DESC}>Humidité décroissante</option>
-                            <option value={ESortType.SUN_ASC}>Luminosité croissante</option>
-                            <option value={ESortType.SUN_DESC}>Luminosité décroissante</option>
-                        </select>
-                    </div>
+                    {this.createSortSelect()}
                 </div>
                 <div className="row">
                     {
@@ -247,63 +313,21 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     }
 
                     {
-                        !this.state.isFetching && this.state.error === "" && this.state.displayedPlants.map((plant) =>
-                            <div className="col-4 plant-list-thumb" key={plant.id}>
-                                <h3 className="text-center plant-list-thumb-title">
-                                    {plant.name}
-                                </h3>
-                                <Link to={"/plants/" + plant.id + "/" + plant.name} className="plant-list-thumb-link">
-                                    <img src={plant.image} alt={plant.name} className="plant-list-thumb-img"/>
-                                </Link>
-
-                                <div className="row plant-list-thumb-data">
-                                    <div className="col-4 plant-list-thumb-data-thumb">
-                                        <img className="plant-list-thumb-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
-                                        {plant.minTemp}° à {plant.maxTemp}°
-                                    </div>
-                                    <div className="col-4 plant-list-thumb-data-thumb">
-                                        <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
-                                        {plant.humidity}%
-                                    </div>
-                                    <div className="col-4 plant-list-thumb-data-thumb">
-                                        <img className="plant-list-thumb-icon" src="/images/icons/icon-light.png" alt="luminosité"/>
-                                        {plant.light}
-                                    </div>
-                                </div>
-                                <div className="module line-clamp col-12">
-                                    <p>{plant.description}</p>
-                                </div>
-                            </div>)
+                        !this.state.isFetching
+                        && this.state.error === ""
+                        && this.state.displayedPlants.map((plant, i) => <PlantThumb key={i.toString()} plant={plant}/>)
                     }
                 </div>
 
                 {
                     !this.state.isFetching &&
                     <div className="row">
-                        <nav aria-label="...">
-                            <ul className="pagination">
-                                {
-                                    this.state.currentPage !== 1 &&
-                                    <li className="page-item">
-                                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, this.state.currentPage - 1)} aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span className="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                }
-
-                                {this.createPagination()}
-
-                                {
-                                    this.state.currentPage !== this.state.totalPages &&
-                                    <li className="page-item">
-                                        <a className="page-link" href="#" onClick={e => this.onPageChange(e, this.state.currentPage + 1)} aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span className="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
+                        <nav aria-label="">
+                            <Pagination
+                                currentPage={this.state.currentPage}
+                                totalPages={this.state.totalPages}
+                                onPageChange={this.onPageChange}
+                            />
                         </nav>
                     </div>
                 }

@@ -828,6 +828,18 @@ footer {
   background-color: #F3F3F3;
   padding: 10px;
 }
+.plant-list-search-icon {
+  width: 30px;
+  margin: 0 5px;
+}
+.plant-list-search-name {
+  margin-bottom: 10px;
+}
+.plant-list-search-buttons {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
 .plant-detail {
   padding-bottom: 150px;
 }

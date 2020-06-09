@@ -1,24 +1,13 @@
 export default interface Search {
     name: string,
-    minTemp: string,
-    maxTemp: string,
-    humidity: string,
+    temperature: number,
+    humidity: number,
     light: string,
 }
 
-export const lightValues: string[] = [
-    "",
-    "low",
-    "partial",
-    "full",
-    "low:partial",
-    "partial:full"
-];
-
 export const searchInit: Search = {
     name: "",
-    minTemp: "",
-    maxTemp: "",
-    humidity: "",
-    light: lightValues[0],
+    temperature: 0,
+    humidity: 0,
+    light: "",
 };
