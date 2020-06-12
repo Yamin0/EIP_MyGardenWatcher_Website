@@ -23,15 +23,15 @@ interface ICarouselIndicatorsProps {
 
 const slides: ICarouselSlide[] = [
     {
-        className: "forward",
+        className: "beta-mgw",
         title: "Lancement de la bêta",
         subtitle: "",
         description: "MyGardenWatcher lance sa Bêta ! Donnez nous vos retours sur notre site Web, téléchargez notre application mobile et testez notre carotte connectée !",
-        link: "http://www.mygardenwatcher.fr/beta",
+        link: "/beta",
         linkText: "Découvrir la Bêta",
-        colorTitle: "",
-        colorDescription: " orange",
-        colorLink: "",
+        colorTitle: " orange",
+        colorDescription: "",
+        colorLink: " orange",
     },
     {
         className: "main",
@@ -135,7 +135,7 @@ const CarouselSlide: React.FunctionComponent<ICarouselSlideProps> = ({slide, ind
                 {
                     slide.link !== "" &&
                     <a className={"header-link" + slide.colorLink} href={slide.link}
-                       target="_blank" rel="noopener noreferrer">
+                       target={!slide.link.includes("http") ? "_self" : "_blank"} rel="noopener noreferrer">
                         {slide.linkText}
                     </a>
                 }

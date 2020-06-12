@@ -356,25 +356,40 @@ footer {
   vertical-align: middle;
   padding-bottom: 0;
 }
+.header.beta-mgw {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("/images/carousel/visuel-beta.jpeg");
+  background-size: cover, cover;
+}
+.header.beta-mgw .header-title {
+  vertical-align: middle;
+  padding-bottom: 0;
+}
+.header.beta-mgw .header-title h2 {
+  font-size: 100px;
+}
 .header.forward {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-final-forward.jpg");
+  background-size: cover, cover;
 }
 .header.nmc {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/NMC_banniere.png");
-  background-size: contain, cover;
-  background-position: center, left;
+  background-size: cover, cover;
 }
 .header.epitech-exp {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-epitech-experience.jpg");
+  background-size: cover, cover;
 }
 .header.tech-inn {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-tech-inn.jpg");
+  background-size: cover, cover;
 }
 .header.mf-nantes {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-mf-nantes.jpeg");
+  background-size: cover, cover;
 }
 .header.mf-angers {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/carousel/MGW-mf-angers.jpg");
+  background-size: cover, cover;
 }
 .carousel-indicators li {
   width: 12px;
@@ -855,10 +870,6 @@ footer {
 }
 .plant-list-search-submit {
   margin-top: 10px;
-  justify-content: space-between;
-}
-.plant-list-search-clear {
-  margin-top: 10px;
 }
 .plant-list-search-hide {
   display: none;
@@ -869,18 +880,12 @@ footer {
 }
 .plant-list-search-checkboxes {
   margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
 }
 .plant-list-search-checkboxes .checkbox {
   width: 25%;
 }
 .plant-list-search-checkboxes .checkbox-title {
   margin-left: 8px;
-}
-.plant-list-search-buttons {
-  display: flex;
-  justify-content: center;
 }
 .plant-list-search .form-group {
   margin-bottom: 8px;
@@ -968,13 +973,92 @@ footer {
 .plant-detail-visual {
   margin-bottom: 40px;
 }
+.beta {
+  padding-bottom: 100px;
+}
+.beta-thanks {
+  font-size: 70px;
+  text-align: center;
+  font-family: "Lobster", cursive;
+  padding: 180px 100px;
+  color: white;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/visuel-thanks.jpg") no-repeat center;
+  background-size: cover;
+}
+.beta .border-carrot {
+  margin: 0 0 20px 0;
+}
+.beta-title {
+  color: #FF7300;
+  text-shadow: 2px 2px 2px black;
+}
+.beta-presentation {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #95A6B1;
+}
+.beta .oi {
+  font-size: 15px;
+  margin-left: 5px;
+}
+.beta-download {
+  margin: 70px 0;
+  text-align: center;
+  color: #95A6B1;
+}
+.beta-download h3 {
+  color: #FF7300;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.beta-download-btn {
+  margin-top: 30px;
+  font-size: 20px;
+  box-shadow: 5px 5px 6px #7C9872;
+}
+.beta-download-btn:hover,
+.beta-download-btn:focus,
+.beta-download-btn:active {
+  box-shadow: 5px 5px 6px #95A6B1;
+}
 .beta-links {
-  margin-top: 70px;
   text-align: center;
   padding: 30px;
   color: white;
-  background-color: #FF9000;
-  box-shadow: 15px 15px #FF7300;
   font-size: 20px;
+}
+.beta-links.website {
+  color: black;
+  background-color: #91C37D;
+  box-shadow: 15px 15px #00A84E;
+}
+.beta-links.mobile-app {
+  padding: 80px 30px;
+  margin-bottom: 50px;
+  box-shadow: none;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/visuel-select.jpg") no-repeat center;
+  background-size: cover;
+}
+.beta-links.carrot-iot {
+  color: #95A6B1;
+}
+.beta-links.carrot-iot h3 {
+  color: #7C9872;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+.beta-links.carrot-iot .text-btn {
+  color: black;
+}
+.beta-link {
+  margin-top: 20px;
+  font-size: 20px;
+  box-shadow: 5px 5px 6px #E57B38;
+}
+.beta-link:hover,
+.beta-link:focus,
+.beta-link:active {
+  box-shadow: 5px 5px 6px #7C9872;
 }
 /*# sourceMappingURL=index.css.map */

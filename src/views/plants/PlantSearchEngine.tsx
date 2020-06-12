@@ -233,7 +233,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                     <div className="plant-list-search-title text-center">
                         Luminosité
                     </div>
-                    <div className="plant-list-search-buttons">
+                    <div className="row justify-content-center">
                         {this.renderRadioLight()}
                     </div>
                 </div>
@@ -243,7 +243,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         <div className="plant-list-search-title text-center">
                             Humidité
                         </div>
-                        <div className="plant-list-search-buttons">
+                        <div className="row justify-content-center">
                             {this.renderRadioHumidity()}
                         </div>
                     </div>
@@ -252,7 +252,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         <div className="plant-list-search-title text-center">
                             Température
                         </div>
-                        <div className="plant-list-search-buttons">
+                        <div className="row justify-content-center">
                             {this.renderRadioTemperature()}
                         </div>
                     </div>
@@ -261,7 +261,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         <div className="plant-list-search-title text-center">
                             Type de plante
                         </div>
-                        <div className="plant-list-search-checkboxes">
+                        <div className="plant-list-search-checkboxes row justify-content-start">
                             {this.renderCheckboxType()}
                         </div>
                     </div>
@@ -276,7 +276,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                     <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
                 </button>
 
-                <div className="col-4 row plant-list-search-submit">
+                <div className="col-4 row plant-list-search-submit justify-content-between">
                     <button
                         type="submit"
                         className="btn btn-green col-6"
