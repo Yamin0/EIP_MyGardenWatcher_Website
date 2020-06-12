@@ -1,6 +1,7 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
 import Plant from "../../interfaces/Plant";
+import {lightIconNames} from "../../interfaces/Search";
 
 interface IPlantThumbProps {
     plant: Plant
@@ -26,11 +27,17 @@ const PlantThumb: React.FunctionComponent<IPlantThumbProps> = ({plant}) => {
                     {plant.humidity}%
                 </div>
                 <div className="col-4 plant-list-thumb-data-thumb">
-                    <img className="plant-list-thumb-icon" src="/images/icons/icon-light.png" alt="luminosité"/>
-                    {plant.light}
+                    {
+                        lightIconNames.map(name => {
+                            if (plant.light.toLowerCase().includes(name))
+                                return <img className="plant-list-thumb-icon" src={"/images/icons/light/" + name + ".png"} alt="luminosité" key={plant.name + name}/>
+                            return ""
+                        })
+                    }
                 </div>
             </div>
             <div className="module line-clamp col-12">
+                <p>{plant.type}</p>
                 <p>{plant.description}</p>
             </div>
         </div>

@@ -826,19 +826,76 @@ footer {
 }
 .plant-list-search {
   background-color: #F3F3F3;
-  padding: 10px;
+  padding: 20px;
 }
 .plant-list-search-icon {
   width: 30px;
   margin: 0 5px;
 }
-.plant-list-search-name {
+.plant-list-search-title {
+  font-size: 18px;
+  color: black;
+  font-family: "Lobster", cursive;
+  letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
-.plant-list-search-buttons {
+.plant-list-search-toggle {
+  transition: all ease-in-out 0.3s;
+  margin-top: 10px;
+}
+.plant-list-search-toggle:focus {
+  box-shadow: none;
+}
+.plant-list-search-toggle:hover {
+  text-shadow: 2px 2px 5px #95A6B1;
+}
+.plant-list-search-toggle .oi {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.plant-list-search-submit {
+  margin-top: 10px;
+  justify-content: space-between;
+}
+.plant-list-search-clear {
+  margin-top: 10px;
+}
+.plant-list-search-hide {
+  display: none;
+}
+.plant-list-search-display {
+  display: flex;
+  padding: 10px 0;
+}
+.plant-list-search-checkboxes {
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
+}
+.plant-list-search-checkboxes .checkbox {
+  width: 25%;
+}
+.plant-list-search-checkboxes .checkbox-title {
+  margin-left: 8px;
+}
+.plant-list-search-buttons {
+  display: flex;
   justify-content: center;
+}
+.plant-list-search .form-group {
+  margin-bottom: 8px;
+  padding: 0;
+}
+.plant-list-search-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.plant-list-search-select {
+  height: 30px;
+  margin-left: 10px;
+  padding-left: 5px;
 }
 .plant-detail {
   padding-bottom: 150px;

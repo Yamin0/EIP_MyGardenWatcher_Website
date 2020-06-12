@@ -45,18 +45,83 @@
 
   &-search {
     background-color: @color-secondary-light;
-    padding: 10px;
+    padding: 20px;
     &-icon {
       width: 30px;
       margin: 0 5px;
     }
-    &-name {
+    &-title {
+      font-size: 18px;
+      color: @color-secondary-dark;
+      font-family: "Lobster", cursive;
+      letter-spacing: .8px;
       margin-bottom: 10px;
     }
-    &-buttons {
+
+    &-toggle {
+      transition: all ease-in-out .3s;
+      margin-top: 10px;
+      &:focus {
+        box-shadow: none;
+      }
+      &:hover {
+        text-shadow: 2px 2px 5px @color-secondary;
+      }
+      .oi {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    }
+
+    &-submit {
+      margin-top: 10px;
+      justify-content: space-between;
+    }
+
+    &-clear {
+      margin-top: 10px;
+    }
+
+    &-hide {
+      display: none;
+    }
+
+    &-display {
+      display: flex;
+      padding: 10px 0;
+    }
+
+    &-checkboxes {
       margin-top: 10px;
       display: flex;
+      flex-wrap: wrap;
+
+      .checkbox {
+        width: 25%;
+        &-title {
+          margin-left: 8px;
+        }
+      }
+    }
+    &-buttons {
+      display: flex;
       justify-content: center;
+    }
+    .form-group {
+      margin-bottom: 8px;
+      padding: 0;
+    }
+
+    &-sort {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+    &-select {
+      height: 30px;
+      margin-left: 10px;
+      padding-left: 5px;
     }
   }
 }
