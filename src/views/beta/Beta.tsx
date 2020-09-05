@@ -36,12 +36,13 @@ const Beta: React.FunctionComponent = () => (
                     Un téléchargement se lancera et l'APK (le fichier d'installation de l'application) sera sur votre téléphone.
                     Une fois téléchargé, votre téléphone devrait vous proposer automatiquement d'installer l'application.
                     <br/>
-                    <button
+                    <a
                         className="btn btn-green beta-download-btn"
+                        href="http://www.mygardenwatcher.fr:3001/file/apk"
                     >
                         Télécharger
                         <span className="oi oi-data-transfer-download"/>
-                    </button>
+                    </a>
                 </div>
 
                 <div className="col-md-12 row justify-content-center">
