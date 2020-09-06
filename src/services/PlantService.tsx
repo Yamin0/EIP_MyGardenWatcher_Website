@@ -34,7 +34,7 @@ const fetchPlantDetail = (id: number) => {
         }),
     };
 
-    const url: string = apiUrl + "/plants/" + id.toString();
+    const url: string = apiUrl + "/plants/get/" + id.toString();
 
     return fetch(url, reqOpt)
         .then(handleResponse)
