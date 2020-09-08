@@ -57,7 +57,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                             Mon Compte
                         </Link>
                         :
-                        <button id="btn-login" className="menu-elem-link btn-orange" onClick={toggle}>
+                        <button id="btn-login" className="menu-elem-link btn-orange btn-login" onClick={toggle}>
                             <span className="oi oi-lock-locked icon-right"/>
                             Espace Client
                         </button>

@@ -233,22 +233,22 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 <UserMenu/>
                 <div className="row">
                     <form className="form col-9 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
-                        {this.state.loading ?
+                        {this.state.loading &&
                             <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
                                 <div className="spinner-border text-light" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
                             </div>
-                            : ""}
+                        }
+
                         {
-                            this.state.error !== "" ?
+                            this.state.error !== "" &&
                                 <div className="error">
                                     <span className="oi oi-warning"/>
                                     {this.state.error}
                                 </div>
-                                :
-                                ""
                         }
+
                         <div className="row">
                             <h4 className="text-left col-12 edit-profile-subtitle">Modifier mes informations personnelles</h4>
                         </div>

@@ -29,14 +29,14 @@ body {
 }
 .btn-orange {
   color: white !important;
-  background-color: #FF9000;
-  border-color: #FF9000;
+  background-color: #E57B38;
+  border-color: #E57B38;
   transition: all ease-in-out 0.3s;
 }
 .btn-orange:hover {
   color: white !important;
-  background-color: #E57B38;
-  border-color: #E57B38;
+  background-color: #FF9000;
+  border-color: #FF9000;
 }
 .btn-green {
   color: black !important;
@@ -178,6 +178,10 @@ footer {
   position: relative;
   height: 100%;
   line-height: 75px !important;
+  border-radius: 5px;
+}
+.menu-elem.account .menu-elem-link.btn-login {
+  border-radius: 5px;
 }
 .menu-elem.account .menu-elem-link:focus {
   outline: none;
@@ -413,8 +417,8 @@ footer {
   text-align: center;
   padding: 30px;
   color: white;
-  background-color: #FF9000;
-  box-shadow: 15px 15px #FF7300;
+  background-color: #E57B38;
+  box-shadow: 15px 15px #95A6B1;
   font-size: 20px;
 }
 .concept-way-to-use {
@@ -982,6 +986,65 @@ footer {
 }
 .plant-detail-visual {
   margin-bottom: 40px;
+}
+.carrot-list-error {
+  padding: 0;
+}
+.carrot-list-bar {
+  margin-top: 30px;
+}
+.carrot-list-empty {
+  margin-top: 80px;
+}
+.carrot-list-thumbs {
+  margin-top: 50px;
+}
+.add-carrot .form {
+  padding: 0;
+}
+.add-carrot .modal-body {
+  background-color: #F3F3F3;
+}
+.add-carrot .modal-title {
+  color: #FF7300;
+  font-size: 24px;
+}
+.add-carrot .modal-footer {
+  justify-content: space-between;
+}
+.carrot-thumb {
+  margin: 30px 0;
+  padding: 0 10px;
+}
+.carrot-thumb-wrapper {
+  background-color: #F3F3F3;
+  padding: 20px 0;
+}
+.carrot-thumb-title {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+.carrot-thumb-img {
+  width: 25px;
+  vertical-align: initial;
+  margin-right: 10px;
+}
+.carrot-thumb-btn-edit {
+  padding: 5px;
+  font-size: 14px;
+  margin-right: 5px;
+}
+.carrot-thumb-btn-delete {
+  padding: 5px;
+  font-size: 14px;
+  margin-left: 5px;
+}
+.carrot-thumb-btn-delete:hover,
+.carrot-thumb-btn-delete:active {
+  background-color: #95A6B1 !important;
+  border-color: #95A6B1;
 }
 .beta {
   padding-bottom: 100px;
