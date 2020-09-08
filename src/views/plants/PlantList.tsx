@@ -20,7 +20,7 @@ interface IPlantListState {
     search: Search
 }
 
-const itemsPerPage: number = 9;
+const itemsPerPage: number = 12;
 
 class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     constructor(props: any) {
@@ -99,26 +99,29 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     }
 
     private fetchPagePlants() {
-        this.setState({ isFetching: true }, () => {
-            PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description", "type"],
-                PlantService.calculateIdsOfPage(
-                    this.state.currentPage,
-                    itemsPerPage,
-                    this.state.plants)
-                    .join(";"))
-                .then(data => {
-                    let plants: Plant[] = data as Plant[];
-                    plants = PlantService.sortPlantList(plants, this.state.sort);
+        if (this.state.plants.length !== 0) {
+            this.setState({ isFetching: true }, () => {
+                PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description", "type"],
+                    PlantService.calculateIdsOfPage(
+                        this.state.currentPage,
+                        itemsPerPage,
+                        this.state.plants)
+                        .join(";"))
+                    .then(data => {
+                        let plants: Plant[] = data as Plant[];
+                        console.log("fetch page plant");
+                        plants = PlantService.sortPlantList(plants, this.state.sort);
 
-                    this.setState({
-                        displayedPlants: plants,
-                        isFetching: false,
-                        error: ""
+                        this.setState({
+                            displayedPlants: plants,
+                            isFetching: false,
+                            error: ""
+                        });
+                    }, error => {
+                        this.setState({ error: error.toString(), isFetching: false })
                     });
-                }, error => {
-                    this.setState({ error: error.toString(), isFetching: false })
-                });
-        });
+            });
+        }
     }
 
     // Sort management
@@ -185,32 +188,38 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                 </div>
                 <div className="row">
                     {
-                        this.state.isFetching ?
-                            <p>Récupération des données...</p>
-                            : ""
+                        this.state.isFetching &&
+                        <p>Récupération des données...</p>
                     }
 
                     {
-                        this.state.error !== "" ?
-                            <div className="form">
-                                <div className="error">
-                                    <span className="oi oi-warning"/>
-                                    {this.state.error}
-                                </div>
+                        this.state.error !== "" &&
+                        <div className="form">
+                            <div className="error">
+                                <span className="oi oi-warning"/>
+                                {this.state.error}
                             </div>
-                            :
-                            ""
+                        </div>
                     }
 
                     {
-                        !this.state.isFetching
-                        && this.state.error === ""
-                        && this.state.displayedPlants.map((plant, i) => <PlantThumb key={i.toString()} plant={plant}/>)
+                        !this.state.isFetching &&
+                        this.state.error === "" &&
+                        this.state.plants.length === 0 &&
+                        <p>Aucun résultat ne correspond à votre recherche.</p>
+                    }
+
+                    {
+                        !this.state.isFetching &&
+                        this.state.error === "" &&
+                        this.state.displayedPlants.length > 0 &&
+                        this.state.displayedPlants.map((plant, i) => <PlantThumb key={i.toString()} plant={plant}/>)
                     }
                 </div>
 
                 {
                     !this.state.isFetching &&
+                    this.state.totalPages > 1 &&
                     <div className="row">
                         <nav aria-label="">
                             <Pagination

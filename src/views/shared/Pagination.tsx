@@ -9,7 +9,7 @@ interface IPaginationProps {
 const createPagination = (totalPages: number, currentPage: number, onPageChange: (e: React.MouseEvent, page: number) => void) => {
     let pages: React.ReactNode[] = [];
 
-    if (totalPages === 1)
+    if (totalPages <= 1)
         return pages;
 
     let status: boolean = false;

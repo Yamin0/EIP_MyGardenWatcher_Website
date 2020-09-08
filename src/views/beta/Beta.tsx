@@ -80,7 +80,7 @@ const Beta: React.FunctionComponent = () => (
                     <span className="text-btn">Si vous avez eu l'occasion de tester notre carotte connectée, pour l'évaluer, c'est ici !</span>
                     <br/>
                     <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSdY-IFHeRk3T2hCFZlpPFsISIswFkz6NOV34Aw8BkWi2cDjyw/viewform?usp=sf_link"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSeSqEsDY8UB-GZP_zXg9ToQi47eA86XxwzjijCsQKy_-5p51A/viewform?usp=sf_link"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-orange beta-link"

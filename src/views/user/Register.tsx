@@ -60,8 +60,8 @@ class Register extends React.Component<IRegisterProps, IRegisterState> {
                 .then(
                     () => {
                         alert("Félicitations, votre compte a bien été créé ! Vous recevrez également une confirmations par mail.");
-                        history.push("/edit-profile");
                         this.props.connect();
+                        history.push("/edit-profile");
                     }, error => {
                         this.setState({ error: error.toString(), loading: false })
                     }

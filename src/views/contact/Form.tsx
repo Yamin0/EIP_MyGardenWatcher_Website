@@ -85,7 +85,10 @@ class Form extends React.Component<IFormProps, IFormState> {
             delete obj.loading;
             delete obj.error;
             ContactService.sendContact(obj, this.props.isAuthenticated, this.props.isFormPro ? "PRO" : "SINGLE")
-                .then(() => { alert("Votre demande de contact a bien été transmise !"); window.location.reload(); },
+                .then(() => {
+                    alert("Votre demande de contact a bien été transmise !");
+                    window.location.reload();
+                    },
                     error => {
                     this.setState({ error: error.toString(), loading: false });
                 });

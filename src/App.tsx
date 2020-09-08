@@ -18,6 +18,7 @@ import ResetPassword from "./views/user/ResetPassword";
 import {UserService} from "./services/UserService";
 import ScrollToTop from "./HoC/ScrollToTop";
 import Beta from "./views/beta/Beta";
+import CarrotList from "./views/carrots/CarrotList";
 
 export let history = createBrowserHistory();
 
@@ -93,7 +94,6 @@ class App extends React.Component<{}, IAppState> {
             this.clearUser();
         }
         const activateLogin = () => this.toggleLogin(true);
-
         return (
             <Router history={history}>
                 <ScrollToTop />
@@ -148,6 +148,15 @@ class App extends React.Component<{}, IAppState> {
                     needAuth={true}
                     activateLogin={activateLogin}
                     render={() => <EditProfile user={this.state.user} getUser={this.getUser} checkToken={this.checkToken} disconnect={disconnect} />}
+                />
+                <ProtectedRoute
+                    path="/carrots"
+                    exact
+                    isAuthenticated={isAuthenticated}
+                    authenticationPath="/register"
+                    needAuth={true}
+                    activateLogin={activateLogin}
+                    render={() => <CarrotList />}
                 />
                 <Route
                     path="/plants/:id/:name?"

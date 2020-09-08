@@ -8,7 +8,6 @@ import fr from 'date-fns/locale/fr';
 import "react-datepicker/dist/react-datepicker.css";
 import User from "../../interfaces/User";
 import UserMenu from "../shared/UserMenu";
-import {history} from "../../App";
 
 registerLocale('fr', fr);
 
@@ -25,7 +24,9 @@ interface IEditProfileState {
     newPassword: string,
     repeatNewPassword: string,
     loading: boolean,
-    error: string
+    error: string,
+    changePassword: boolean,
+    editInfo: boolean
 }
 
 class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> {
@@ -37,7 +38,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
             newPassword: "",
             repeatNewPassword: "",
             loading: false,
-            error: ""
+            error: "",
+            changePassword: false,
+            editInfo: false
         };
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -48,6 +51,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     private handleDateChange(date: Date) {
         this.setState((state) => ({
+            editInfo: date.toDateString() !== this.props.user.birthdate.toDateString(),
             formUser: {
                 ...state.formUser,
                 birthdate: date
@@ -59,8 +63,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         const name = e.target.name;
         const value = e.target.checked;
 
+        console.log((this.props.user as any)[name]);
         this.setState((state) => ({
-            ...state,
+            editInfo: value !== (this.props.user as any)[name],
             formUser: {
                 ...state.formUser,
                 [name]: value,
@@ -88,6 +93,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 (name === "repeatNewPassword" && value === this.state.newPassword)) {
                 (document.getElementById("EditProfileRepeatNewPassword") as HTMLInputElement).setCustomValidity("");
             }
+            else if (name === "newPassword" && value === "") {
+                (document.getElementById("EditProfileRepeatNewPassword") as HTMLInputElement).setCustomValidity("");
+            }
         }
 
         if (this.state.formUser.mail !== this.props.user.mail) {
@@ -107,12 +115,16 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         if (name === "repeatEmail" || name === "newPassword" || name === "repeatNewPassword") {
             this.setState((state) => ({
                 ...state,
+                ...repeatProps,
+                changePassword: (name.includes("Password") ? value !== (this.props as any)[name] : false),
+                editInfo: (name.includes("Password") ? false : value !== (this.props as any)[name]),
                 [name]: value,
             }));
         } else {
             this.setState((state) => ({
                 ...state,
                 ...repeatProps,
+                editInfo: name === "password" ? state.editInfo : value !== (this.props as any)[name],
                 formUser: {
                     ...state.formUser,
                     [name]: value,
@@ -123,17 +135,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const changePwd: boolean = this.state.newPassword !== "";
-        const oldUser: User = { ...this.props.user };
-        delete oldUser.password;
-        const newUser: User = { ...this.state.formUser };
-        delete newUser.password;
-
-        const editInfo: boolean = JSON.stringify(oldUser) !== JSON.stringify(newUser);
-
         if (!e.currentTarget.checkValidity()) {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
-        } else if (changePwd && editInfo) {
+        } else if (this.state.changePassword && this.state.editInfo) {
             this.setState({
                 error: "Vous ne pouvez pas éditer vos informations personnelles et modifier votre mot de passe en même temps. Merci de recommencer.",
                 formUser: this.props.user,
@@ -141,33 +145,44 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 repeatNewPassword: "",
                 repeatEmail: ""
             });
+        } else if (!this.state.changePassword && !this.state.editInfo) {
+          return;
         } else {
             this.setState({ loading: true });
-            if (changePwd && !editInfo) {
+            if (this.state.changePassword && !this.state.editInfo) {
                 UserService.changePassword(this.props.user.mail, this.state.formUser.password, this.state.newPassword)
                     .then(
                         () => {
                             alert("Votre mot de passe a bien été modifié.");
-                            this.setState({loading: false});
-                            this.props.getUser();
-                            history.push(window.location.pathname);
+                            this.setState({
+                                formUser: this.props.user,
+                                repeatEmail: "",
+                                newPassword: "",
+                                repeatNewPassword: "",
+                                loading: false,
+                                error: "",
+                                changePassword: false,
+                                editInfo: false
+                            });
+                            window.location.reload();
                         },
                         error => {
+                            window.scrollTo(0, 0);
                             this.setState({ error: error.toString(), loading: false })
                         }
                     );
             }
-
-            if (editInfo && !changePwd) {
+            if (this.state.editInfo && !this.state.changePassword) {
                 UserService.setUser(this.state.formUser)
                     .then(
                         () => {
                             alert("Vos informations personnelles ont bien été modifiées.");
                             this.setState({loading: false});
+                            window.location.reload();
                             this.props.getUser();
-                            history.push(window.location.pathname);
-                        },
+                            },
                         error => {
+                            window.scrollTo(0, 0);
                             this.setState({ error: error.toString(), loading: false })
                         }
                     );
@@ -177,6 +192,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     private handleDeleteAccount(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
+        (document.getElementsByClassName("modal-backdrop")[0] as HTMLDivElement).remove();
         this.setState({loading: true});
         UserService.deleteAccount()
             .then(this.props.disconnect,
@@ -194,7 +210,14 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
     componentDidUpdate(prevProps: Readonly<IEditProfileProps>, prevState: Readonly<IEditProfileState>, snapshot?: any) {
         if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)) {
             this.setState({
-                formUser: this.props.user
+                formUser: this.props.user,
+                repeatEmail: "",
+                newPassword: "",
+                repeatNewPassword: "",
+                loading: false,
+                error: "",
+                changePassword: false,
+                editInfo: false
             })
         }
     }
@@ -241,6 +264,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 id="LastName"
                                 value={lastName}
                                 onChange={this.handleChange}
+                                disabled={this.state.changePassword}
                             />
                         </div>
                         <div className="form-group row">
@@ -254,6 +278,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 id="FirstName"
                                 value={firstName}
                                 onChange={this.handleChange}
+                                disabled={this.state.changePassword}
                             />
                         </div>
 
@@ -268,6 +293,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 id="Address"
                                 value={geoLoc}
                                 onChange={this.handleChange}
+                                disabled={this.state.changePassword}
                             />
                         </div>
 
@@ -286,6 +312,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                     showMonthDropdown
                                     dateFormat="dd/MM/yyyy"
                                     className="form-control edit-profile-datepicker"
+                                    disabled={this.state.changePassword}
                                 />
                             </div>
                         </div>
@@ -303,6 +330,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 value={mail}
                                 onChange={this.handleChange}
                                 required={true}
+                                disabled={this.state.changePassword}
                             />
                             <div className="invalid-feedback">
                                 Merci d'entrer une adresse email valide.
@@ -310,7 +338,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                         </div>
 
                         {
-                            mail !== this.props.user.mail ?
+                            mail !== this.props.user.mail &&
                                 <div className="form-group row">
                                     <label htmlFor="EditProfileRepeatEmail" className="col-form-label col-md-3">
                                         Confirmation du nouvel email
@@ -328,7 +356,6 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                         Les adresses email que vous avez entrés ne sont pas identiques.
                                     </div>
                                 </div>
-                                : ""
                         }
 
                         <input
@@ -338,6 +365,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             checked={receiveMail}
                             name="receiveMail"
                             onChange={this.handleCheckboxChange}
+                            disabled={this.state.changePassword}
                         />
                         <label htmlFor="AcceptNewsletter" className="col-form-label col-md-11">
                             J'accepte de recevoir des mails de promotion de la part de MyGardenWatcher.
@@ -361,29 +389,33 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 onChange={this.handleChange}
                                 minLength={8}
                                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                                disabled={this.state.editInfo}
                             />
                             <div className="invalid-feedback">
                                 Votre mot de passe doit faire au moins 8 caractères, contenir une lettre minuscule, une lettre majuscule et un chiffre.
                             </div>
                         </div>
-
-                        <div className="form-group row">
-                            <label htmlFor="EditProfileRepeatNewPassword" className="col-form-label col-md-3">
-                                Confirmation du mot de passe
-                            </label>
-                            <input
-                                id="EditProfileRepeatNewPassword"
-                                className="form-control col-md-9"
-                                type="password"
-                                name="repeatNewPassword"
-                                value={this.state.repeatNewPassword}
-                                onChange={this.handleChange}
-                                required={this.state.newPassword !== ""}
-                            />
-                            <div className="invalid-feedback">
-                                Les mots de passe que vous avez entrés ne sont pas identiques.
+                        {
+                            this.state.newPassword !== "" &&
+                            <div className="form-group row">
+                                <label htmlFor="EditProfileRepeatNewPassword" className="col-form-label col-md-3">
+                                    Confirmation du nouveau mot de passe
+                                </label>
+                                <input
+                                    id="EditProfileRepeatNewPassword"
+                                    className="form-control col-md-9"
+                                    type="password"
+                                    name="repeatNewPassword"
+                                    value={this.state.repeatNewPassword}
+                                    onChange={this.handleChange}
+                                    required={this.state.newPassword !== ""}
+                                    disabled={this.state.editInfo}
+                                />
+                                <div className="invalid-feedback">
+                                    Les mots de passe que vous avez entrés ne sont pas identiques.
+                                </div>
                             </div>
-                        </div>
+                        }
 
                         <div className="row">
                             <p className="text-left col-12 edit-profile-password">
@@ -413,7 +445,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                         <button
                             type="submit"
                             className="btn btn-green edit-profile-button"
-                            disabled={this.state.loading}
+                            disabled={(!this.state.editInfo && !this.state.changePassword) || this.state.loading}
                         >
                             Valider
                         </button>
@@ -421,11 +453,39 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 </div>
                 <div className="row">
                     <button
-                        onClick={this.handleDeleteAccount}
+                        type="button"
                         className="btn btn-orange edit-profile-delete"
+                        data-toggle="modal"
+                        data-target="#deleteModal"
                     >
                         Supprimer mon compte
                     </button>
+
+                    <div className="modal delete fade" id="deleteModal" tabIndex={-1} role="dialog"
+                         aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="deleteModalLabel">
+                                        Êtes-vous sûr de vouloir supprimer votre compte utilisateur ?
+                                    </h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    Attention, c'est une suppression définitive, vous ne pourrez plus récupérer votre compte par la suite.
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-green" data-dismiss="modal">
+                                        Annuler
+                                    </button>
+                                    <button type="button" className="btn btn-orange" onClick={this.handleDeleteAccount}>Supprimer définitivement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )

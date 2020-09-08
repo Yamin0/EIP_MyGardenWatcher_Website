@@ -63,9 +63,8 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                         </button>
                     }
                     {
-                        isAuthenticated ?
+                        isAuthenticated &&
                             <p onClick={logout} className="btn-logout" title="Se déconnecter"><span className="oi oi-power-standby"/></p>
-                            : ""
                     }
                     {
                         !isAuthenticated && isLoginOpen &&

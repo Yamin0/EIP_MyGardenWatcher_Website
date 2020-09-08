@@ -10,6 +10,7 @@ const fetchPlantList = (attributes: string[], ids?: string) => {
                 'Content-Type': 'application/json',
             }),
         };
+        console.log(ids);
 
         if (attributes.includes("temperature"))
             attributes.splice(attributes.indexOf("temperature"), 1, "minTemp", "maxTemp");
@@ -46,6 +47,7 @@ const fetchPlantDetail = (id: number) => {
 };
 
 const filterPlantList = (search: Search, plants: Plant[]) => {
+    if (plants.length === 0) return plants;
     Object.keys(search).forEach((key) => {
         switch (key) {
             case "temperature":  plants = plants.filter(filterTemperature(search.temperature)); break;
@@ -67,6 +69,8 @@ const filterPlantList = (search: Search, plants: Plant[]) => {
             default: break;
         }
     });
+
+    console.log(plants);
     return plants;
 };
 
@@ -94,6 +98,7 @@ const filterHumidity = (humidity: number) => {
 }
 
 const sortPlantList = (plants: Plant[], sort: ESortType) => {
+    if (plants.length <= 1) return plants;
     switch (sort) {
         case ESortType.NAME_ASC: plants = plants.sort(nameSort(1)); break;
         case ESortType.NAME_DESC: plants = plants.sort(nameSort(-1)); break;
@@ -151,7 +156,9 @@ const calculateIdsOfPage = (pageNumber: number, itemsPerPage: number, allIds: nu
     const minPlantIndex: number = itemsPerPage * (pageNumber - 1);
 
     let plantIds: number[] = [];
-    for (let i = minPlantIndex; i < minPlantIndex + itemsPerPage; i++) plantIds = [...plantIds, allIds[i]];
+    for (let i = minPlantIndex; i < minPlantIndex + itemsPerPage && i < allIds.length; i++) {
+        plantIds = [...plantIds, allIds[i]];
+    }
 
     return (plantIds);
 };

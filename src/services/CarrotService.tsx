@@ -1,5 +1,6 @@
 import {apiUrl, history} from "../App";
 import User from "../interfaces/User";
+import {UserService} from "./UserService";
 
 enum EReqOrigin {
     REGISTER,
@@ -12,124 +13,81 @@ enum EReqOrigin {
     DELETE
 }
 
-const register = (mail: string, password: string) => {
+const createCarrot = (name: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({mail, password})
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        }),
+        body: JSON.stringify({name})
     };
 
-    return fetch(apiUrl + "/auth/register", reqOpt)
+    return fetch(apiUrl + "/carrots", reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.REGISTER))
-        .then((user) => {
-            return login(mail, password);
+        .then((carrot) => {
+            return carrot;
         }, (err) => {
             return Promise.reject(err);
         });
 };
 
-const login = (mail: string, password: string) => {
-    const reqOpt: RequestInit = {
-        method: "POST",
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({mail, password})
-    };
-
-    return fetch(apiUrl + "/auth/login", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
-        .then((res) => {
-            setToken(res.token);
-        }, (err) => {
-            return Promise.reject(err);
-        })
-};
-
-const getUser = () => {
+const fetchCarrotList = () => {
     const reqOpt: RequestInit = {
         method: "GET",
         headers: new Headers({
             'Content-Type': 'application/json',
             'auth': UserService.getToken() as string
-        }),
+        })
     };
 
-    return fetch(apiUrl + "/auth/user", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.GETUSER))
-        .then((user) => {
-            if (user["birthdate"] && user["birthdate"] !== "") user["birthdate"] = new Date(user["birthdate"]);
-            else user["birthdate"] = new Date();
-            user["password"] = "";
-            return user;
+    return fetch(apiUrl + "/carrots", reqOpt)
+        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
+        .then((carrots) => {
+            return carrots.carrots;
         }, (err) => {
             return Promise.reject(err);
         })
 };
 
-const setUser = (user: User) => {
+const editCarrot = (id: number, newName: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
         headers: new Headers({
             'Content-Type': 'application/json',
             'auth': UserService.getToken() as string
         }),
-        body: JSON.stringify({...user, localisation: user.geoLoc})
+        body: JSON.stringify({ id, newName })
     };
 
-    return fetch(apiUrl + "/auth/user/update", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.SETUSER))
-        .then((user) => {
-            return user
+    return fetch(apiUrl + "/carrots/rename", reqOpt)
+        .then((res) => handleResponse(res, EReqOrigin.GETUSER))
+        .then((carrot) => {
+            return carrot;
         }, (err) => {
             return Promise.reject(err);
-        });
+        })
 };
 
-const changePassword = (mail: string, oldPassword: string, newPassword: string) => {
+const fetchCarrotDetail = (id: number) => {
     const reqOpt: RequestInit = {
-        method: "POST",
+        method: "GET",
         headers: new Headers({
             'Content-Type': 'application/json',
             'auth': UserService.getToken() as string
-        }),
-        body: JSON.stringify({mail, oldPassword, newPassword})
+        })
     };
 
-    return fetch(apiUrl + "/auth/user", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.EDITPWD))
-        .then(() => {}, (err) => {
+    return fetch(apiUrl + "/carrots/" + id.toString(), reqOpt)
+        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
+        .then((carrot) => {
+            return carrot
+        }, (err) => {
             return Promise.reject(err);
-        });
-}
-
-const forgotPassword = (mail: string) => {
-    const reqOpt: RequestInit = {
-        method: "POST",
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({mail})
-    };
-
-    return fetch(apiUrl + "/auth/reset/init", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.FORGOTPWD))
-        .then(() => {}, (err) => {
-            return Promise.reject(err);
-        });
+        })
 };
 
-const resetPassword = (mail: string, newPassword: string,  token: string) => {
-    const reqOpt: RequestInit = {
-        method: "POST",
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({mail, newPassword, token})
-    };
-
-    return fetch(apiUrl + "/auth/reset/change", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.RESETPWD))
-        .then(() => {}, (err) => {
-            return Promise.reject(err);
-        });
-};
-
-const deleteAccount = () => {
+const deleteCarrot = (id: number) => {
     const reqOpt: RequestInit = {
         method: "DELETE",
         headers: new Headers({
@@ -138,23 +96,12 @@ const deleteAccount = () => {
         }),
     };
 
-    return fetch(apiUrl + "/auth/user", reqOpt)
+    return fetch(apiUrl + "/carrots/" + id.toString(), reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.DELETE))
-        .then(() => {logout()}, (err) => {
+        .then(() => {return}, (err) => {
             return Promise.reject(err);
         });
 
-};
-
-const getToken = () => window.localStorage.getItem("mgwAuthToken");
-
-const setToken = (token: string) => {
-    window.localStorage.setItem("mgwAuthToken", token);
-};
-
-const logout = () => {
-    window.localStorage.removeItem("mgwAuthToken");
-    history.push("/");
 };
 
 function handleResponse(response: Response, origin: EReqOrigin) {
@@ -174,7 +121,7 @@ function handleResponse(response: Response, origin: EReqOrigin) {
                     );
                 case 401:
                     return Promise.reject(origin === EReqOrigin.LOGIN ?
-                        (data.message && data.message !== "" ? "Ce compte n'existe pas" : "Identifiants incorrects") :
+                        "Identifiants incorrects" :
                         origin === EReqOrigin.FORGOTPWD ?
                             "Nous n'avons pas pu trouver de compte utilisateur enregistré avec cette adresse email." :
                             "Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard."
@@ -182,7 +129,7 @@ function handleResponse(response: Response, origin: EReqOrigin) {
                 case 404:
                     return Promise.reject(origin === EReqOrigin.FORGOTPWD || origin === EReqOrigin.RESETPWD ?
                         "Nous n'avons pas pu trouver de compte utilisateur enregistré avec cette adresse email." :
-                        "Votre compte utilisateur n'a pas été trouvé. Merci de vérifier vos identifiants."
+                        "Votre compte utilisateur n'a pas été trouvé. Merci de vérifier vos identifiants    ."
                     );
                 case 405:
                     return Promise.reject("La réinitialisation du mot de passe n'a pas du être effectuée. Merci de réessayer une nouvelle fois ou contacter le support pour obtenir de l'aide.");
@@ -197,16 +144,11 @@ function handleResponse(response: Response, origin: EReqOrigin) {
     });
 }
 
-export const UserService = {
-    register,
-    getUser,
-    setUser,
-    changePassword,
-    forgotPassword,
-    resetPassword,
-    deleteAccount,
-    login,
-    logout,
-    getToken
+export const CarrotService = {
+    createCarrot,
+    fetchCarrotList,
+    fetchCarrotDetail,
+    editCarrot,
+    deleteCarrot
 };
 

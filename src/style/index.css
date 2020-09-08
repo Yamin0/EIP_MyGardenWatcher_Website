@@ -787,13 +787,23 @@ footer {
   margin-top: 10px;
 }
 .edit-profile-delete {
-  margin-top: 30px;
+  margin-top: 70px;
 }
 .edit-profile-newsletter {
   margin-left: 15px;
 }
 .edit-profile .form-group {
   margin-bottom: 15px !important;
+}
+.edit-profile .modal.delete .modal-footer {
+  justify-content: space-between;
+}
+.edit-profile .modal.delete .modal-title {
+  color: #FF7300;
+  font-size: 22px;
+}
+.edit-profile .modal.delete .modal-body {
+  font-size: 16px;
 }
 .plant-list {
   padding-bottom: 150px;
