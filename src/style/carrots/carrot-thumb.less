@@ -18,19 +18,67 @@
     margin-right: 10px;
   }
 
+  &-sensor-data {
+    font-size: 18px;
+    justify-content: space-around;
+
+    &-name {
+      margin-bottom: 5px;
+    }
+
+    &-value {
+      margin-bottom: 5px;
+      color: @color-primary-green-dark;
+      font-style: italic;
+    }
+  }
+
+  &-toggle {
+    font-size: 14px;
+    transition: all ease-in-out .3s;
+    .oi {
+      font-size: 12px;
+      margin-left: 5px;
+    }
+    &:hover, &:focus {
+      text-shadow: 1px 1px 3px @color-secondary;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &-btns {
+    margin-top: 10px;
+  }
+
   &-btn {
     &-edit {
       padding: 5px;
-      font-size: 14px;
+      font-size: 16px;
       margin-right: 5px;
     }
     &-delete {
       padding: 5px;
-      font-size: 14px;
+      font-size: 16px;
       margin-left: 5px;
       &:hover, &:active {
         background-color: @color-secondary !important;
         border-color: @color-secondary;
+      }
+
+      &-plant {
+        font-size: 14px;
+        margin-left: 5px;
+        transition: all ease-in-out .3s;
+
+        &:hover, &:focus {
+          color: @color-secondary;
+        }
+        &:focus {
+          box-shadow: none;
+        }
+
       }
     }
   }

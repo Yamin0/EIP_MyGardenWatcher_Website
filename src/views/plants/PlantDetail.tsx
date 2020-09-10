@@ -2,6 +2,7 @@ import * as React from "react";
 import {PlantService} from "../../services/PlantService";
 import Plant, {plantInit} from "../../interfaces/Plant";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import PlantLink from "./PlantLink";
 
 interface RouteInfo {
     id: string,
@@ -97,6 +98,20 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                 <div className="plant-detail-more">
                                     <a href={plant.link} target="_blank" rel="noopener noreferrer" className="plant-detail-link">En savoir plus <span className="oi oi-external-link"/></a>
                                 </div>
+                                {
+                                    this.props.isAuthenticated &&
+                                    <div className="plant-detail-carrot-link">
+                                        <button
+                                            type="button"
+                                            className="btn btn-orange plant-detail-carrot-link-btn"
+                                            data-toggle="modal"
+                                            data-target="#plantLinkModal"
+                                        >
+                                            Ajouter cette plante
+                                        </button>
+                                        <PlantLink plantId={this.state.plant.id}/>
+                                    </div>
+                                }
                             </div>
                         </div>
 

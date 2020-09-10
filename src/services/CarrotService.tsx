@@ -1,5 +1,4 @@
-import {apiUrl, history} from "../App";
-import User from "../interfaces/User";
+import {apiUrl} from "../App";
 import {UserService} from "./UserService";
 
 enum EReqOrigin {

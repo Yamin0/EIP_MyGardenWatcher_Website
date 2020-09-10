@@ -170,8 +170,7 @@ footer {
   border: none;
   line-height: 80px;
   padding: 0 20px;
-  font-family: "Lobster", cursive;
-  font-size: 26px;
+  font-size: 22px;
 }
 .menu-elem.account .menu-elem-link.btn-account {
   display: block;
@@ -296,6 +295,16 @@ footer {
 .form .error.under {
   margin-bottom: 0;
   margin-top: 15px;
+}
+.form .success {
+  background-color: #00A84E;
+  text-align: center;
+  padding: 10px;
+  color: black;
+  margin-bottom: 15px;
+}
+.form .success .oi {
+  padding-left: 5px;
 }
 .header {
   display: table !important;
@@ -875,7 +884,8 @@ footer {
 .plant-list-search-toggle:focus {
   box-shadow: none;
 }
-.plant-list-search-toggle:hover {
+.plant-list-search-toggle:hover,
+.plant-list-search-toggle:focus {
   text-shadow: 2px 2px 5px #95A6B1;
 }
 .plant-list-search-toggle .oi {
@@ -927,15 +937,12 @@ footer {
 }
 .plant-detail-subtitle {
   margin-bottom: 20px;
-  font-family: "Lobster", cursive;
 }
 .plant-detail-link {
   background-color: #91C37D;
   color: black;
   transition: all ease-in-out 0.3s;
-  position: absolute;
-  left: 0;
-  right: 0;
+  display: inline-block;
   width: 100%;
   padding: 10px 0;
   margin-top: 15px;
@@ -949,6 +956,12 @@ footer {
   text-decoration: none;
   color: black;
   background-color: #7C9872;
+}
+.plant-detail-carrot-link-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 5px 0;
+  border: 2px solid #FF7300;
 }
 .plant-detail-img {
   width: 100%;
@@ -980,6 +993,7 @@ footer {
 }
 .plant-detail-text.left {
   box-shadow: 15px 15px #95A6B1 !important;
+  text-align: right;
 }
 .plant-detail .border-carrot {
   margin: 30px 0;
@@ -987,17 +1001,61 @@ footer {
 .plant-detail-visual {
   margin-bottom: 40px;
 }
+.plant-detail .plant-link .modal-header {
+  flex-wrap: wrap;
+}
+.plant-detail .plant-link-img {
+  width: 20px;
+  vertical-align: text-bottom;
+  margin-right: 10px;
+}
+.plant-detail .plant-link-form {
+  padding: 0;
+}
+.plant-detail .plant-link-carrot-page {
+  margin-left: 5px;
+  color: #FF7300;
+  transition: all ease-in-out 0.3s;
+  text-decoration: underline;
+}
+.plant-detail .plant-link-carrot-page:hover {
+  color: #91C37D;
+}
+.plant-detail .plant-link-carrot-page-go {
+  font-size: 12px;
+  color: black;
+  margin-top: 10px;
+  transition: all ease-in-out 0.3s;
+}
+.plant-detail .plant-link-carrot-page-go:hover,
+.plant-detail .plant-link-carrot-page-go:focus {
+  box-shadow: none;
+  text-decoration: none;
+  text-shadow: 2px 2px 5px #95A6B1;
+}
+.plant-detail .plant-link-carrot-page-go .oi {
+  margin-left: 5px;
+  top: 2px;
+}
+.plant-detail .plant-link .modal-body {
+  background-color: #F3F3F3;
+}
+.plant-detail .plant-link .modal-title {
+  color: #FF7300;
+  font-size: 24px;
+}
+.plant-detail .plant-link .modal-footer {
+  justify-content: space-between;
+}
 .carrot-list-error {
   padding: 0;
 }
 .carrot-list-bar {
   margin-top: 30px;
+  margin-bottom: 50px;
 }
 .carrot-list-empty {
   margin-top: 80px;
-}
-.carrot-list-thumbs {
-  margin-top: 50px;
 }
 .add-carrot .form {
   padding: 0;
@@ -1031,20 +1089,62 @@ footer {
   vertical-align: initial;
   margin-right: 10px;
 }
+.carrot-thumb-sensor-data {
+  font-size: 18px;
+  justify-content: space-around;
+}
+.carrot-thumb-sensor-data-name {
+  margin-bottom: 5px;
+}
+.carrot-thumb-sensor-data-value {
+  margin-bottom: 5px;
+  color: #7C9872;
+  font-style: italic;
+}
+.carrot-thumb-toggle {
+  font-size: 14px;
+  transition: all ease-in-out 0.3s;
+}
+.carrot-thumb-toggle .oi {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.carrot-thumb-toggle:hover,
+.carrot-thumb-toggle:focus {
+  text-shadow: 1px 1px 3px #95A6B1;
+}
+.carrot-thumb-toggle:focus {
+  box-shadow: none;
+}
+.carrot-thumb-btns {
+  margin-top: 10px;
+}
 .carrot-thumb-btn-edit {
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
   margin-right: 5px;
 }
 .carrot-thumb-btn-delete {
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 5px;
 }
 .carrot-thumb-btn-delete:hover,
 .carrot-thumb-btn-delete:active {
   background-color: #95A6B1 !important;
   border-color: #95A6B1;
+}
+.carrot-thumb-btn-delete-plant {
+  font-size: 14px;
+  margin-left: 5px;
+  transition: all ease-in-out 0.3s;
+}
+.carrot-thumb-btn-delete-plant:hover,
+.carrot-thumb-btn-delete-plant:focus {
+  color: #95A6B1;
+}
+.carrot-thumb-btn-delete-plant:focus {
+  box-shadow: none;
 }
 .beta {
   padding-bottom: 100px;

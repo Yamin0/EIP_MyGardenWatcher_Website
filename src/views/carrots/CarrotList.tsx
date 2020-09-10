@@ -1,13 +1,13 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter} from "react-router-dom";
 import Pagination from "../shared/Pagination";
-import ESortType, {getSortAttrName} from "../../interfaces/Sort";
+import ESortType from "../../interfaces/Sort";
 import {CarrotService} from "../../services/CarrotService";
-import Carrot from "../../interfaces/Carrot";
+import Carrot, {carrotInit} from "../../interfaces/Carrot";
 import CarrotThumb from "./CarrotThumb";
 import UserMenu from "../shared/UserMenu";
 import AddCarrot from "./AddCarrot";
-import {UserService} from "../../services/UserService";
+import EditCarrot from "./EditCarrot";
 
 interface IPlantListState {
     currentPage: number,
@@ -16,6 +16,7 @@ interface IPlantListState {
     loading: boolean,
     error: string,
     carrots: Carrot[],
+    editCarrot: Carrot,
     sort: ESortType,
 }
 
@@ -32,12 +33,13 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
             loading: false,
             error: "",
             carrots: [],
+            editCarrot: carrotInit,
             sort: ESortType.NAME_ASC,
         };
 
         this.fetchAllCarrots = this.fetchAllCarrots.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
-        this.handleDeleteCarrot = this.handleDeleteCarrot.bind(this);
+        this.updateEditId = this.updateEditId.bind(this);
     }
 
     // Fetch carrots
@@ -46,8 +48,6 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
             CarrotService.fetchCarrotList()
                 .then(data => {
                     let carrots: Carrot[] = data as Carrot[];
-
-//                    plants = PlantService.sortPlantList(plants, this.state.sort);
 
                     this.setState({
                         carrots: carrots,
@@ -70,19 +70,8 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
         })
     }
 
-    private handleDeleteCarrot(e: React.MouseEvent<HTMLButtonElement>, carrotId: number) {
-        e.preventDefault();
-        this.setState({loading: true});
-        CarrotService.deleteCarrot(carrotId)
-            .then(
-                () => {
-                    window.location.reload();
-                    },
-                error => {
-                    this.setState({error: error.toString(), loading: false});
-                }
-            )
-
+    private updateEditId(carrot: Carrot) {
+        this.setState({editCarrot: carrot});
     }
 
     componentDidMount() {
@@ -109,9 +98,10 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
                         }
 
                         <div className="row justify-content-between carrot-list-bar">
-                            <div className="col-4 row">
+                            <div className="col-5 row">
                                 <label className="col-4">Filtrer</label>
                                 <select className="col-8">
+                                    <option>Non fonctionnel</option>
                                     <option>Nom croissant</option>
                                     <option>Nom décroissant</option>
                                 </select>
@@ -129,6 +119,7 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
                         </div>
 
                         <AddCarrot/>
+                        <EditCarrot carrot={this.state.editCarrot}/>
 
                         {
                             this.state.isFetching &&
@@ -174,13 +165,15 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
                             <div className="row carrot-list-thumbs">
                                 {this.state.carrots.map((carrot, i) => {
                                 const minCarrotIndex: number = itemsPerPage * (this.state.currentPage - 1);
-                                const handleDeleteCarrotId = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                    this.handleDeleteCarrot(e, carrot.id);
-                                }
+
+                                const updateEditIdMapped = () => {
+                                    this.updateEditId(carrot);
+                                };
+
                                 return (
                                     i >= minCarrotIndex &&
                                     i < minCarrotIndex + itemsPerPage ?
-                                        <CarrotThumb key={i.toString()} carrot={carrot} handleDeleteCarrot={handleDeleteCarrotId}/> : null)
+                                        <CarrotThumb key={i} carrot={carrot} updateEditId={updateEditIdMapped}/> : null)
                             })}
                             </div>
                         }

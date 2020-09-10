@@ -36,6 +36,7 @@ const PlantThumb: React.FunctionComponent<IPlantThumbProps> = ({plant}) => {
                     }
                 </div>
             </div>
+
             <div className="module line-clamp col-12">
                 <p>{plant.type}</p>
                 <p>{plant.description}</p>

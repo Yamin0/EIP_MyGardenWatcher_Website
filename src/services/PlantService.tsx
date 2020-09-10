@@ -2,6 +2,7 @@ import {apiUrl} from "../App";
 import Plant, {lightList, typeList} from "../interfaces/Plant";
 import Search, {humidityRanges, tempRanges} from "../interfaces/Search";
 import ESortType from "../interfaces/Sort";
+import {UserService} from "./UserService";
 
 const fetchPlantList = (attributes: string[], ids?: string) => {
         const reqOpt: RequestInit = {
@@ -10,7 +11,6 @@ const fetchPlantList = (attributes: string[], ids?: string) => {
                 'Content-Type': 'application/json',
             }),
         };
-        console.log(ids);
 
         if (attributes.includes("temperature"))
             attributes.splice(attributes.indexOf("temperature"), 1, "minTemp", "maxTemp");
@@ -70,7 +70,6 @@ const filterPlantList = (search: Search, plants: Plant[]) => {
         }
     });
 
-    console.log(plants);
     return plants;
 };
 
@@ -193,6 +192,43 @@ const groupIds = (ids: number[]) => {
     return idsString;
 };
 
+const linkPlantToCarrot = (plantId: number, carrotId: number) => {
+    const reqOpt: RequestInit = {
+        method: "POST",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        }),
+        body: JSON.stringify({ plantId, carrotId })
+    };
+
+    return fetch(apiUrl + "/plants/link", reqOpt)
+        .then((res) => handleResponse(res))
+        .then((plant) => {
+            return plant;
+        }, (err) => {
+            return Promise.reject(err);
+        });
+};
+
+const deletePlantFromCarrot = (carrotId: number, plantId: number) => {
+    const reqOpt: RequestInit = {
+        method: "DELETE",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        }),
+    };
+
+    return fetch(apiUrl + "/plants/delete/" + carrotId.toString() + "/" + plantId.toString(), reqOpt)
+        .then((res) => handleResponse(res))
+        .then((plant) => {
+            return plant;
+        }, (err) => {
+            return Promise.reject(err);
+        });
+}
+
 function handleResponse(response: Response) {
     return response.text().then(text => {
         let data;
@@ -219,6 +255,8 @@ export const PlantService = {
     filterPlantList,
     sortPlantList,
     calculateIdsOfPage,
-    groupIds
+    groupIds,
+    linkPlantToCarrot,
+    deletePlantFromCarrot
 };
 

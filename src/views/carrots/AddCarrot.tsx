@@ -1,10 +1,5 @@
 import * as React from "react";
-import {UserService} from "../../services/UserService";
-import {history} from "../../App";
 import {CarrotService} from "../../services/CarrotService";
-
-interface IAddCarrotProps {
-}
 
 interface IAddCarrotState {
     name: string,
@@ -12,7 +7,7 @@ interface IAddCarrotState {
     error: string
 }
 
-class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
+class AddCarrot extends React.Component<{}, IAddCarrotState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -74,7 +69,7 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
 
                         <div className="modal-header">
                             <h5 className="modal-title" id="addCarrotModalLabel">
-                                Ajouter une carotte à votre compte
+                                J'ajoute une carotte à mon compte
                             </h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

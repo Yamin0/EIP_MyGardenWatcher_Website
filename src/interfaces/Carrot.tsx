@@ -1,5 +1,4 @@
 import Plant from "./Plant";
-import User from "./User";
 
 export default interface Carrot {
     name: string,

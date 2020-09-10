@@ -109,7 +109,6 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                         .join(";"))
                     .then(data => {
                         let plants: Plant[] = data as Plant[];
-                        console.log("fetch page plant");
                         plants = PlantService.sortPlantList(plants, this.state.sort);
 
                         this.setState({

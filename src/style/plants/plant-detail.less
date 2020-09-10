@@ -8,15 +8,12 @@
   }
   &-subtitle {
     margin-bottom: 20px;
-    font-family: "Lobster", cursive;
   }
     &-link {
       background-color: @color-primary-green-light;
       color: @color-secondary-dark;
       transition: all ease-in-out .3s;
-      position: absolute;
-      left: 0;
-      right: 0;
+      display: inline-block;
       width: 100%;
       padding: 10px 0;
       margin-top: 15px;
@@ -31,6 +28,14 @@
         background-color: @color-primary-green-dark;
       }
     }
+  &-carrot-link {
+    &-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 5px 0;
+      border: 2px solid @color-primary-orange;
+    }
+  }
     &-img {
       width: 100%;
       height: 500px;
@@ -60,6 +65,7 @@
     box-shadow: -15px -15px @color-secondary;
     &.left {
       box-shadow: 15px 15px @color-secondary !important;
+      text-align: right;
     }
   }
   .border-carrot {
@@ -68,5 +74,64 @@
 
   &-visual {
     margin-bottom: 40px;
+  }
+
+  .plant-link {
+    .modal-header {
+      flex-wrap: wrap;
+    }
+
+    &-img {
+      width: 20px;
+      vertical-align: text-bottom;
+      margin-right: 10px;
+    }
+
+    &-form {
+      padding: 0;
+    }
+
+    &-carrot-page {
+      margin-left: 5px;
+      color: @color-primary-orange;
+      transition: all ease-in-out .3s;
+      text-decoration: underline;
+
+      &:hover {
+        color: @color-primary-green-light;
+      }
+
+      &-go {
+        font-size: 12px;
+        color: @color-secondary-dark;
+        margin-top: 10px;
+        transition: all ease-in-out .3s;
+
+        &:hover, &:focus {
+          box-shadow: none;
+          text-decoration: none;
+          text-shadow: 2px 2px 5px @color-secondary;
+        }
+
+        .oi {
+          margin-left: 5px;
+          top: 2px
+        }
+      }
+    }
+
+    .modal {
+      &-body {
+        background-color: @color-secondary-light;
+      }
+      &-title {
+        color: @color-primary-orange;
+        font-size: 24px;
+      }
+      &-footer {
+        justify-content: space-between;
+      }
+    }
+
   }
 }
