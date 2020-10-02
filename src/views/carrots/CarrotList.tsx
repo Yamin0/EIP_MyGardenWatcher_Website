@@ -1,5 +1,4 @@
 import * as React from "react";
-import { RouteComponentProps, withRouter} from "react-router-dom";
 import Pagination from "../shared/Pagination";
 import ESortType from "../../interfaces/Sort";
 import {CarrotService} from "../../services/CarrotService";
@@ -8,6 +7,10 @@ import CarrotThumb from "./CarrotThumb";
 import UserMenu from "../shared/UserMenu";
 import AddCarrot from "./AddCarrot";
 import EditCarrot from "./EditCarrot";
+
+interface IPlantListProps {
+    disconnect(): void
+}
 
 interface IPlantListState {
     currentPage: number,
@@ -22,7 +25,7 @@ interface IPlantListState {
 
 const itemsPerPage: number = 6;
 
-class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
+class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
     constructor(props: any) {
         super(props);
 
@@ -84,8 +87,8 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
                 <h1 className="main-title orange text-center">
                     Mes carottes
                 </h1>
-                <UserMenu/>
                 <div className="row">
+                    <UserMenu disconnect={this.props.disconnect}/>
                     <div className="col-9">
                         {
                             this.state.error !== "" &&
@@ -109,7 +112,7 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
 
                             <button
                                 type="button"
-                                className="btn btn-green col-3"
+                                className="btn btn-green carrot-list-add-btn col-3"
                                 data-toggle="modal"
                                 data-target="#addCarrotModal"
                             >
@@ -197,4 +200,4 @@ class CarrotList extends React.Component<RouteComponentProps, IPlantListState> {
     }
 }
 
-export default withRouter(CarrotList);
+export default CarrotList;

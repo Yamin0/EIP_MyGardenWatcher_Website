@@ -109,10 +109,10 @@ class App extends React.Component<{}, IAppState> {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/beta" component={Beta} />
                 <Route exact path="/contact-single"
-                       render={() => <ContactSingle isAuthenticated={isAuthenticated} />}
+                       render={() => <ContactSingle user={this.state.user} isAuthenticated={isAuthenticated} />}
                 />
                 <Route exact path="/contact-pro"
-                       render={() => <ContactPro isAuthenticated={isAuthenticated} />}
+                       render={() => <ContactPro user={this.state.user} isAuthenticated={isAuthenticated} />}
                 />
                 <ProtectedRoute
                     path="/register"
@@ -156,7 +156,7 @@ class App extends React.Component<{}, IAppState> {
                     authenticationPath="/register"
                     needAuth={true}
                     activateLogin={activateLogin}
-                    render={() => <CarrotList />}
+                    render={() => <CarrotList disconnect={disconnect} />}
                 />
                 <Route
                     path="/plants/:id/:name?"

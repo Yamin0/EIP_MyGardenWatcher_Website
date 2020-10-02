@@ -14,7 +14,7 @@ registerLocale('fr', fr);
 interface IEditProfileProps {
     user: User,
     checkToken(): void,
-    getUser(): void;
+    getUser(): void,
     disconnect(): void
 }
 
@@ -28,6 +28,17 @@ interface IEditProfileState {
     changePassword: boolean,
     editInfo: boolean
 }
+
+interface ICustomInputProps {
+    value: Date,
+    onClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void
+}
+
+const ExampleCustomInput: React.FunctionComponent<ICustomInputProps> = ({ value , onClick}) => (
+    <button className="form-control edit-profile-datepicker" type="button" onClick={onClick}>
+        {value}
+    </button>
+);
 
 class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> {
     constructor(props: any) {
@@ -230,8 +241,8 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 <h1 className="main-title orange text-center">
                     Mon espace client
                 </h1>
-                <UserMenu/>
                 <div className="row">
+                    <UserMenu disconnect={this.props.disconnect}/>
                     <form className="form col-9 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                         {this.state.loading &&
                             <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
@@ -308,10 +319,11 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                     id="EditProfileBirthDate"
                                     dropdownMode="select"
                                     locale="fr"
+                                    maxDate={new Date()}
                                     showYearDropdown
                                     showMonthDropdown
                                     dateFormat="dd/MM/yyyy"
-                                    className="form-control edit-profile-datepicker"
+                                    customInput={React.createElement(ExampleCustomInput)}
                                     disabled={this.state.changePassword}
                                 />
                             </div>
@@ -442,49 +454,55 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             </div>
                         </div>
 
-                        <button
-                            type="submit"
-                            className="btn btn-green edit-profile-button"
-                            disabled={(!this.state.editInfo && !this.state.changePassword) || this.state.loading}
-                        >
-                            Valider
-                        </button>
-                    </form>
-                </div>
-                <div className="row">
-                    <button
-                        type="button"
-                        className="btn btn-orange edit-profile-delete"
-                        data-toggle="modal"
-                        data-target="#deleteModal"
-                    >
-                        Supprimer mon compte
-                    </button>
+                        <div className="row justify-content-start">
+                            <button
+                                type="submit"
+                                className="btn btn-green edit-profile-button"
+                                disabled={(!this.state.editInfo && !this.state.changePassword) || this.state.loading}
+                            >
+                                Valider
+                            </button>
+                        </div>
 
-                    <div className="modal delete fade" id="deleteModal" tabIndex={-1} role="dialog"
-                         aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="deleteModalLabel">
-                                        Êtes-vous sûr de vouloir supprimer votre compte utilisateur ?
-                                    </h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    Attention, c'est une suppression définitive, vous ne pourrez plus récupérer votre compte par la suite.
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-green" data-dismiss="modal">
-                                        Annuler
-                                    </button>
-                                    <button type="button" className="btn btn-orange" onClick={this.handleDeleteAccount}>Supprimer définitivement</button>
+                        <div className="row">
+                            <button
+                                type="button"
+                                className="btn btn-orange edit-profile-delete"
+                                data-toggle="modal"
+                                data-target="#deleteModal"
+                            >
+                                Supprimer mon compte
+                            </button>
+                        </div>
+
+                        <div className="modal delete fade" id="deleteModal" tabIndex={-1} role="dialog"
+                             aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="deleteModalLabel">
+                                            Êtes-vous sûr de vouloir supprimer votre compte utilisateur ?
+                                        </h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        Attention, c'est une suppression définitive, vous ne pourrez plus récupérer votre compte par la suite.
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-green" data-dismiss="modal">
+                                            Annuler
+                                        </button>
+                                        <button type="button" className="btn btn-orange" onClick={this.handleDeleteAccount}>Supprimer définitivement</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                    </form>
+                </div>
+                <div className="row">
 
                 </div>
             </div>

@@ -68,17 +68,18 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
         let queryUrl: string = "/plants?";
         let variables: string[] = [];
 
-        console.log(this.state.formSearch);
-
-        if (this.state.formSearch.name !== "") variables.push("name=" + this.state.formSearch.name);
-        if (this.state.formSearch.temperature !== -1) variables.push("temperature=" + this.state.formSearch.temperature);
-        if (this.state.formSearch.humidity !== -1) variables.push("humidity=" + this.state.formSearch.humidity);
-        if (this.state.formSearch.light !== "") variables.push("light=" + this.state.formSearch.light);
-        if (this.state.formSearch.type.length > 0) variables.push("type=" + this.state.formSearch.type.toString());
+        if (this.state.formSearch.name && this.state.formSearch.name !== "") variables.push("name=" + this.state.formSearch.name);
+        if (this.state.formSearch.temperature && this.state.formSearch.temperature !== -1) variables.push("temperature=" + this.state.formSearch.temperature);
+        if (this.state.formSearch.humidity && this.state.formSearch.humidity !== -1) variables.push("humidity=" + this.state.formSearch.humidity);
+        if (this.state.formSearch.light && this.state.formSearch.light !== "") variables.push("light=" + this.state.formSearch.light);
+        if (this.state.formSearch.type && this.state.formSearch.type.length > 0) variables.push("type=" + this.state.formSearch.type.toString());
 
         queryUrl += variables.join("&");
 
         history.push(queryUrl);
+        this.setState({
+            toggled: false
+        });
     }
 
     private handleClear() {
@@ -98,23 +99,24 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < tempRanges.length; i++) {
             listButtons.push(
-                <div className="radio" key={i.toString()}>
-                    <label>
-                        <input
-                            type="radio"
-                            name="temperature"
-                            value={i}
-                            checked={this.state.formSearch.temperature === i}
-                            onChange={this.handleChange}
-                        />
+                <div className="form-check form-check-inline" key={i.toString()}>
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="temperature"
+                        value={i}
+                        checked={(i === -1 && !this.state.formSearch.temperature) || this.state.formSearch.temperature === i}
+                        onChange={this.handleChange}
+                    />
+                    <label className="form-check-label">
                         {
                             i !== -1 ?
-                            <img
-                                alt={"température: " + tempRanges[i].toString()}
-                                title={"entre " + tempRanges[i][0] + "° et " + tempRanges[i][1] + "°"}
-                                className="plant-list-search-icon"
-                                src={"/images/icons/temperature/" + (i + 1).toString() + ".png"}
-                            />
+                                <img
+                                    alt={"température: " + tempRanges[i].toString()}
+                                    title={"entre " + tempRanges[i][0] + "° et " + tempRanges[i][1] + "°"}
+                                    className="plant-list-search-icon"
+                                    src={"/images/icons/temperature/" + (i + 1).toString() + ".png"}
+                                />
                                 : <span className="plant-list-search-icon">Tout</span>
                         }
                     </label>
@@ -130,27 +132,28 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < humidityRanges.length; i++) {
             listButtons.push(
-                <div className="radio" key={i.toString()}>
-                    <label>
-                        <input
-                            type="radio"
-                            name="humidity"
-                            value={i}
-                            checked={this.state.formSearch.humidity === i}
-                            onChange={this.handleChange}
-                        />
+                <div className="form-check form-check-inline" key={i.toString()}>
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="humidity"
+                        value={i}
+                        checked={(i === -1 && !this.state.formSearch.humidity) || this.state.formSearch.humidity === i}
+                        onChange={this.handleChange}
+                    />
+                    <label className="form-check-label">
                         {
                             i !== -1 ?
-                            <img
-                                alt={"humidité " + i.toString()}
-                                title={"de " + humidityRanges[i][0] + "% à " + humidityRanges[i][1] + "%"}
-                                className="plant-list-search-icon"
-                                src={"/images/icons/humidity/" + (i + 1).toString() + ".png"}
-                            />
+                                <img
+                                    alt={"humidité " + i.toString()}
+                                    title={"de " + humidityRanges[i][0] + "% à " + humidityRanges[i][1] + "% d'humidité"}
+                                    className="plant-list-search-icon"
+                                    src={"/images/icons/humidity/" + (i + 1).toString() + ".png"}
+                                />
                                 : <span className="plant-list-search-icon">Tout</span>
                         }
                     </label>
-            </div>
+                </div>
             );
         }
 
@@ -162,30 +165,30 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < lightIconNames.length; i++) {
             listButtons.push(
-                <div className="radio" key={i.toString()}>
-                    <label>
-                        <input
-                            type="radio"
-                            name="light"
-                            value={i === -1 ? "" : lightIconNames[i]}
-                            checked={(i === -1 && this.state.formSearch.light === "") || this.state.formSearch.light === lightIconNames[i]}
-                            onChange={this.handleChange}
-                        />
+                <div className="form-check form-check-inline" key={i.toString()}>
+                    <input
+                        className="form-check-input"
+                        type="radio"
+                        name="light"
+                        value={i === -1 ? "" : lightIconNames[i]}
+                        checked={(i === -1 && this.state.formSearch.light === "") || this.state.formSearch.light === lightIconNames[i]}
+                        onChange={this.handleChange}
+                    />
+                    <label className="form-check-label">
                         {
                             i !== -1 ?
-                            <img
-                                alt={"light " + i.toString()}
-                                title={lightFrenchNames[i]}
-                                className="plant-list-search-icon"
-                                src={"/images/icons/light/" + lightIconNames[i] + ".png"}
-                            />
-                            : <span className="plant-list-search-icon">Tout</span>
+                                <img
+                                    alt={"light " + i.toString()}
+                                    title={lightFrenchNames[i]}
+                                    className="plant-list-search-icon"
+                                    src={"/images/icons/light/" + lightIconNames[i] + ".png"}
+                                />
+                                : <span className="plant-list-search-icon">Tout</span>
                         }
                     </label>
                 </div>
             );
         }
-
         return listButtons;
     }
 
@@ -194,16 +197,17 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = 0; i < typeList.length; i++) {
             listButtons.push(
-                <div className="checkbox" key={i.toString()}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="type"
-                            value={i}
-                            checked={this.state.formSearch.type && this.state.formSearch.type.length > 0 && this.state.formSearch.type.includes(i)}
-                            onChange={this.handleTypeChange}
-                        />
-                        <span className="checkbox-title">{typeList[i]}</span>
+                <div className="form-check col-4" key={i.toString()}>
+                    <input
+                        type="checkbox"
+                        className="form-check-input"
+                        name="type"
+                        value={i}
+                        checked={this.state.formSearch.type && this.state.formSearch.type.length > 0 && this.state.formSearch.type.includes(i)}
+                        onChange={this.handleTypeChange}
+                    />
+                    <label className="form-check-label">
+                        {typeList[i]}
                     </label>
                 </div>
             );
@@ -214,9 +218,9 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
     render() {
         return (
-            <form className="form col-12 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
+            <form className="form col-9 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                 <div className="form-group col-6">
-                    <div className="plant-list-search-title text-center">
+                    <div className="plant-list-search-title">
                         Nom
                     </div>
                     <input
@@ -228,37 +232,37 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         onChange={this.handleChange}
                     />
                 </div>
-
                 <div className="form-group col-6">
-                    <div className="plant-list-search-title text-center">
-                        Luminosité
+                    <div className="plant-list-search-title">
+                        Humidité
                     </div>
-                    <div className="row justify-content-center">
-                        {this.renderRadioLight()}
+                    <div className="row justify-content-start">
+                        {this.renderRadioHumidity()}
                     </div>
                 </div>
 
                 <div id="PlantListHide" className={"plant-list-search-" + (this.state.toggled ? "display" : "hide") + " row"}>
-                    <div className="form-group col-6">
-                        <div className="plant-list-search-title text-center">
-                            Humidité
-                        </div>
-                        <div className="row justify-content-center">
-                            {this.renderRadioHumidity()}
-                        </div>
-                    </div>
 
                     <div className="form-group col-6">
-                        <div className="plant-list-search-title text-center">
+                        <div className="plant-list-search-title">
                             Température
                         </div>
-                        <div className="row justify-content-center">
+                        <div className="row justify-content-start">
                             {this.renderRadioTemperature()}
                         </div>
                     </div>
 
+                    <div className="form-group col-6">
+                        <div className="plant-list-search-title">
+                            Luminosité
+                        </div>
+                        <div className="row justify-content-start">
+                            {this.renderRadioLight()}
+                        </div>
+                    </div>
+
                     <div className="form-group col-12">
-                        <div className="plant-list-search-title text-center">
+                        <div className="plant-list-search-title">
                             Type de plante
                         </div>
                         <div className="plant-list-search-checkboxes row justify-content-start">
@@ -276,12 +280,13 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                     <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
                 </button>
 
-                <div className="col-4 row plant-list-search-submit justify-content-between">
+                <div className="col-6 row plant-list-search-submit justify-content-between">
                     <button
                         type="submit"
                         className="btn btn-green col-6"
                     >
-                        Valider
+                        <span className="oi oi-magnifying-glass"/>
+                        Rechercher
                     </button>
 
                     <button
@@ -289,11 +294,13 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         onClick={this.handleClear}
                         className="btn btn-orange col-5"
                     >
+                        <span className="oi oi-x"/>
                         Effacer
                     </button>
                 </div>
-
-                {this.props.createSortSelect()}
+                <div className="col-12 plant-list-search-tooltips">
+                    Survolez les icônes de température, humidité et luminosité avec la souris pour afficher une info-bulle contenant plus de détails.
+                </div>
             </form>
         )
     }

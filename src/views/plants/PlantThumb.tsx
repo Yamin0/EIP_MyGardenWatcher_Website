@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
 import Plant from "../../interfaces/Plant";
-import {lightIconNames} from "../../interfaces/Search";
+import {humidityRanges, lightFrenchNames, lightIconNames} from "../../interfaces/Search";
 
 interface IPlantThumbProps {
     plant: Plant
@@ -23,23 +23,42 @@ const PlantThumb: React.FunctionComponent<IPlantThumbProps> = ({plant}) => {
                     {plant.minTemp}° à {plant.maxTemp}°
                 </div>
                 <div className="col-4 plant-list-thumb-data-thumb">
-                    <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
-                    {plant.humidity}%
+                    {
+                        humidityRanges.map((range, idx) => {
+                            if (plant.humidity >= range[0] && plant.humidity <= range[1])
+                                return <img
+                                    key={idx.toString()}
+                                    className="plant-list-thumb-icon"
+                                    title={"de " + range[0] + "% à " + range[1] + "% d'humidité"}
+                                    src={"/images/icons/humidity/" + (idx + 1).toString() + ".png"}
+                                    alt={plant.name + "humidité " + idx.toString()}
+                                />
+                            return ""
+                        })
+                    }
                 </div>
                 <div className="col-4 plant-list-thumb-data-thumb">
                     {
-                        lightIconNames.map(name => {
+                        lightIconNames.map((name, idx) => {
                             if (plant.light.toLowerCase().includes(name))
-                                return <img className="plant-list-thumb-icon" src={"/images/icons/light/" + name + ".png"} alt="luminosité" key={plant.name + name}/>
+                                return <img
+                                    title={lightFrenchNames[idx]}
+                                    className="plant-list-thumb-icon"
+                                    src={"/images/icons/light/" + name + ".png"}
+                                    alt="luminosité"
+                                    key={plant.name + name}
+                                />
                             return ""
                         })
                     }
                 </div>
             </div>
+            <div className="plant-list-thumb-type">
+                {plant.type}
+            </div>
 
             <div className="module line-clamp col-12">
-                <p>{plant.type}</p>
-                <p>{plant.description}</p>
+                {plant.description}
             </div>
         </div>
     )

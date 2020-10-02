@@ -90,7 +90,7 @@ class AddCarrot extends React.Component<{}, IAddCarrotState> {
                                     <div className="form-group">
                                         <label className="col-form-label">Nom de la carotte</label>
                                         <input
-                                            id="carrotName"
+                                            id="addCarrotName"
                                             className="form-control"
                                             type="text"
                                             name="name"

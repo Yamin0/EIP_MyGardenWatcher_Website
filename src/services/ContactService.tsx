@@ -25,6 +25,27 @@ const sendContact = (object: object, isAuthenticated: boolean, formType: string)
         }))
 };
 
+const uploadFile = (image: FormData) => {
+    const reqOpt: RequestInit = {
+        method: "POST",
+        body: image
+    };
+
+    console.log(reqOpt.body);
+
+    let url: string = apiUrl + "/file/upload";
+
+    return (fetch(url, reqOpt)
+        .then(handleResponse)
+        .then(() => {}, (err) => {
+            return Promise.reject(err);
+        }))
+};
+
+const deleteFile = () => {
+
+};
+
 function handleResponse(response: Response) {
     return response.text().then(text => {
         let data;
@@ -47,5 +68,6 @@ function handleResponse(response: Response) {
 
 export const ContactService = {
     sendContact,
+    uploadFile
 };
 

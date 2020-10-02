@@ -121,25 +121,32 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     });
             });
         }
+        else {
+            this.setState({
+                displayedPlants: []
+            })
+        }
     }
 
     // Sort management
     private createSortSelect() {
-        return <div className="plant-list-search-sort col-5">
-            Trier par:
-            <select className="plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
-                <option value={ESortType.NAME_ASC}>Nom croissant</option>
-                <option value={ESortType.NAME_DESC}>Nom décroissant</option>
-                <option value={ESortType.TYPE_ASC}>Type de plante croissant</option>
-                <option value={ESortType.TYPE_DESC}>Type de plante décroissant</option>
-                <option value={ESortType.MIN_TEMP_ASC}>Température min croissante</option>
-                <option value={ESortType.MIN_TEMP_DESC}>Température min décroissante</option>
-                <option value={ESortType.MAX_TEMP_ASC}>Température max croissante</option>
-                <option value={ESortType.MAX_TEMP_DESC}>Température max décroissante</option>
-                <option value={ESortType.HUM_ASC}>Humidité croissante</option>
-                <option value={ESortType.HUM_DESC}>Humidité décroissante</option>
-                <option value={ESortType.SUN_ASC}>Luminosité croissante</option>
-                <option value={ESortType.SUN_DESC}>Luminosité décroissante</option>
+        return <div className="form-group plant-list-search-sort col-3">
+            <label className="form-label">
+                Trier par:
+            </label>
+            <select className="form-control plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
+                <option value={ESortType.NAME_ASC}>Nom &#xf15d;</option>
+                <option value={ESortType.NAME_DESC}>Nom &#xf15e;</option>
+                <option value={ESortType.TYPE_ASC}>Type de plante &#xf15d;</option>
+                <option value={ESortType.TYPE_DESC}>Type de plante &#xf15e;</option>
+                <option value={ESortType.MIN_TEMP_ASC}>Température min &#xf884; </option>
+                <option value={ESortType.MIN_TEMP_DESC}>Température min &#xf160; </option>
+                <option value={ESortType.MAX_TEMP_ASC}>Température max &#xf884; </option>
+                <option value={ESortType.MAX_TEMP_DESC}>Température max &#xf160; </option>
+                <option value={ESortType.HUM_ASC}>Humidité &#xf884; </option>
+                <option value={ESortType.HUM_DESC}>Humidité &#xf160; </option>
+                <option value={ESortType.SUN_ASC}>Luminosité &#xf884; </option>
+                <option value={ESortType.SUN_DESC}>Luminosité &#xf160; </option>
             </select>
         </div>
 
@@ -180,12 +187,27 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
         return (
             <div className="plant-list container">
                 <h1 className="main-title text-center">
-                    Nos plantes
+                    Les plantes
                 </h1>
-                <div className="row plant-list-bar justify-content-between">
-                    <PlantSearchEngine prevSearch={this.state.search} createSortSelect={this.createSortSelect}/>
+                <h2 className="plant-list-subtitle text-center">
+                    Parcourez la liste des plantes et trouvez celle qui vont convient grâce à notre moteur de recherche
+                </h2>
+                <div className="row plant-list-make-search">
+                    J'effectue une recherche:
                 </div>
-                <div className="row">
+                <div className="row plant-list-bar">
+                    <PlantSearchEngine prevSearch={this.state.search} createSortSelect={this.createSortSelect}/>
+                    {this.createSortSelect()}
+                </div>
+                {
+                    !this.state.isFetching &&
+                    this.state.error === "" &&
+                    <div className="row plant-list-result">
+                        Résultat de la recherche:
+                    </div>
+                }
+
+                <div className="row plant-list-body">
                     {
                         this.state.isFetching &&
                         <p>Récupération des données...</p>
@@ -207,6 +229,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                         this.state.plants.length === 0 &&
                         <p>Aucun résultat ne correspond à votre recherche.</p>
                     }
+
 
                     {
                         !this.state.isFetching &&

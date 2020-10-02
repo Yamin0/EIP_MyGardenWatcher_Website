@@ -1,5 +1,6 @@
 import * as React from "react";
 import {ContactService} from "../../services/ContactService";
+import User from "../../interfaces/User";
 
 enum EAskingType {
     NONE,
@@ -13,6 +14,7 @@ enum EAskingType {
 }
 
 interface IFormProps {
+    user: User,
     isFormPro: boolean,
     isAuthenticated: boolean
 }
@@ -50,6 +52,25 @@ class Form extends React.Component<IFormProps, IFormState> {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
+    }
+
+    private handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        e.persist();
+/*        if (e.target.files) {
+            let data = new FormData();
+            data.append("file", e.target.files[0]);
+            ContactService.uploadFile(data)
+                .then(() => {
+                    alert("OK");
+                }, (error) => {
+                    this.setState({error: error.toString(), loading: false });
+                    e.target.value = '';
+                });
+
+            Array.from(e.target.files).forEach(file => {
+            });
+        }*/
     }
 
     private handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLSelectElement>) {
@@ -92,6 +113,16 @@ class Form extends React.Component<IFormProps, IFormState> {
                     error => {
                     this.setState({ error: error.toString(), loading: false });
                 });
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.isAuthenticated) {
+            this.setState({
+                firstName: this.props.user.firstName,
+                lastName: this.props.user.lastName,
+                email: this.props.user.mail
+            });
         }
     }
 
@@ -306,7 +337,7 @@ class Form extends React.Component<IFormProps, IFormState> {
                             value={this.state.message}
                             onChange={this.handleChange}
                             required={true}
-                            minLength={80}
+                            minLength={60}
                         />
                         <small className="form-text text-muted">
                             Vous avez actuellement {this.state.message.length} caractères (min: 80 caractères)
@@ -314,6 +345,21 @@ class Form extends React.Component<IFormProps, IFormState> {
                         <div className="invalid-feedback">
                             Ce champ est obligatoire et doit comporter au minimum 80 caractères.
                         </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="Attachment" className="col-form-label">
+                            Ajouter des pièces jointes
+                        </label>
+                        <input
+                            className="form-control-file"
+                            type="file"
+                            name="file"
+                            id="Attachment"
+                            multiple={true}
+                            onChange={this.handleFileChange}
+                            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                        />
                     </div>
 
                     <button type="submit" className="btn btn-orange">Envoyer</button>

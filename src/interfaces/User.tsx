@@ -13,7 +13,7 @@ export const userInit: User = {
     password: "",
     firstName: "",
     lastName: "",
-    birthdate: new Date(),
+    birthdate: new Date(85, 0, 1),
     geoLoc: "",
     receiveMail: true
 };

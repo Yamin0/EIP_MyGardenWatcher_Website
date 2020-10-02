@@ -101,7 +101,7 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
                                 <div className="form-group">
                                     <label className="col-form-label">Nom de la carotte</label>
                                     <input
-                                        id="carrotName"
+                                        id="editCarrotName"
                                         className="form-control"
                                         type="text"
                                         name="name"

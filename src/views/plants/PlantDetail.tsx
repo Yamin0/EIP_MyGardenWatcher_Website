@@ -3,6 +3,7 @@ import {PlantService} from "../../services/PlantService";
 import Plant, {plantInit} from "../../interfaces/Plant";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import PlantLink from "./PlantLink";
+import {humidityRanges, lightFrenchNames, lightIconNames} from "../../interfaces/Search";
 
 interface RouteInfo {
     id: string,
@@ -88,12 +89,44 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                     {plant.minTemp}° à {plant.maxTemp}°
                                 </div>
                                 <div className="plant-detail-data-thumb">
-                                    <img className="plant-detail-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
-                                    {plant.humidity}%
+                                    {
+                                        humidityRanges.map((range, idx) => {
+                                            if (plant.humidity >= range[0] && plant.humidity <= range[1])
+                                                return <img
+                                                    key={idx.toString()}
+                                                    className="plant-detail-icon"
+                                                    title={plant.humidity.toString() + "% d'humidité"}
+                                                    src={"/images/icons/humidity/" + (idx + 1).toString() + ".png"}
+                                                    alt={plant.name + "humidité " + idx.toString()}
+                                                />
+                                            return ""
+                                        })
+                                    }
+                                    {plant.humidity}% d'humidité
                                 </div>
                                 <div className="plant-detail-data-thumb">
-                                    <img className="plant-detail-icon" src="/images/icons/icon-light.png" alt="luminosité"/>
-                                    {plant.light}
+                                    {
+                                        lightIconNames.map((name, idx) => {
+                                            if (plant.light.toLowerCase().includes(name))
+                                                return <img
+                                                    title={lightFrenchNames[idx]}
+                                                    className="plant-detail-icon"
+                                                    src={"/images/icons/light/" + name + ".png"}
+                                                    alt="luminosité"
+                                                    key={plant.name + name}
+                                                />
+                                            return ""
+                                        })
+                                    }
+                                    <p>
+                                    {
+                                        lightIconNames.map((name, idx) => {
+                                            if (plant.light.toLowerCase().includes(name))
+                                                return lightFrenchNames[idx]
+                                            return ""
+                                        }).filter(n => n !== "").join(" à ")
+                                    }
+                                    </p>
                                 </div>
                                 <div className="plant-detail-more">
                                     <a href={plant.link} target="_blank" rel="noopener noreferrer" className="plant-detail-link">En savoir plus <span className="oi oi-external-link"/></a>
