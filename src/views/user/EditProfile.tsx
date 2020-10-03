@@ -61,6 +61,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
     }
 
     private handleDateChange(date: Date) {
+        console.log(date.toString());
         this.setState((state) => ({
             editInfo: date.toDateString() !== this.props.user.birthdate.toDateString(),
             formUser: {
@@ -235,7 +236,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     render() {
         const { mail, password, firstName, lastName, geoLoc, birthdate, receiveMail } = this.state.formUser;
-
+        console.log(this.state.formUser);
         return (
             <div className="edit-profile container">
                 <h1 className="main-title orange text-center">
