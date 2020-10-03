@@ -12,7 +12,21 @@
   &-thumb {
     margin-bottom: 50px;
     &-title {
-      margin-bottom: 20px;
+      margin-bottom: 0;
+      padding: 20px 0;
+      background-color: #F3F3F3;
+      color: black;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transition: all ease-in-out 0.5s;
+      &:hover, &:focus {
+        color: @color-primary-green;
+      }
+      &-link {
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
     &-link {
       overflow: hidden;
@@ -29,6 +43,19 @@
         -webkit-transform: scale(1.2)
       }
     }
+    &-btn {
+      padding: 20px 10px;
+      border-left: 2px solid @color-secondary-light;
+      border-right: 2px solid @color-secondary-light;
+      border-bottom: 2px solid @color-secondary-light;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+
+      text-align: center;
+      .oi {
+        margin-left: 5px;
+      }
+    }
     &-data {
       width: 100%;
       padding: 10px 0;
@@ -37,18 +64,29 @@
       &-thumb {
         padding: 0 5px;
       }
+      &-icon {
+        vertical-align: middle;
+      }
     }
     &-icon {
-      width: 25%;
-      margin-right: 5px;
+      width: 30%;
+      margin: 0 2%;
     }
     &-temperature {
       width: 100%;
     }
     &-type {
-      margin-top: 10px;
+      padding: 10px 10px 0 10px;
+      border-left: 2px solid @color-secondary-light;
+      border-right: 2px solid @color-secondary-light;
       font-size: 16px;
       font-style: italic;
+    }
+    &-description {
+      padding: 10px 10px 0 10px;
+      border-left: 2px solid #F3F3F3;
+      border-right: 2px solid #F3F3F3;
+      margin-top: 0;
     }
   }
 
@@ -83,6 +121,15 @@
     padding: 20px 10px;
     justify-content: space-between;
 
+    &-sort {
+      &-title {
+        text-align: right;
+        font-size: 18px;
+        padding: 5px 15px;
+        margin: 0;
+      }
+    }
+
     .form-check-inline {
       margin-right: 0;
       .form-check-input {
@@ -97,7 +144,7 @@
     }
     &-icon {
       width: 30px;
-      margin: 0 5px;
+      margin: 0 10px 0 5px;
     }
     &-title {
       font-size: 16px;

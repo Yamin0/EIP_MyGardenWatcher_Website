@@ -47,21 +47,27 @@
     }
     &-data {
       width: 100%;
-      text-align: center;
       &-thumb {
-        padding: 10px 0;
+        padding: 10px 20px;
         background-color: @color-secondary-light;
-        p {
-          padding: 0 20px;
+        &.light {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          justify-content: center;
         }
       }
     }
-    &-icon {
-      width: 15%;
-      margin-right: 5px;
+  &-icon {
+    width: 15%;
+    margin-right: 5px;
+    &.margin-left {
+      margin-left: 5px;
     }
+  }
   &-more {
     position: relative;
+    text-align: center;
   }
   &-text {
     padding: 20px;

@@ -197,7 +197,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = 0; i < typeList.length; i++) {
             listButtons.push(
-                <div className="form-check col-4" key={i.toString()}>
+                <div className="form-check col-3" key={i.toString()}>
                     <input
                         type="checkbox"
                         className="form-check-input"
@@ -218,7 +218,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
     render() {
         return (
-            <form className="form col-9 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
+            <form className="form col-12 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                 <div className="form-group col-6">
                     <div className="plant-list-search-title">
                         Nom
@@ -280,22 +280,22 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                     <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
                 </button>
 
-                <div className="col-6 row plant-list-search-submit justify-content-between">
+                <div className="col-5 row plant-list-search-submit justify-content-between">
+                    <button
+                        type="button"
+                        onClick={this.handleClear}
+                        className="btn btn-orange col-4"
+                    >
+                        <span className="oi oi-x"/>
+                        Effacer
+                    </button>
+
                     <button
                         type="submit"
                         className="btn btn-green col-6"
                     >
                         <span className="oi oi-magnifying-glass"/>
                         Rechercher
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={this.handleClear}
-                        className="btn btn-orange col-5"
-                    >
-                        <span className="oi oi-x"/>
-                        Effacer
                     </button>
                 </div>
                 <div className="col-12 plant-list-search-tooltips">

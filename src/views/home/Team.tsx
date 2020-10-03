@@ -10,7 +10,7 @@ interface ITeamMember {
 const teamMembers: ITeamMember[] = [
     {
         fullName: "Léo Colin Vimard",
-        role: "Administrateur système - Gestion Bases de Données",
+        role: "Développeur API - Base de Données",
         image: "/images/team-members/leo.jpg",
         link: "https://www.linkedin.com/in/l%C3%A9o-colin-vimard-526951164/",
     },
@@ -27,20 +27,26 @@ const teamMembers: ITeamMember[] = [
         link: "https://www.linkedin.com/in/kylian-colson/",
     },
     {
+        fullName: "Raphaël Goulmot",
+        role: "Electronicien",
+        image: "/images/team-members/raphael.jpg",
+        link: "https://www.linkedin.com/in/rapha%C3%ABl-goulmot-405762138/",
+    },
+    {
         fullName: "Flavian Feugueur",
-        role: "Développeur Back-End",
+        role: "Développeur API",
         image: "/images/team-members/flavian.jpg",
         link: "https://www.linkedin.com/in/flavian-feugueur-1326b1138/",
     },
     {
         fullName: "Hugo Tallineau",
-        role: "Ingénieur Electronique Hardware - Développeur Mobile",
+        role: "Développeur Mobile Back-End",
         image: "/images/team-members/hugo.jpg",
-        link: "#",
+        link: "https://www.linkedin.com/in/hugo-tallineau-41123a1b3/",
     },
     {
         fullName: "Nathan Tual",
-        role: "Développeur Mobile - Graphiste Prototypes 3D",
+        role: "Développeur Mobile Front-End - Graphiste Prototypes 3D",
         image: "/images/team-members/nathan.jpg",
         link: "https://www.linkedin.com/in/nathan-tual-79535213a/",
     },

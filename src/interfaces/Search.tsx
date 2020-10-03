@@ -21,7 +21,7 @@ export const lightIconNames: string[] = [
 ];
 
 export const lightFrenchNames: string[] = [
-    "aucune à basse exposition",
+    "aucune exposition",
     "exposition partielle",
     "exposition complète"
 ];

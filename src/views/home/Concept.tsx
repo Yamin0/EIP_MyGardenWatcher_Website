@@ -21,6 +21,7 @@ const Concept: React.FunctionComponent<{}> =  () => {
                 <br/>
                 Désormais, même sans avoir la main verte, vous pouvez jardiner et obtenir des résultats !
             </div>
+            <div className="border-carrot"/>
         </div>
     )
 };

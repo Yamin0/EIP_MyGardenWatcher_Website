@@ -28,7 +28,7 @@ const sendContact = (object: object, isAuthenticated: boolean, formType: string)
 const uploadFile = (image: FormData) => {
     const reqOpt: RequestInit = {
         method: "POST",
-        body: image
+        body: JSON.stringify({image})
     };
 
     console.log(reqOpt.body);

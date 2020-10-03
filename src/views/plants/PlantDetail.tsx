@@ -3,7 +3,7 @@ import {PlantService} from "../../services/PlantService";
 import Plant, {plantInit} from "../../interfaces/Plant";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import PlantLink from "./PlantLink";
-import {humidityRanges, lightFrenchNames, lightIconNames} from "../../interfaces/Search";
+import {humidityRanges, lightFrenchNames, lightIconNames, tempRanges} from "../../interfaces/Search";
 
 interface RouteInfo {
     id: string,
@@ -85,8 +85,38 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
 
                             <div className="col-3 plant-detail-data">
                                 <div className="plant-detail-data-thumb">
-                                    <img className="plant-detail-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
-                                    {plant.minTemp}° à {plant.maxTemp}°
+                                    {
+                                        tempRanges.map((range, idx) => {
+                                            if (plant.minTemp >= range[0] && plant.minTemp <= range[1])
+                                                return <img
+                                                    key={idx.toString()}
+                                                    className="plant-detail-icon"
+                                                    title={"minimum " + plant.minTemp + "°"}
+                                                    src={"/images/icons/temperature/" + (idx + 1).toString() + ".png"}
+                                                    alt={plant.name + "temperature " + idx.toString()}
+                                                />
+                                            return ""
+                                        })
+                                    }
+
+                                    {plant.minTemp}°
+                                    à
+
+                                    {
+                                        tempRanges.map((range, idx) => {
+                                            if (plant.maxTemp >= range[0] && plant.maxTemp <= range[1])
+                                                return <img
+                                                    key={idx.toString()}
+                                                    className="plant-detail-icon margin-left"
+                                                    title={"maximum " + plant.maxTemp + "°"}
+                                                    src={"/images/icons/temperature/" + (idx + 1).toString() + ".png"}
+                                                    alt={plant.name + "temperature " + idx.toString()}
+                                                />
+                                            return ""
+                                        })
+                                    }
+
+                                    {plant.maxTemp}°
                                 </div>
                                 <div className="plant-detail-data-thumb">
                                     {
@@ -104,7 +134,7 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                     }
                                     {plant.humidity}% d'humidité
                                 </div>
-                                <div className="plant-detail-data-thumb">
+                                <div className="plant-detail-data-thumb light" style={{height: plant.light.split(":").length * 45}}>
                                     {
                                         lightIconNames.map((name, idx) => {
                                             if (plant.light.toLowerCase().includes(name))
@@ -118,7 +148,7 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                             return ""
                                         })
                                     }
-                                    <p>
+                                    <span>
                                     {
                                         lightIconNames.map((name, idx) => {
                                             if (plant.light.toLowerCase().includes(name))
@@ -126,7 +156,7 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                             return ""
                                         }).filter(n => n !== "").join(" à ")
                                     }
-                                    </p>
+                                    </span>
                                 </div>
                                 <div className="plant-detail-more">
                                     <a href={plant.link} target="_blank" rel="noopener noreferrer" className="plant-detail-link">En savoir plus <span className="oi oi-external-link"/></a>

@@ -130,11 +130,11 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
 
     // Sort management
     private createSortSelect() {
-        return <div className="form-group plant-list-search-sort col-3">
-            <label className="form-label">
-                Trier par:
+        return <div className="form-group row col-5">
+            <label className="form-label plant-list-search-sort-title col-7">
+                Trier les résultats par:
             </label>
-            <select className="form-control plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
+            <select className="form-control col-5 plant-list-search-select" value={this.state.sort} onChange={this.onSelectChange}>
                 <option value={ESortType.NAME_ASC}>Nom &#xf15d;</option>
                 <option value={ESortType.NAME_DESC}>Nom &#xf15e;</option>
                 <option value={ESortType.TYPE_ASC}>Type de plante &#xf15d;</option>
@@ -193,17 +193,19 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     Parcourez la liste des plantes et trouvez celle qui vont convient grâce à notre moteur de recherche
                 </h2>
                 <div className="row plant-list-make-search">
-                    J'effectue une recherche:
+                    Recherchez votre plante idéale
                 </div>
                 <div className="row plant-list-bar">
                     <PlantSearchEngine prevSearch={this.state.search} createSortSelect={this.createSortSelect}/>
-                    {this.createSortSelect()}
                 </div>
                 {
                     !this.state.isFetching &&
                     this.state.error === "" &&
-                    <div className="row plant-list-result">
-                        Résultat de la recherche:
+                    <div className="row no-gutters plant-list-result">
+                        <div className="col-7">
+                            Résultats de la recherche:
+                        </div>
+                        {this.createSortSelect()}
                     </div>
                 }
 

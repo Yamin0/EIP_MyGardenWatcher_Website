@@ -12,7 +12,6 @@ const Home: React.FunctionComponent = () => (
                 </div>
                 <div className="container">
                     <Concept/>
-                    <img src="/images/way-to-use-schema.png" alt="Way to use" className="concept-way-to-use"/>
                 </div>
                 <div className="container-fluid">
                     <Vision/>

@@ -1,49 +1,11 @@
 import * as React from "react";
 
-const Process: React.FunctionComponent<{}> = () => (
-    <div className="process row">
-        <div className="process-element connect col-md-6">
-            <img src="/images/visuel-connect.jpg" className="process-element-img"
-                 alt="Connect your carrot"/>
-                <div className="overlay">
-                    <div className="process-element-text">
-                        Vous connectez votre carotte à notre application sur votre téléphone
-                    </div>
-                </div>
-        </div>
-
-        <div className="process-element select col-md-6">
-            <img src="/images/visuel-select.jpg" className="process-element-img"
-                 alt="Select the plants you're about to garden"/>
-                <div className="overlay">
-                    <div className="process-element-text">
-                        Vous sélectionnez vos plantes et configurez vos notifications
-                    </div>
-                </div>
-        </div>
-
-        <div className="col-md-6 align-self-center process-element grow">
-            <img src="/images/visuel-pousse.jpg" className="process-element-img"
-                 alt="We notify when it needs you and it grow up !"/>
-                <div className="overlay">
-                    <div className="process-element-text">
-                        Vous recevez un message quand votre plante a besoin de vous et ça y est, elle pousse !
-                    </div>
-                </div>
-        </div>
-    </div>
-);
-
-const Solution: React.FunctionComponent<{}> = () => {
+const Solution: React.FunctionComponent = () => {
     return (
         <div className="row solution" id="solution">
             <h2 className="solution-title col-md-12">Notre solution</h2>
 
             <h4 className="solution-subtitle col-md-12">Un assistant connecté au jardinage de loisir</h4>
-
-            <Process/>
-
-            <div className="border-carrot"/>
 
             <div className="col-md-12 solution-connect">
                 <img src="/images/flat/flat-carrot.png" className="solution-connect-img" alt="carrot"/>
