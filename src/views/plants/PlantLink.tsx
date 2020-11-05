@@ -2,12 +2,14 @@ import * as React from "react";
 import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
 import Carrot from "../../interfaces/Carrot";
+import {Modal} from "react-bootstrap";
 
 interface IPlantLinkProps {
     plantId: number
 }
 
 interface IPlantLinkState {
+    show: boolean,
     carrots: Carrot[],
     selected: number,
     loading: boolean,
@@ -19,14 +21,25 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
     constructor(props: any) {
         super(props);
         this.state = {
+            show: false,
             carrots: [],
-            selected: 0,
+            selected: -1,
             loading: false,
             error: "",
             success: false
         };
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    private handleShow() {
+        this.setState({show: true});
+    }
+
+    private handleClose() {
+        this.setState({show: false});
     }
 
     // Fetch carrots
@@ -35,13 +48,13 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
             CarrotService.fetchCarrotList()
                 .then(data => {
                     let carrots: Carrot[] = data as Carrot[];
-
                     this.setState({
                         carrots,
-                        selected: carrots[0].id,
+                        selected: carrots && carrots.length > 0 ? carrots[0].id : -1,
                         loading: false,
                         error: ""
                     });
+
                 }, error => {
                     this.setState({ error: error.toString(), loading: false })
                 });
@@ -83,12 +96,19 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
 
     render() {
         return (
-            <div className="modal plant-link fade" id="plantLinkModal" tabIndex={-1} role="dialog"
-                 aria-labelledby="plantLinkModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="plant-detail-carrot-link">
+                <button
+                    type="button"
+                    className="btn btn-orange plant-detail-carrot-link-btn"
+                    onClick={this.handleShow}
+                >
+                    Ajouter cette plante
+                </button>
+
+                <Modal className="plant-link" show={this.state.show} onHide={this.handleClose} centered>
                     {
                         this.state.carrots.length > 0 &&
-                        <div className="modal-content">
+                        <>
                             {
                                 this.state.loading ?
                                     <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
@@ -100,31 +120,28 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
                                     ""
                             }
 
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="plantLinkModalLabel">
+                            <Modal.Header closeButton>
+                                <h5 className="modal-title">
                                     J'ajoute cette plante à une carotte
                                 </h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                                 <a href="/carrots" className="plant-link-carrot-page-go">Gérer mes carottes<span className="oi oi-arrow-circle-right"/></a>
-                            </div>
+                            </Modal.Header>
                             <form className="form plant-link-form needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
-                                <div className="modal-body">
+                                <Modal.Body>
                                     {
                                         this.state.success &&
-                                            <div className="success">
-                                                Cette plante a bien été liée à la carotte {this.state.carrots[this.state.carrots.findIndex(c => c.id === this.state.selected)].name} !
-                                                <span className="oi oi-thumb-up"/>
-                                            </div>
+                                        <div className="success">
+                                            Cette plante a bien été liée à la carotte {this.state.carrots[this.state.carrots.findIndex(c => c.id === this.state.selected)].name} !
+                                            <span className="oi oi-thumb-up"/>
+                                        </div>
                                     }
 
                                     {
                                         this.state.error !== "" &&
-                                            <div className="error">
-                                                <span className="oi oi-warning"/>
-                                                {this.state.error}
-                                            </div>
+                                        <div className="error">
+                                            <span className="oi oi-warning"/>
+                                            {this.state.error}
+                                        </div>
                                     }
 
                                     <div className="form-group">
@@ -136,16 +153,19 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
                                         >
                                             {
                                                 this.state.carrots.map(carrot => {
-                                                    console.log(carrot);
-                                                    return <option value={carrot.id} key={carrot.id}>{carrot.name}</option>
+                                                        return <option value={carrot.id} key={carrot.id}>{carrot.name}</option>
                                                     }
                                                 )
                                             }
                                         </select>
                                     </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-orange" data-dismiss="modal">
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button
+                                        type="button"
+                                        className="btn btn-orange"
+                                        onClick={this.handleClose}
+                                    >
                                         Annuler
                                     </button>
                                     <button
@@ -155,37 +175,39 @@ class PlantLink extends React.Component<IPlantLinkProps, IPlantLinkState> {
                                     >
                                         Valider
                                     </button>
-                                </div>
+                                </Modal.Footer>
                             </form>
-                        </div>
+                        </>
                     }
 
                     {
                         this.state.carrots.length === 0 &&
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="plantLinkModalLabel">
+                        <>
+                            <Modal.Header closeButton>
+                                <h5 className="modal-title">
                                     Vous n'avez pas de carottes disponibles.
                                 </h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
+                            </Modal.Header>
+                            <Modal.Body>
                                 Vous n'avez aucune carotte connectée à votre compte utilisateur.
                                 <br/>
                                 Vous en avez une ? Pour l'ajouter, c'est
                                 <a href="/carrots" className="plant-link-carrot-page">ici</a>.
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-orange" data-dismiss="modal">
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <button
+                                    type="button"
+                                    className="btn btn-orange"
+                                    onClick={this.handleClose}
+                                >
                                     Annuler
                                 </button>
-                            </div>
-                        </div>
+                            </Modal.Footer>
+                        </>
                     }
-                </div>
+                </Modal>
             </div>
+
         )
     }
 }

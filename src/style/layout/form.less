@@ -2,6 +2,17 @@
   padding: 0 10px;
   font-size: 16px;
   font-family: "Noto Sans KR", sans-serif;
+
+  &-control {
+    &.readonly {
+      &:focus {
+        border-color: #ced4da;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
   &-wrapper {
     position: relative;
     background-color: @color-secondary-light;

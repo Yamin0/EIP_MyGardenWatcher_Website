@@ -9,8 +9,10 @@ import Search, {
 } from "../../interfaces/Search";
 import {typeList} from "../../interfaces/Plant";
 
+const queryString = require('query-string');
+
 interface IPlantSearchEngineProps {
-    prevSearch: Search,
+    prevSearch: string,
     createSortSelect(): void
 }
 
@@ -23,7 +25,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
     constructor(props: any) {
         super(props);
         this.state = {
-            formSearch: this.props.prevSearch,
+            formSearch: searchInit,
             toggled: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -31,6 +33,36 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClear = this.handleClear.bind(this);
         this.toggleHide = this.toggleHide.bind(this);
+    }
+
+    componentDidMount() {
+        this.stringToSearch();
+    }
+
+    componentDidUpdate(prevProps: Readonly<IPlantSearchEngineProps>, prevState: Readonly<IPlantSearchEngineState>, snapshot?: any) {
+        if (prevProps.prevSearch !== this.props.prevSearch) {
+            this.stringToSearch();
+        }
+    }
+
+    private stringToSearch() {
+        let search: Search = { ...searchInit };
+
+        const parsed = queryString.parse(this.props.prevSearch);
+        if (parsed.name) search.name = parsed.name;
+        if (parsed.light) search.light = parsed.light;
+        if (parsed.temperature) {
+            const range: number[] = (parsed.temperature as string).split(",").map(temp => parseInt(temp));
+            search.temperature = tempRanges.findIndex(v => v[0] === range[0] && v[1] === range[1]);
+        }
+        if (parsed.humidity) {
+            const range: number[] = (parsed.humidity as string).split(",").map(temp => parseInt(temp));
+            search.humidity = humidityRanges.findIndex(v => v[0] === range[0] && v[1] === range[1]);
+        }
+
+        if (parsed.type) search.type = (parsed.type as string).split(",").map(str => typeList.indexOf(str));
+
+        this.setState({formSearch: search});
     }
 
     private handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -68,11 +100,17 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
         let queryUrl: string = "/plants?";
         let variables: string[] = [];
 
-        if (this.state.formSearch.name && this.state.formSearch.name !== "") variables.push("name=" + this.state.formSearch.name);
-        if (this.state.formSearch.temperature && this.state.formSearch.temperature !== -1) variables.push("temperature=" + this.state.formSearch.temperature);
-        if (this.state.formSearch.humidity && this.state.formSearch.humidity !== -1) variables.push("humidity=" + this.state.formSearch.humidity);
-        if (this.state.formSearch.light && this.state.formSearch.light !== "") variables.push("light=" + this.state.formSearch.light);
-        if (this.state.formSearch.type && this.state.formSearch.type.length > 0) variables.push("type=" + this.state.formSearch.type.toString());
+        if (this.state.formSearch.name !== "") variables.push("name=" + this.state.formSearch.name);
+        if (this.state.formSearch.temperature !== -1) {
+            const range: number[] = tempRanges[this.state.formSearch.temperature];
+            variables.push("temperature=" + range[0] + "," + range[1]);
+        }
+        if (this.state.formSearch.humidity !== -1) {
+            const range: number[] = humidityRanges[this.state.formSearch.humidity];
+            variables.push("humidity=" + range[0] + "," + range[1]);
+        }
+        if (this.state.formSearch.light !== "") variables.push("light=" + this.state.formSearch.light);
+        if (this.state.formSearch.type.length > 0) variables.push("type=" + this.state.formSearch.type.map(t => typeList[t]).toString());
 
         queryUrl += variables.join("&");
 
@@ -105,7 +143,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="radio"
                         name="temperature"
                         value={i}
-                        checked={(i === -1 && !this.state.formSearch.temperature) || this.state.formSearch.temperature === i}
+                        checked={this.state.formSearch.temperature === i}
                         onChange={this.handleChange}
                     />
                     <label className="form-check-label">
@@ -138,7 +176,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         type="radio"
                         name="humidity"
                         value={i}
-                        checked={(i === -1 && !this.state.formSearch.humidity) || this.state.formSearch.humidity === i}
+                        checked={this.state.formSearch.humidity === i}
                         onChange={this.handleChange}
                     />
                     <label className="form-check-label">

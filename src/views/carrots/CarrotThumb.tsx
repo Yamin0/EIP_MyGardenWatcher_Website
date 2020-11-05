@@ -2,15 +2,18 @@ import * as React from "react";
 import Carrot from "../../interfaces/Carrot";
 import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
+import {OverlayTrigger, Popover} from "react-bootstrap";
 
 interface ICarrotThumbProps {
     carrot: Carrot,
-    updateEditId(): void
+    openEditModal(): void,
+    openDeleteModal(): void
 }
 
 interface ICarrotThumbState {
     carrot: Carrot,
     toggled: boolean,
+    hasPlants: boolean,
     isFetching: boolean,
     loading: boolean,
     error: string,
@@ -23,13 +26,13 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
         this.state = {
             carrot: this.props.carrot,
             toggled: false,
+            hasPlants: false,
             isFetching: false,
             loading: false,
             error: ""
         };
 
         this.fetchCarrotDetail = this.fetchCarrotDetail.bind(this);
-        this.handleDeleteCarrot = this.handleDeleteCarrot.bind(this);
         this.togglePlants = this.togglePlants.bind(this);
         this.handleDeletePlantLink = this.handleDeletePlantLink.bind(this);
     }
@@ -42,6 +45,21 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
                     this.setState({
                         carrot,
+                        hasPlants: carrot.plants && carrot.plants.length > 0,
+                        isFetching: false
+                    });
+                }, error => {
+                    this.setState({ error: error.toString(), isFetching: false })
+                });
+        });
+    }
+
+    private fetchSensorData() {
+        this.setState({ isFetching: true }, () => {
+            CarrotService.sensorData(this.state.carrot.id)
+                .then(data => {
+                    console.log(data);
+                    this.setState({
                         isFetching: false
                     });
                 }, error => {
@@ -74,18 +92,9 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
             )
     }
 
-    private handleDeleteCarrot(e: React.MouseEvent<HTMLButtonElement>) {
-        e.preventDefault();
-        this.setState({loading: true});
-        CarrotService.deleteCarrot(this.state.carrot.id)
-            .then(
-                () => {
-                    window.location.reload();
-                },
-                error => {
-                    this.setState({error: error.toString(), loading: false});
-                }
-            )
+    componentDidMount() {
+        this.fetchCarrotDetail();
+        this.fetchSensorData();
     }
 
     render() {
@@ -136,23 +145,25 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                         </div>
                     </div>
 
-                    <div className="row">
-                        <button
-                            type="button"
-                            onClick={this.togglePlants}
-                            className="btn carrot-thumb-toggle col-12"
-                        >
-                            {this.state.toggled ? "Masquer les plantes liées" : "Voir les plantes liées"}
-                            <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
-                        </button>
+                    {
+                        this.state.hasPlants ?
+                        <div className="row">
+                            <button
+                                type="button"
+                                onClick={this.togglePlants}
+                                className="btn carrot-thumb-toggle col-12"
+                            >
+                                {this.state.toggled ? "Masquer les plantes liées" : "Voir les plantes liées"}
+                                <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
+                            </button>
 
-                        {
-                            this.state.isFetching &&
-                            <p className="text-center">Récupération des données...</p>
-                        }
+                            {
+                                this.state.isFetching &&
+                                <p className="text-center">Récupération des données...</p>
+                            }
 
-                        {
-                            this.state.toggled &&
+                            {
+                                this.state.toggled &&
                                 <div>
                                     {
                                         !this.state.isFetching &&
@@ -163,31 +174,79 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                                                 const handleDeleteId = (e: React.MouseEvent<HTMLButtonElement>) => this.handleDeletePlantLink(e, p.id)
 
                                                 return (
-                                                    <div>
-                                                        {p.name}
-                                                        <button type="button" className="btn carrot-thumb-btn-delete-plant" onClick={handleDeleteId}>
-                                                            <span className="oi oi-trash"/>
-                                                        </button>
+                                                    <div className="row no-gutters" key={p.id}>
+                                                        <div className="col-12 text-center">
+                                                            {p.name}
+                                                            <button type="button" className="btn carrot-thumb-btn-delete-plant" onClick={handleDeleteId}>
+                                                                <span className="oi oi-trash"/>
+                                                            </button>
+                                                        </div>
+                                                        <div className="col-5 text-center">
+                                                            <img className="carrot-thumb-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
+                                                        </div>
+                                                        <div className="col-5">
+                                                            {p.minTemp}° à {p.maxTemp}°
+                                                        </div>
+                                                        <div className="col-5 text-center">
+                                                            <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
+                                                        </div>
+                                                        <div className="col-5">
+                                                            {p.humidity}%
+                                                        </div>
+                                                        <div className="col-5 text-center">
+                                                            <img className="plant-list-thumb-icon" src="/images/icons/light/full.png" alt="luminosité"/>
+                                                        </div>
+                                                        <div className="col-5">
+                                                            {p.light}
+                                                        </div>
                                                     </div>
                                                 )}) :
                                             "No data")
                                     }
                                 </div>
-                        }
+                            }
 
-                    </div>
+                        </div>
+                            :
+                            <div className="row">
+                                <p className="text-center">
+                                    Vous n'avez pas encore de plante liée à cette carotte.
+                                </p>
+                                <OverlayTrigger
+                                    trigger="click"
+                                    placement={"right"}
+                                    overlay={
+                                        <Popover id="popover-basic">
+                                            <Popover.Title>
+                                                Comment lier une plante à ma carotte ?
+                                            </Popover.Title>
+                                            <Popover.Content>
+                                                Vous devez d'abord trouver la plante qui vous intéresse. Vous pouvez la rechercher sur <a href="/plants"> la page des plantes</a>.
+                                                <br/>
+                                                <br/>
+                                                Cliquez sur la plante qui vous intéresse pour accéder à sa page détail. Sur la droite de cette page, il y aura un bouton pour lier votre plante à une carotte.
+                                            </Popover.Content>
+                                        </Popover>
+                                    }
+                                >
+                                    <p className="tooltip-btn">?</p>
+                                </OverlayTrigger>
+                            </div>
+                    }
 
                     <div className="row carrot-thumb-btns">
                         <button
                             type="button"
                             className="btn btn-green carrot-thumb-btn-edit"
-                            data-toggle="modal"
-                            data-target="#editCarrotModal"
-                            onClick={this.props.updateEditId}
+                            onClick={this.props.openEditModal}
                         >
                             <span className="oi oi-pencil"/>
                         </button>
-                        <button type="button" className="btn btn-orange carrot-thumb-btn-delete" onClick={this.handleDeleteCarrot}>
+                        <button
+                            type="button"
+                            className="btn btn-orange carrot-thumb-btn-delete"
+                            onClick={this.props.openDeleteModal}
+                        >
                             <span className="oi oi-trash"/>
                         </button>
                     </div>

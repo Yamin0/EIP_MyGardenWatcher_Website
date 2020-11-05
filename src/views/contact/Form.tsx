@@ -29,9 +29,12 @@ interface IFormState {
     companyDescription: string,
     title: string,
     message: string,
-    loading: boolean,
-    error: string
+    loading?: boolean,
+    error?: string,
+    success?: boolean
 }
+
+const msgMaxChar = 60;
 
 class Form extends React.Component<IFormProps, IFormState> {
     constructor(props: any) {
@@ -47,7 +50,8 @@ class Form extends React.Component<IFormProps, IFormState> {
             title: "",
             message: "",
             loading: false,
-            error: ""
+            error: "",
+            success: false
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -105,12 +109,31 @@ class Form extends React.Component<IFormProps, IFormState> {
             let obj = {...this.state};
             delete obj.loading;
             delete obj.error;
+            delete obj.success;
             ContactService.sendContact(obj, this.props.isAuthenticated, this.props.isFormPro ? "PRO" : "SINGLE")
                 .then(() => {
-                    alert("Votre demande de contact a bien été transmise !");
-                    window.location.reload();
+                        window.scrollTo(0, 0);
+                        this.setState({
+                            companyName: "",
+                            firstName: "",
+                            lastName: "",
+                            askingType: EAskingType.SUPPORT,
+                            email: "",
+                            phone: "",
+                            companyDescription: "",
+                            title: "",
+                            message: "",
+                            loading: false,
+                            error: "",
+                            success: true
+                        }, () => {
+                            setTimeout(() => {
+                                this.setState({success: false});
+                            }, 5000);
+                        });
                     },
                     error => {
+                    window.scrollTo(0, 0);
                     this.setState({ error: error.toString(), loading: false });
                 });
         }
@@ -138,6 +161,13 @@ class Form extends React.Component<IFormProps, IFormState> {
                             </div>
                             :
                             ""
+                    }
+
+                    {
+                        this.state.success &&
+                        <div className="success">
+                            Votre demande de contact a bien été transmise. Une confirmation a été envoyée à votre adresse email.
+                        </div>
                     }
 
                     {
@@ -293,7 +323,7 @@ class Form extends React.Component<IFormProps, IFormState> {
                                     rows={2}
                                 />
                                 <small className="form-text text-muted">
-                                    (max: 40 caractères)
+                                    (max: 100 caractères)
                                 </small>
                                 <div className="invalid-feedback">
                                     Ce champ est obligatoire.
@@ -337,13 +367,13 @@ class Form extends React.Component<IFormProps, IFormState> {
                             value={this.state.message}
                             onChange={this.handleChange}
                             required={true}
-                            minLength={60}
+                            minLength={msgMaxChar}
                         />
                         <small className="form-text text-muted">
-                            Vous avez actuellement {this.state.message.length} caractères (min: 80 caractères)
+                            Vous avez actuellement {this.state.message.length} caractères (min: {msgMaxChar.toString()} caractères)
                         </small>
                         <div className="invalid-feedback">
-                            Ce champ est obligatoire et doit comporter au minimum 80 caractères.
+                            Ce champ est obligatoire et doit comporter au minimum {msgMaxChar.toString()} caractères.
                         </div>
                     </div>
 

@@ -73,6 +73,18 @@ footer {
   font-size: 35px;
   color: black;
 }
+.tooltip-btn {
+  color: black;
+  background-color: #91C37D;
+  padding: 0 8px;
+  border: 2px solid black;
+  border-radius: 25px;
+  transition: all ease-in-out 0.3s;
+}
+.tooltip-btn:hover {
+  cursor: pointer;
+  background-color: #7C9872;
+}
 .module {
   margin-top: 10px;
   overflow: hidden;
@@ -261,6 +273,11 @@ footer {
   font-size: 16px;
   font-family: "Noto Sans KR", sans-serif;
 }
+.form-control.readonly:focus {
+  border-color: #ced4da;
+  outline: none;
+  box-shadow: none;
+}
 .form-wrapper {
   position: relative;
   background-color: #F3F3F3;
@@ -407,7 +424,7 @@ footer {
   border: none;
 }
 .concept {
-  padding-top: 80px;
+  padding-top: 100px;
   margin-bottom: 90px !important;
 }
 .concept-title {
@@ -431,7 +448,7 @@ footer {
   margin-bottom: 90px;
 }
 .solution {
-  padding-top: 80px;
+  padding-top: 100px;
 }
 .solution h3 {
   text-align: center;
@@ -568,7 +585,7 @@ footer {
   transform: translate(-30%, -30%);
 }
 .team {
-  padding-top: 80px;
+  padding-top: 100px;
   padding-bottom: 150px;
 }
 .team-title {
@@ -603,8 +620,8 @@ footer {
   opacity: 0.7;
 }
 .vision {
-  padding-top: 40px;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/visuel-vision.jpeg") no-repeat center;
+  padding-top: 50px;
+  background: linear-gradient(to right, rgba(1, 1, 1, 0.3) 30%, rgba(1, 1, 1, 0.55) 70%), url("/images/visuel-vision.jpeg") no-repeat center;
   background-size: cover;
 }
 .vision-title {
@@ -612,16 +629,38 @@ footer {
   font-size: 60px;
   text-align: center;
   color: white;
-  margin-top: 70px;
+  text-shadow: 2px 2px black;
+  margin-top: 50px;
   margin-bottom: 40px;
 }
 .vision-content {
-  max-width: 1170px;
-  margin: auto;
-  text-align: center;
-  font-size: 18px;
+  text-align: justify;
+  font-size: 20px;
   color: white;
-  padding-bottom: 100px;
+  margin: 50px 0;
+}
+.vision-content-text {
+  padding: 1.5% 3%;
+  background: rgba(1, 1, 1, 0.7);
+  box-shadow: 0 0 40px 30px rgba(1, 1, 1, 0.7);
+}
+.vision-content-text .logo {
+  font-family: "Lobster", cursive;
+  font-size: 20px;
+  color: #FF7300;
+}
+.vision-content-text .topline {
+  color: #91C37D;
+  font-size: 20px;
+}
+.vision-subtitle {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+  color: #FF7300;
+  text-shadow: 2px 2px 5px black;
+  font-size: 28px;
+  margin-bottom: 50px;
 }
 .contact-single {
   padding-bottom: 150px;
@@ -797,15 +836,12 @@ footer {
 .edit-profile .form-group {
   margin-bottom: 15px !important;
 }
-.edit-profile .modal.delete .modal-footer {
-  justify-content: space-between;
-}
-.edit-profile .modal.delete .modal-title {
+.delete-account .modal-title {
   color: #FF7300;
-  font-size: 22px;
+  font-size: 24px;
 }
-.edit-profile .modal.delete .modal-body {
-  font-size: 16px;
+.delete-account .modal-footer {
+  justify-content: space-between;
 }
 .plant-list {
   padding-bottom: 150px;
@@ -854,9 +890,9 @@ footer {
 }
 .plant-list-thumb-btn {
   padding: 20px 10px;
-  border-left: 2px solid #F3F3F3;
-  border-right: 2px solid #F3F3F3;
-  border-bottom: 2px solid #F3F3F3;
+  border-left: 3px solid #F3F3F3;
+  border-right: 3px solid #F3F3F3;
+  border-bottom: 3px solid #F3F3F3;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   text-align: center;
@@ -885,15 +921,15 @@ footer {
 }
 .plant-list-thumb-type {
   padding: 10px 10px 0 10px;
-  border-left: 2px solid #F3F3F3;
-  border-right: 2px solid #F3F3F3;
+  border-left: 3px solid #F3F3F3;
+  border-right: 3px solid #F3F3F3;
   font-size: 16px;
   font-style: italic;
 }
 .plant-list-thumb-description {
   padding: 10px 10px 0 10px;
-  border-left: 2px solid #F3F3F3;
-  border-right: 2px solid #F3F3F3;
+  border-left: 3px solid #F3F3F3;
+  border-right: 3px solid #F3F3F3;
   margin-top: 0;
 }
 .plant-list-bar {
@@ -1055,6 +1091,7 @@ footer {
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
+  align-content: start;
 }
 .plant-detail-icon {
   width: 15%;
@@ -1084,50 +1121,50 @@ footer {
 .plant-detail-visual {
   margin-bottom: 40px;
 }
-.plant-detail .plant-link .modal-header {
+.plant-link .modal-header {
   flex-wrap: wrap;
 }
-.plant-detail .plant-link-img {
+.plant-link-img {
   width: 20px;
   vertical-align: text-bottom;
   margin-right: 10px;
 }
-.plant-detail .plant-link-form {
+.plant-link-form {
   padding: 0;
 }
-.plant-detail .plant-link-carrot-page {
+.plant-link-carrot-page {
   margin-left: 5px;
   color: #FF7300;
   transition: all ease-in-out 0.3s;
   text-decoration: underline;
 }
-.plant-detail .plant-link-carrot-page:hover {
+.plant-link-carrot-page:hover {
   color: #91C37D;
 }
-.plant-detail .plant-link-carrot-page-go {
+.plant-link-carrot-page-go {
   font-size: 12px;
   color: black;
   margin-top: 10px;
   transition: all ease-in-out 0.3s;
 }
-.plant-detail .plant-link-carrot-page-go:hover,
-.plant-detail .plant-link-carrot-page-go:focus {
+.plant-link-carrot-page-go:hover,
+.plant-link-carrot-page-go:focus {
   box-shadow: none;
   text-decoration: none;
   text-shadow: 2px 2px 5px #95A6B1;
 }
-.plant-detail .plant-link-carrot-page-go .oi {
+.plant-link-carrot-page-go .oi {
   margin-left: 5px;
   top: 2px;
 }
-.plant-detail .plant-link .modal-body {
+.plant-link .modal-body {
   background-color: #F3F3F3;
 }
-.plant-detail .plant-link .modal-title {
+.plant-link .modal-title {
   color: #FF7300;
-  font-size: 24px;
+  font-size: 22px;
 }
-.plant-detail .plant-link .modal-footer {
+.plant-link .modal-footer {
   justify-content: space-between;
 }
 .carrot-list {
@@ -1138,7 +1175,7 @@ footer {
 }
 .carrot-list-bar {
   margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .carrot-list-add-btn {
   margin-right: 15px;
@@ -1204,6 +1241,9 @@ footer {
 .carrot-thumb-toggle:focus {
   box-shadow: none;
 }
+.carrot-thumb-icon {
+  width: 25%;
+}
 .carrot-thumb-btns {
   margin-top: 10px;
 }
@@ -1219,8 +1259,8 @@ footer {
 }
 .carrot-thumb-btn-delete:hover,
 .carrot-thumb-btn-delete:active {
-  background-color: #95A6B1 !important;
-  border-color: #95A6B1;
+  background-color: #FF9000 !important;
+  border-color: #FF9000;
 }
 .carrot-thumb-btn-delete-plant {
   font-size: 14px;
@@ -1267,6 +1307,11 @@ footer {
   margin: 70px 0;
   text-align: center;
   color: #95A6B1;
+}
+.beta-download-qrcode {
+  margin-left: 10%;
+  margin-top: 50px;
+  width: 25%;
 }
 .beta-download h3 {
   color: #FF7300;

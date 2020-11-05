@@ -158,22 +158,31 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                     }
                                     </span>
                                 </div>
+                                <div className="plant-detail-data-thumb">
+                                    <img
+                                        className="plant-detail-icon"
+                                        title={"pH entre 6 et 7"}
+                                        src={"/images/icons/icon-ph.png"}
+                                        alt={plant.name + "ph6à7"}
+                                    />
+                                    6 à 7
+                                </div>
+                                <div className="plant-detail-data-thumb">
+                                    <img
+                                        className="plant-detail-icon"
+                                        title={"ppm entre 100 et 400"}
+                                        src={"/images/icons/icon-co2.png"}
+                                        alt={plant.name + "co2-100à400ppm"}
+                                    />
+                                    100 à 400 ppm
+                                </div>
+
                                 <div className="plant-detail-more">
                                     <a href={plant.link} target="_blank" rel="noopener noreferrer" className="plant-detail-link">En savoir plus <span className="oi oi-external-link"/></a>
                                 </div>
                                 {
                                     this.props.isAuthenticated &&
-                                    <div className="plant-detail-carrot-link">
-                                        <button
-                                            type="button"
-                                            className="btn btn-orange plant-detail-carrot-link-btn"
-                                            data-toggle="modal"
-                                            data-target="#plantLinkModal"
-                                        >
-                                            Ajouter cette plante
-                                        </button>
-                                        <PlantLink plantId={this.state.plant.id}/>
-                                    </div>
+                                    <PlantLink plantId={this.state.plant.id}/>
                                 }
                             </div>
                         </div>

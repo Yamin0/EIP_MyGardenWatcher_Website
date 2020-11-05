@@ -8,6 +8,7 @@ import fr from 'date-fns/locale/fr';
 import "react-datepicker/dist/react-datepicker.css";
 import User from "../../interfaces/User";
 import UserMenu from "../shared/UserMenu";
+import DeleteAccount from "./DeleteAccount";
 
 registerLocale('fr', fr);
 
@@ -25,6 +26,8 @@ interface IEditProfileState {
     repeatNewPassword: string,
     loading: boolean,
     error: string,
+    success: boolean,
+    successMsg: string,
     changePassword: boolean,
     editInfo: boolean
 }
@@ -50,6 +53,8 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
             repeatNewPassword: "",
             loading: false,
             error: "",
+            success: false,
+            successMsg: "",
             changePassword: false,
             editInfo: false
         };
@@ -57,7 +62,6 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleDeleteAccount = this.handleDeleteAccount.bind(this);
     }
 
     private handleDateChange(date: Date) {
@@ -145,6 +149,35 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         }
     }
 
+    private handleSuccessRequest(Promise: Promise<void>, successMsg: string) {
+        Promise.then(
+            () => {
+                window.scrollTo(0, 0);
+                this.setState({
+                    formUser: this.props.user,
+                    repeatEmail: "",
+                    newPassword: "",
+                    repeatNewPassword: "",
+                    loading: false,
+                    error: "",
+                    success: true,
+                    successMsg,
+                    changePassword: false,
+                    editInfo: false
+                }, () => {
+                    this.props.getUser();
+                    setTimeout(() => {
+                        this.setState({success: false, successMsg: ""});
+                    }, 5000);
+                });
+            },
+            error => {
+                window.scrollTo(0, 0);
+                this.setState({ error: error.toString(), loading: false })
+            }
+        )
+    }
+
     private handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (!e.currentTarget.checkValidity()) {
@@ -162,56 +195,14 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         } else {
             this.setState({ loading: true });
             if (this.state.changePassword && !this.state.editInfo) {
-                UserService.changePassword(this.props.user.mail, this.state.formUser.password, this.state.newPassword)
-                    .then(
-                        () => {
-                            alert("Votre mot de passe a bien été modifié.");
-                            this.setState({
-                                formUser: this.props.user,
-                                repeatEmail: "",
-                                newPassword: "",
-                                repeatNewPassword: "",
-                                loading: false,
-                                error: "",
-                                changePassword: false,
-                                editInfo: false
-                            });
-                            window.location.reload();
-                        },
-                        error => {
-                            window.scrollTo(0, 0);
-                            this.setState({ error: error.toString(), loading: false })
-                        }
-                    );
+                const Promise = UserService.changePassword(this.props.user.mail, this.state.formUser.password, this.state.newPassword);
+                this.handleSuccessRequest(Promise, "Votre mot de passe a bien été modifié.");
             }
             if (this.state.editInfo && !this.state.changePassword) {
-                UserService.setUser(this.state.formUser)
-                    .then(
-                        () => {
-                            alert("Vos informations personnelles ont bien été modifiées.");
-                            this.setState({loading: false});
-                            window.location.reload();
-                            this.props.getUser();
-                            },
-                        error => {
-                            window.scrollTo(0, 0);
-                            this.setState({ error: error.toString(), loading: false })
-                        }
-                    );
+                const Promise = UserService.setUser(this.state.formUser);
+                this.handleSuccessRequest(Promise, "Vos informations personnelles ont bien été mises à jour.");
             }
         }
-    }
-
-    private handleDeleteAccount(e: React.MouseEvent<HTMLButtonElement>) {
-        e.preventDefault();
-        (document.getElementsByClassName("modal-backdrop")[0] as HTMLDivElement).remove();
-        this.setState({loading: true});
-        UserService.deleteAccount()
-            .then(this.props.disconnect,
-                error => {
-                this.setState({error: error.toString(), loading: false});
-                }
-            )
     }
 
     componentDidMount(): void {
@@ -236,7 +227,6 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
 
     render() {
         const { mail, password, firstName, lastName, geoLoc, birthdate, receiveMail } = this.state.formUser;
-        console.log(this.state.formUser);
         return (
             <div className="edit-profile container">
                 <h1 className="main-title orange text-center">
@@ -250,6 +240,13 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                                 <div className="spinner-border text-light" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
+                            </div>
+                        }
+
+                        {
+                            this.state.success &&
+                            <div className="success">
+                                {this.state.successMsg}
                             </div>
                         }
 
@@ -465,46 +462,8 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                             </button>
                         </div>
 
-                        <div className="row">
-                            <button
-                                type="button"
-                                className="btn btn-orange edit-profile-delete"
-                                data-toggle="modal"
-                                data-target="#deleteModal"
-                            >
-                                Supprimer mon compte
-                            </button>
-                        </div>
-
-                        <div className="modal delete fade" id="deleteModal" tabIndex={-1} role="dialog"
-                             aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div className="modal-dialog" role="document">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <h5 className="modal-title" id="deleteModalLabel">
-                                            Êtes-vous sûr de vouloir supprimer votre compte utilisateur ?
-                                        </h5>
-                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div className="modal-body">
-                                        Attention, c'est une suppression définitive, vous ne pourrez plus récupérer votre compte par la suite.
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-green" data-dismiss="modal">
-                                            Annuler
-                                        </button>
-                                        <button type="button" className="btn btn-orange" onClick={this.handleDeleteAccount}>Supprimer définitivement</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <DeleteAccount disconnect={this.props.disconnect}/>
                     </form>
-                </div>
-                <div className="row">
-
                 </div>
             </div>
         )

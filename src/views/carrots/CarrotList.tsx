@@ -1,12 +1,12 @@
 import * as React from "react";
 import Pagination from "../shared/Pagination";
-import ESortType from "../../interfaces/Sort";
 import {CarrotService} from "../../services/CarrotService";
 import Carrot, {carrotInit} from "../../interfaces/Carrot";
 import CarrotThumb from "./CarrotThumb";
 import UserMenu from "../shared/UserMenu";
 import AddCarrot from "./AddCarrot";
 import EditCarrot from "./EditCarrot";
+import DeleteCarrot from "./DeleteCarrot";
 
 interface IPlantListProps {
     disconnect(): void
@@ -18,9 +18,13 @@ interface IPlantListState {
     isFetching: boolean,
     loading: boolean,
     error: string,
+    success: boolean,
+    successMsg: string,
     carrots: Carrot[],
     editCarrot: Carrot,
-    sort: ESortType,
+    editModalOpen: boolean,
+    deleteCarrot: Carrot,
+    deleteModalOpen: boolean
 }
 
 const itemsPerPage: number = 6;
@@ -35,14 +39,22 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
             isFetching: false,
             loading: false,
             error: "",
+            success: false,
+            successMsg: "",
             carrots: [],
             editCarrot: carrotInit,
-            sort: ESortType.NAME_ASC,
+            editModalOpen: false,
+            deleteCarrot: carrotInit,
+            deleteModalOpen: false
         };
 
         this.fetchAllCarrots = this.fetchAllCarrots.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
-        this.updateEditId = this.updateEditId.bind(this);
+        this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
+        this.handleEditModalClose = this.handleEditModalClose.bind(this);
+        this.handleDeleteModalOpen = this.handleDeleteModalOpen.bind(this);
+        this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
+        this.onSuccessForm = this.onSuccessForm.bind(this);
     }
 
     // Fetch carrots
@@ -73,8 +85,32 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
         })
     }
 
-    private updateEditId(carrot: Carrot) {
-        this.setState({editCarrot: carrot});
+    private handleEditModalOpen(carrot: Carrot) {
+        this.setState({editCarrot: carrot, editModalOpen: true});
+    }
+
+    private handleEditModalClose() {
+        this.setState({editModalOpen: false});
+    }
+
+    private handleDeleteModalOpen(carrot: Carrot) {
+        this.setState({deleteCarrot: carrot, deleteModalOpen: true});
+    }
+
+    private handleDeleteModalClose() {
+        this.setState({deleteModalOpen: false});
+    }
+
+    private onSuccessForm(msg: string) {
+        this.setState({
+            success: true,
+            successMsg: msg
+        }, () => {
+            this.fetchAllCarrots();
+            setTimeout(() => {
+                this.setState({success: false});
+            }, 5000)
+        });
     }
 
     componentDidMount() {
@@ -100,6 +136,16 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                             </div>
                         }
 
+                        {
+                            this.state.success &&
+                            <div className="form row">
+                                <div className="success col-12">
+                                    {this.state.successMsg}
+                                    <span className="oi oi-thumb-up"/>
+                                </div>
+                            </div>
+                        }
+
                         <div className="row justify-content-between carrot-list-bar">
                             <div className="col-5 row">
                                 <label className="col-4">Filtrer</label>
@@ -110,19 +156,22 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                                 </select>
                             </div>
 
-                            <button
-                                type="button"
-                                className="btn btn-green carrot-list-add-btn col-3"
-                                data-toggle="modal"
-                                data-target="#addCarrotModal"
-                            >
-                                Ajouter une carotte
-                            </button>
-
+                            <AddCarrot onSuccessForm={this.onSuccessForm}/>
                         </div>
 
-                        <AddCarrot/>
-                        <EditCarrot carrot={this.state.editCarrot}/>
+                        <EditCarrot
+                            carrot={this.state.editCarrot}
+                            onSuccessForm={this.onSuccessForm}
+                            show={this.state.editModalOpen}
+                            handleClose={this.handleEditModalClose}
+                        />
+
+                        <DeleteCarrot
+                            carrot={this.state.deleteCarrot}
+                            show={this.state.deleteModalOpen}
+                            handleClose={this.handleDeleteModalClose}
+                            onSuccessForm={this.onSuccessForm}
+                        />
 
                         {
                             this.state.isFetching &&
@@ -147,17 +196,10 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                                     Vous n'avez pas encore de carotte connectée à votre compte.
                                     <br/>
                                     Vous souhaitez en rajouter une ?
+                                    <br/>
+                                    <br/>
+                                    Cliquez sur le bouton "Ajouter une carotte" qui est juste au dessus !
                                 </p>
-                                <div className="col-12 text-center">
-                                    <button
-                                        type="button"
-                                        className="btn btn-orange"
-                                        data-toggle="modal"
-                                        data-target="#addCarrotModal"
-                                    >
-                                        Cliquez ici !
-                                    </button>
-                                </div>
                             </div>
                         }
 
@@ -169,31 +211,40 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                                 {this.state.carrots.map((carrot, i) => {
                                 const minCarrotIndex: number = itemsPerPage * (this.state.currentPage - 1);
 
-                                const updateEditIdMapped = () => {
-                                    this.updateEditId(carrot);
+                                const mapEditModal = () => {
+                                    this.handleEditModalOpen(carrot);
+                                };
+
+                                const mapDeleteModal = () => {
+                                    this.handleDeleteModalOpen(carrot);
                                 };
 
                                 return (
                                     i >= minCarrotIndex &&
                                     i < minCarrotIndex + itemsPerPage ?
-                                        <CarrotThumb key={i} carrot={carrot} updateEditId={updateEditIdMapped}/> : null)
+                                        <CarrotThumb
+                                            key={i}
+                                            carrot={carrot}
+                                            openEditModal={mapEditModal}
+                                            openDeleteModal={mapDeleteModal}
+                                        />
+                                        : null)
                             })}
                             </div>
                         }
+                        {
+                            !this.state.isFetching && this.state.totalPages > 1 &&
+                            <div className="row">
+                                <nav aria-label="">
+                                    <Pagination
+                                        currentPage={this.state.currentPage}
+                                        totalPages={this.state.totalPages}
+                                        onPageChange={this.onPageChange}
+                                    />
+                                </nav>
+                            </div>
+                        }
                     </div>
-
-                    {
-                        !this.state.isFetching && this.state.totalPages > 1 &&
-                        <div className="col-9 row">
-                            <nav aria-label="">
-                                <Pagination
-                                    currentPage={this.state.currentPage}
-                                    totalPages={this.state.totalPages}
-                                    onPageChange={this.onPageChange}
-                                />
-                            </nav>
-                        </div>
-                    }
                 </div>
             </div>
         )

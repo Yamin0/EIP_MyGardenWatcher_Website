@@ -103,6 +103,27 @@ const deleteCarrot = (id: number) => {
 
 };
 
+const sensorData = (id: number) => {
+    const reqOpt: RequestInit = {
+        method: "GET",
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'auth': UserService.getToken() as string
+        })
+    };
+
+    let url = apiUrl + "/sensorData/?carrotId=" + id.toString() + "&attributes=luminosity,temperature,humidity";
+
+    return fetch(url, reqOpt)
+        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
+        .then((data) => {
+            console.log(data);
+            return data
+        }, (err) => {
+            return Promise.reject(err);
+        })
+};
+
 function handleResponse(response: Response, origin: EReqOrigin) {
     return response.text().then(text => {
         let data;
@@ -148,6 +169,7 @@ export const CarrotService = {
     fetchCarrotList,
     fetchCarrotDetail,
     editCarrot,
-    deleteCarrot
+    deleteCarrot,
+    sensorData
 };
 

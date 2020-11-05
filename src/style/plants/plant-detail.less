@@ -55,6 +55,7 @@
           flex-wrap: wrap;
           flex-direction: column;
           justify-content: center;
+          align-content: start;
         }
       }
     }
@@ -87,63 +88,62 @@
   &-visual {
     margin-bottom: 40px;
   }
+}
 
-  .plant-link {
-    .modal-header {
-      flex-wrap: wrap;
+.plant-link {
+  .modal-header {
+    flex-wrap: wrap;
+  }
+
+  &-img {
+    width: 20px;
+    vertical-align: text-bottom;
+    margin-right: 10px;
+  }
+
+  &-form {
+    padding: 0;
+  }
+
+  &-carrot-page {
+    margin-left: 5px;
+    color: @color-primary-orange;
+    transition: all ease-in-out .3s;
+    text-decoration: underline;
+
+    &:hover {
+      color: @color-primary-green-light;
     }
 
-    &-img {
-      width: 20px;
-      vertical-align: text-bottom;
-      margin-right: 10px;
-    }
-
-    &-form {
-      padding: 0;
-    }
-
-    &-carrot-page {
-      margin-left: 5px;
-      color: @color-primary-orange;
+    &-go {
+      font-size: 12px;
+      color: @color-secondary-dark;
+      margin-top: 10px;
       transition: all ease-in-out .3s;
-      text-decoration: underline;
 
-      &:hover {
-        color: @color-primary-green-light;
+      &:hover, &:focus {
+        box-shadow: none;
+        text-decoration: none;
+        text-shadow: 2px 2px 5px @color-secondary;
       }
 
-      &-go {
-        font-size: 12px;
-        color: @color-secondary-dark;
-        margin-top: 10px;
-        transition: all ease-in-out .3s;
-
-        &:hover, &:focus {
-          box-shadow: none;
-          text-decoration: none;
-          text-shadow: 2px 2px 5px @color-secondary;
-        }
-
-        .oi {
-          margin-left: 5px;
-          top: 2px
-        }
+      .oi {
+        margin-left: 5px;
+        top: 2px
       }
     }
+  }
 
-    .modal {
-      &-body {
-        background-color: @color-secondary-light;
-      }
-      &-title {
-        color: @color-primary-orange;
-        font-size: 24px;
-      }
-      &-footer {
-        justify-content: space-between;
-      }
+  .modal {
+    &-body {
+      background-color: @color-secondary-light;
     }
-
+    &-title {
+      color: @color-primary-orange;
+      font-size: 22px;
+    }
+    &-footer {
+      justify-content: space-between;
+    }
   }
 }

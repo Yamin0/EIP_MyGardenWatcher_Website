@@ -32,7 +32,7 @@ const Beta: React.FunctionComponent = () => (
                 <div className="col-md-12 beta-download">
                     <h3>Aidez-nous à tester notre application mobile !</h3>
                     Nous avons besoin de vous pour tester notre application mobile !
-                    Pour l'installer, cliquez sur le lien suivant à partir de votre téléphone portable.
+                    Pour l'installer, cliquez sur le lien suivant à partir de votre téléphone portable ou scannez le QR Code.
                     Un téléchargement se lancera et l'APK (le fichier d'installation de l'application) sera sur votre téléphone.
                     Une fois téléchargé, votre téléphone devrait vous proposer automatiquement d'installer l'application.
                     <br/>
@@ -43,6 +43,7 @@ const Beta: React.FunctionComponent = () => (
                         Télécharger
                         <span className="oi oi-data-transfer-download"/>
                     </a>
+                    <img src="/images/qrcode-app-dl.png" className="beta-download-qrcode img-fluid" alt="QR Code"/>
                 </div>
 
                 <div className="col-md-12 row justify-content-center">

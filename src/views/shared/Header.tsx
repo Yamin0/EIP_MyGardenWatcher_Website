@@ -43,6 +43,10 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                 </li>
 
                 <li className="menu-elem">
+                    <Link to="/beta" className="menu-elem-link">La Bêta</Link>
+                </li>
+
+                <li className="menu-elem">
                     <Link to="/plants" className="menu-elem-link">Les plantes</Link>
                 </li>
 

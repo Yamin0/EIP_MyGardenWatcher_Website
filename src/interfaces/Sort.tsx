@@ -1,34 +1,29 @@
-enum ESortType {
-    NAME_ASC,
-    NAME_DESC,
-    TYPE_ASC,
-    TYPE_DESC,
-    MIN_TEMP_ASC,
-    MIN_TEMP_DESC,
-    MAX_TEMP_ASC,
-    MAX_TEMP_DESC,
-    HUM_ASC,
-    HUM_DESC,
-    SUN_ASC,
-    SUN_DESC,
-}
+export const sortList: string[] = [
+    "Aname",
+    "Dname",
+    "Ahumidity",
+    "Dhumidity",
+    "AminTemp",
+    "DminTemp",
+    "AmaxTemp",
+    "DmaxTemp",
+    "Alight",
+    "Dlight",
+    "Atype",
+    "Dtype",
+];
 
-export const getSortAttrName = (sort: ESortType) => {
-    switch (sort) {
-        case ESortType.NAME_ASC:
-        case ESortType.NAME_DESC: return "name";
-        case ESortType.TYPE_ASC:
-        case ESortType.TYPE_DESC: return "type";
-        case ESortType.MIN_TEMP_ASC:
-        case ESortType.MIN_TEMP_DESC: return "minTemp";
-        case ESortType.MAX_TEMP_ASC:
-        case ESortType.MAX_TEMP_DESC: return "maxTemp";
-        case ESortType.HUM_ASC:
-        case ESortType.HUM_DESC: return "humidity";
-        case ESortType.SUN_ASC:
-        case ESortType.SUN_DESC: return "light";
-        default: return "";
-    }
-}
-
-export default ESortType;
+export const sortNames: string[] = [
+    "Nom \uf15d",
+    'Nom \uf15e',
+    "Humidité \uf884",
+    "Humidité \uf160",
+    "Température min \uf884",
+    "Température min \uf160",
+    "Température max \uf884",
+    "Température max \uf160",
+    "Luminosité \uf884",
+    "Luminosité \uf160",
+    "Type de plante \uf15d",
+    "Type de plante \uf15e"
+];

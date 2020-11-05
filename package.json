@@ -5,19 +5,22 @@
   "dependencies": {
     "@popperjs/core": "^2.4.4",
     "@types/node": "12.6.9",
-    "@types/react": "16.8.24",
+    "@types/react": "16.9.12",
     "@types/react-dom": "16.8.5",
     "@types/react-router-dom": "^4.3.4",
     "@types/react-router-hash-link": "^1.2.1",
+    "boostrap": "^2.0.0",
+    "bootstrap": "4",
     "date-fns": "^2.8.1",
     "query-string": "^6.12.1",
     "react": "^16.9.0",
+    "react-bootstrap": "^1.3.0",
     "react-clickout-handler": "^1.2.1",
     "react-datepicker": "^3.1.3",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-router-hash-link": "^1.2.2",
-    "typescript": "3.5.3"
+    "typescript": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
