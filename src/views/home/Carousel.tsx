@@ -145,8 +145,8 @@ const CarouselIndicators: React.FunctionComponent<ICarouselIndicatorsProps> = ({
 
 const HomeCarousel: React.FunctionComponent =  () => {
     return (
-            <Carousel>
-                {slides.map((slide, i) => <Carousel.Item key={i}>
+            <Carousel id="mgw-carousel">
+                {slides.map((slide, i) => <Carousel.Item key={i} interval={3000}>
                     <div className={"row header " + slide.className}>
                         <div className="col-sm-12 header-title">
                             {
