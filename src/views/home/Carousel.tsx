@@ -118,31 +118,6 @@ const slides: ICarouselSlide[] = [
 
 ];
 
-const CarouselSlide: React.FunctionComponent<ICarouselSlideProps> = ({slide, index}) => (
-    <Carousel.Item>
-    </Carousel.Item>
-);
-
-const CarouselIndicators: React.FunctionComponent<ICarouselIndicatorsProps> = ({length}) => {
-    const indicators: React.ReactNode[] = [];
-
-    for (let i = 0; i < length; i++) {
-        indicators.push(
-            <li
-                key={i}
-                data-target="#mgw-carousel"
-                data-slide-to={i.toString()}
-                className={i === 0 ? "active" : ""}
-            />
-        );
-    }
-
-    return (
-        <ol className="carousel-indicators">
-            {indicators}
-        </ol>);
-};
-
 const HomeCarousel: React.FunctionComponent =  () => {
     return (
             <Carousel id="mgw-carousel">

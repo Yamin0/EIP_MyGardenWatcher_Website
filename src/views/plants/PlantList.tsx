@@ -6,7 +6,6 @@ import PlantSearchEngine from "./PlantSearchEngine";
 import PlantThumb from "./PlantThumb";
 import Pagination from "../shared/Pagination";
 import {sortList, sortNames} from "../../interfaces/Sort";
-const queryString = require('query-string');
 
 interface IPlantListState {
     currentPage: number,
