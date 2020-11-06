@@ -3,6 +3,7 @@ import Carrot from "../../interfaces/Carrot";
 import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
 import {OverlayTrigger, Popover} from "react-bootstrap";
+import SensorData, {sensorDataInit} from "../../interfaces/SensorData";
 
 interface ICarrotThumbProps {
     carrot: Carrot,
@@ -12,6 +13,7 @@ interface ICarrotThumbProps {
 
 interface ICarrotThumbState {
     carrot: Carrot,
+    sensorData: SensorData[],
     toggled: boolean,
     hasPlants: boolean,
     isFetching: boolean,
@@ -25,6 +27,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
         this.state = {
             carrot: this.props.carrot,
+            sensorData: [sensorDataInit],
             toggled: false,
             hasPlants: false,
             isFetching: false,
@@ -33,6 +36,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
         };
 
         this.fetchCarrotDetail = this.fetchCarrotDetail.bind(this);
+        this.fetchSensorData = this.fetchSensorData.bind(this);
         this.togglePlants = this.togglePlants.bind(this);
         this.handleDeletePlantLink = this.handleDeletePlantLink.bind(this);
     }
@@ -47,7 +51,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                         carrot,
                         hasPlants: carrot.plants && carrot.plants.length > 0,
                         isFetching: false
-                    });
+                    }, this.fetchSensorData);
                 }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
@@ -58,8 +62,11 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
         this.setState({ isFetching: true }, () => {
             CarrotService.sensorData(this.state.carrot.id)
                 .then(data => {
-                    console.log(data);
+                    let sensorData: SensorData[] = data as SensorData[];
+                    if (sensorData.length === 0) sensorData = [sensorDataInit];
+
                     this.setState({
+                        sensorData: sensorData,
                         isFetching: false
                     });
                 }, error => {
@@ -94,7 +101,6 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
     componentDidMount() {
         this.fetchCarrotDetail();
-        this.fetchSensorData();
     }
 
     render() {
@@ -129,19 +135,19 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                             <img className="plant-list-thumb-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            20°
+                            {this.state.sensorData[0].temperature}°
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
                             <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            50%
+                            {this.state.sensorData[0].humidity}%
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
                             <img className="plant-list-thumb-icon" src="/images/icons/light/full.png" alt="luminosité"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            1lx
+                            {this.state.sensorData[0].luminosity}lx
                         </div>
                     </div>
 
