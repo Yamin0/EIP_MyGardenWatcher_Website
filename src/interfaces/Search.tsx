@@ -21,9 +21,9 @@ export const lightIconNames: string[] = [
 ];
 
 export const lightFrenchNames: string[] = [
-    "aucune exposition",
-    "exposition partielle",
-    "exposition complète"
+    "ombre",
+    "mi-ombre",
+    "soleil"
 ];
 
 export const tempRanges: number[][] = [

@@ -257,7 +257,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
     render() {
         return (
             <form className="form col-12 plant-list-search row needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
-                <div className="form-group col-6">
+                <div className="form-group col-12">
                     <div className="plant-list-search-title">
                         Nom
                     </div>
@@ -270,16 +270,16 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group col-6">
-                    <div className="plant-list-search-title">
-                        Humidité
-                    </div>
-                    <div className="row justify-content-start">
-                        {this.renderRadioHumidity()}
-                    </div>
-                </div>
 
                 <div id="PlantListHide" className={"plant-list-search-" + (this.state.toggled ? "display" : "hide") + " row"}>
+                    <div className="form-group col-6">
+                        <div className="plant-list-search-title">
+                            Humidité
+                        </div>
+                        <div className="row justify-content-start">
+                            {this.renderRadioHumidity()}
+                        </div>
+                    </div>
 
                     <div className="form-group col-6">
                         <div className="plant-list-search-title">
@@ -336,7 +336,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         Rechercher
                     </button>
                 </div>
-                <div className="col-12 plant-list-search-tooltips">
+                <div className={"col-12 plant-list-search-tooltips " + (this.state.toggled ? "display" : "hide")}>
                     Survolez les icônes de température, humidité et luminosité avec la souris pour afficher une info-bulle contenant plus de détails.
                 </div>
             </form>

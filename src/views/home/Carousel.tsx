@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Carousel} from "react-bootstrap";
 
 interface ICarouselSlide {
     className: string,
@@ -118,30 +119,8 @@ const slides: ICarouselSlide[] = [
 ];
 
 const CarouselSlide: React.FunctionComponent<ICarouselSlideProps> = ({slide, index}) => (
-    <div className={"carousel-item" + (index === 0 ? " active" : "")}>
-        <div className={"row header " + slide.className}>
-            <div className="col-sm-12 header-title">
-                {
-                    slide.subtitle ?
-                        <h1 className="header-title-main">{slide.title}</h1>
-                        :
-                        <h2 className={"header-title-medium" + slide.colorTitle}>{slide.title}</h2>
-                }
-                {
-                    slide.subtitle !== "" &&
-                    <h2 className="header-title-sub">{slide.subtitle}</h2>
-                }
-                <p className={"header-description" + slide.colorDescription}>{slide.description}</p>
-                {
-                    slide.link !== "" &&
-                    <a className={"header-link" + slide.colorLink} href={slide.link}
-                       target={!slide.link.includes("http") ? "_self" : "_blank"} rel="noopener noreferrer">
-                        {slide.linkText}
-                    </a>
-                }
-            </div>
-        </div>
-    </div>
+    <Carousel.Item>
+    </Carousel.Item>
 );
 
 const CarouselIndicators: React.FunctionComponent<ICarouselIndicatorsProps> = ({length}) => {
@@ -164,26 +143,35 @@ const CarouselIndicators: React.FunctionComponent<ICarouselIndicatorsProps> = ({
         </ol>);
 };
 
-const Carousel: React.FunctionComponent<{}> =  () => {
+const HomeCarousel: React.FunctionComponent =  () => {
     return (
-        <div id="mgw-carousel" className="carousel slide" data-ride="carousel" data-interval="5000">
-
-            <CarouselIndicators length={slides.length}/>
-
-            <div className="carousel-inner">
-                {slides.map((s, i) => <CarouselSlide key={i} slide={s} index={i}/>)}
-            </div>
-
-            <a className="left carousel-control-prev" href="#mgw-carousel" data-slide="prev" role="button">
-                <span className="carousel-control-prev-icon" aria-hidden={true}/>
-                <span className="sr-only">Previous</span>
-            </a>
-            <a className="right carousel-control-next" href="#mgw-carousel" data-slide="next" role="button">
-                <span className="carousel-control-next-icon" aria-hidden={true}/>
-                <span className="sr-only">Next</span>
-            </a>
-        </div>
+            <Carousel>
+                {slides.map((slide, i) => <Carousel.Item key={i}>
+                    <div className={"row header " + slide.className}>
+                        <div className="col-sm-12 header-title">
+                            {
+                                slide.subtitle ?
+                                    <h1 className="header-title-main">{slide.title}</h1>
+                                    :
+                                    <h2 className={"header-title-medium" + slide.colorTitle}>{slide.title}</h2>
+                            }
+                            {
+                                slide.subtitle !== "" &&
+                                <h2 className="header-title-sub">{slide.subtitle}</h2>
+                            }
+                            <p className={"header-description" + slide.colorDescription}>{slide.description}</p>
+                            {
+                                slide.link !== "" &&
+                                <a className={"header-link" + slide.colorLink} href={slide.link}
+                                   target={!slide.link.includes("http") ? "_self" : "_blank"} rel="noopener noreferrer">
+                                    {slide.linkText}
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </Carousel.Item>)}
+            </Carousel>
     )
 };
 
-export default Carousel;
+export default HomeCarousel;

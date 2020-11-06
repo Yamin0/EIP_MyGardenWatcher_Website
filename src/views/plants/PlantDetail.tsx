@@ -85,6 +85,9 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
 
                             <div className="col-3 plant-detail-data">
                                 <div className="plant-detail-data-thumb">
+                                    <h5 className="plant-detail-data-title">Environnement</h5>
+                                </div>
+                                <div className="plant-detail-data-thumb">
                                     {
                                         tempRanges.map((range, idx) => {
                                             if (plant.minTemp >= range[0] && plant.minTemp <= range[1])
@@ -167,7 +170,7 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                     />
                                     6 à 7
                                 </div>
-                                <div className="plant-detail-data-thumb">
+                                <div className="plant-detail-data-thumb last">
                                     <img
                                         className="plant-detail-icon"
                                         title={"ppm entre 100 et 400"}

@@ -1,5 +1,4 @@
 html {
-  scroll-behavior: smooth;
   height: 100%;
 }
 .container-fluid {
@@ -1033,6 +1032,12 @@ footer {
   margin-top: 15px;
   font-style: italic;
 }
+.plant-list-search-tooltips.display {
+  display: block;
+}
+.plant-list-search-tooltips.hide {
+  display: none;
+}
 .plant-detail {
   padding-bottom: 150px;
 }
@@ -1081,10 +1086,19 @@ footer {
 }
 .plant-detail-data {
   width: 100%;
+  color: #95A6B1;
+}
+.plant-detail-data-title {
+  color: #00A84E;
+  font-size: 24px;
+  margin-left: 5px;
+  margin-top: 10px;
 }
 .plant-detail-data-thumb {
   padding: 10px 20px;
   background-color: #F3F3F3;
+  font-size: 16px;
+  font-weight: bold;
 }
 .plant-detail-data-thumb.light {
   display: flex;
@@ -1093,12 +1107,15 @@ footer {
   justify-content: center;
   align-content: start;
 }
+.plant-detail-data-thumb.last {
+  padding-bottom: 20px;
+}
 .plant-detail-icon {
   width: 15%;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .plant-detail-icon.margin-left {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 .plant-detail-more {
   position: relative;

@@ -47,9 +47,18 @@
     }
     &-data {
       width: 100%;
+      color: @color-secondary;
+      &-title {
+        color: @color-primary-green;
+        font-size: 24px;
+        margin-left: 5px;
+        margin-top: 10px;
+      }
       &-thumb {
         padding: 10px 20px;
         background-color: @color-secondary-light;
+        font-size: 16px;
+        font-weight: bold;
         &.light {
           display: flex;
           flex-wrap: wrap;
@@ -57,13 +66,16 @@
           justify-content: center;
           align-content: start;
         }
+        &.last {
+          padding-bottom: 20px;
+        }
       }
     }
   &-icon {
     width: 15%;
-    margin-right: 5px;
+    margin-right: 10px;
     &.margin-left {
-      margin-left: 5px;
+      margin-left: 10px;
     }
   }
   &-more {

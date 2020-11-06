@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
 import Login from "../user/Login";
 import {UserService} from "../../services/UserService";
+import {Link} from "react-router-dom";
 
 interface IHeaderProps {
     isAuthenticated: boolean,
@@ -23,23 +23,23 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
     return (
         <header className="row menu">
             <ul>
-                <li className="menu-logo">
-                    <Link to="/" onClick={() => {window.scrollTo(0, 0);}}>
+                <li className="menu-logo" >
+                    <HashLink to="/#mgw-carousel" scroll={el => el.scrollIntoView({ behavior: 'smooth' })}>
                         <img src="/images/logos/mgw-logo-text-black-carrot-grey-shadowed.png" className="menu-logo-image"
                              alt="My Garden Watcher"/>
-                    </Link>
+                    </HashLink>
                 </li>
                 <li className="menu-elem">
-                    <HashLink to="/#concept" className="menu-elem-link">Le concept</HashLink>
+                    <HashLink to="#concept" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Le concept</HashLink>
                 </li>
                 <li className="menu-elem">
-                    <HashLink to="/#vision" className="menu-elem-link">Notre vision</HashLink>
+                    <HashLink to="/#vision" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Notre vision</HashLink>
                 </li>
                 <li className="menu-elem">
-                    <HashLink to="/#solution" className="menu-elem-link">Notre solution</HashLink>
+                    <HashLink to="/#solution" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Notre solution</HashLink>
                 </li>
                 <li className="menu-elem">
-                    <HashLink to="/#team" className="menu-elem-link">L'équipe</HashLink>
+                    <HashLink to="/#team" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">L'équipe</HashLink>
                 </li>
 
                 <li className="menu-elem">
