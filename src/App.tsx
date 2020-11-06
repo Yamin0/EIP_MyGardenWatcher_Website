@@ -23,7 +23,7 @@ import CarrotList from "./views/carrots/CarrotList";
 
 export let history = createBrowserHistory();
 
-export const apiUrl = process.env.NODE_ENV === 'development' ? "http://www.mygardenwatcher.fr:3001" : "https://www.mygardenwatcher.fr:2929";
+export const apiUrl = process.env.NODE_ENV === 'development' ? "http://mygardenwatcher.fr:3001" : "https://mygardenwatcher.fr:2929";
 
 interface IAppState {
     user: User,
