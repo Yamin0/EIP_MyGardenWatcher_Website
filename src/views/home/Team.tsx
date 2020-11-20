@@ -1,4 +1,5 @@
 import * as React from "react";
+import Fade from 'react-reveal/Fade';
 
 interface ITeamMember {
     fullName: string,
@@ -58,11 +59,12 @@ const teamMembers: ITeamMember[] = [
     },
 ];
 
-const Team: React.FunctionComponent<{}> = () => {
+const Team: React.FunctionComponent = () => {
     return (
         <div className="row team" id="team">
 
             <h2 className="team-title col-md-12">L'équipe</h2>
+            <Fade>
             {
                 teamMembers.map((s, i) =>
                     <div key={i} className="col-md-3 team-member" itemScope itemType="https://schema.org/Person">
@@ -78,6 +80,7 @@ const Team: React.FunctionComponent<{}> = () => {
                     </div>
                 )
             }
+            </Fade>
         </div>)
 };
 

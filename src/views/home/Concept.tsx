@@ -26,7 +26,7 @@ const Concept: React.FunctionComponent<{}> =  () => {
             </div>
             <h3 className="concept-video-title text-center col-md-12">Notre projet en vidéo</h3>
 
-            <iframe className="concept-video" width="1120" height="630" src="https://www.youtube.com/embed/KS7dqE9BfLM" frameBorder="0"
+            <iframe title="MyGardenWatcher Présentation" className="concept-video" width="1120" height="630" src="https://www.youtube.com/embed/KS7dqE9BfLM" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen></iframe>
 
