@@ -16,7 +16,7 @@ const teamMembers: ITeamMember[] = [
     },
     {
         fullName: "Delphine Godet",
-        role: "Développeuse Front-End - Graphic Designer",
+        role: "Développeuse Front-End - Web Designer",
         image: "/images/team-members/delphine.jpg",
         link: "https://www.linkedin.com/in/delphine-godet-4250b0121/",
     },

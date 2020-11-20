@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const Vision: React.FunctionComponent<{}> = () => {
+const Vision: React.FunctionComponent = () => {
     return (
         <div className="row vision" id="vision">
             <h2 className="vision-title col-md-12">Notre vision</h2>

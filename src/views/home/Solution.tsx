@@ -7,26 +7,85 @@ const Solution: React.FunctionComponent = () => {
 
             <h4 className="solution-subtitle col-md-12">Un assistant connecté au jardinage de loisir</h4>
 
-            <div className="col-md-12 solution-connect">
-                <img src="/images/flat/flat-carrot.png" className="solution-connect-img" alt="carrot"/>
-                    <div className="solution-connect-text">
-                        <h3>Donnez vie à votre carotte !</h3>
-
-                        Vous connectez votre carotte en bluetooth à notre application, via votre smartphone. N'oubliez
-                        pas de lui donner un nom !
+            <div className="col-md-12 row solution-products">
+                <div className="col-md-6 text-center">
+                    <h3 className="solution-products-title orange">La carotte connectée</h3>
+                    <div>
+                        <p>
+                            Nous vous proposons un outil connecté en forme de carotte.
+                        </p>
+                        <p>
+                            Elle s'installe dans la terre à côté de vos plantes.
+                        </p>
+                        <p>
+                            Elle contient des capteurs qui vont relever les données de votre environnement pour que nous puissions les traiter.
+                        </p>
                     </div>
-
-                    <img src="/images/dots.png" className="solution-connect-dots" alt="dots"/>
-                    <img src="/images/flat/flat-phone.png" className="solution-connect-img" alt="phone"/>
+                    <div>
+                        <img src="/images/flat/flat-phone.png" className="solution-products-img" alt="phone"/>
+                    </div>
+                </div>
+                <div className="col-md-6 text-center">
+                    <h3 className=" solution-products-title green">Le boîtier de transmission</h3>
+                    <div>
+                        <p>
+                            Notre solution inclut un boîtier qui s'installe dans votre maison.
+                        </p>
+                        <p>
+                            Ce boîtier nécessite une alimentation électrique ainsi qu'une connexion filaire à Internet.
+                        </p>
+                        <p>
+                            Ce boîtier établira la connexion entre vos carottes et nos serveurs.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="/images/flat/flat-carrot.png" className="solution-products-img" alt="phone"/>
+                    </div>
+                </div>
+            </div>
+            <h2 className="solution-second-title text-center col-md-12">Comment ça marche ?</h2>
+            <div className="col-md-12 solution-step account">
+                <div className="solution-step-text">
+                    <h3>Créez votre compte utilisateur !</h3>
+                    <p>
+                        Vous pouvez créer un compte utilisateur sur notre site Web ou notre application mobile.
+                    </p>
+                    <a className="btn btn-orange solution-step-btn" href="/beta">Télécharger l'application mobile</a>
+                    <p>
+                        C'est avec ce compte que vous pourrez gérer vos carottes connectées et visualiser la croissance de vos plantes.
+                    </p>
+                    <a className="btn btn-green" href="/register">Je crée mon compte</a>
+                </div>
+                <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
+                     alt="Select your plants"/>
+            </div>
+            <div className="col-md-12 solution-step connect">
+                <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
+                     alt="Select your plants"/>
+                <div className="solution-step-text">
+                    <h3>Connectez votre boîtier et vos carottes !</h3>
+                    <p>
+                        Après avoir branché votre boîtier, connectez le à votre compte en utilisant l'application mobile.
+                    </p>
+                    <p>
+                        Vous pourrez ensuite ajouter vos carottes sur l'application mobile ou le site Web.
+                    </p>
+                    <a className="btn btn-green" href="/carrots">J'ajoute une carotte</a>
+                </div>
             </div>
             <div className="col-md-12 solution-step select">
                 <div className="solution-step-text">
                     <h3>Choississez vos plantations !</h3>
-                    Vous sélectionnez les plantes que vous allez faire pousser avec votre carotte dans notre
-                    application.
-                    <br/>
-                    Notre base de données est alimentée régulièrement et toutes nos informations sont certifiées par des
-                    ingénieurs agronomes.
+                    <p>
+                        Une fois vos carottes ajoutées, choisissez les plantes que vous allez faire pousser.
+                    </p>
+                    <p>
+                        Nous mettons à votre disposition une liste de plantes alimentée régulièrement et contenant plus de 3000 plantes.
+                    </p>
+                    <p>
+                        Vous pouvez lier une plante à l'une de vos carottes depuis la page détail de cette plante.
+                    </p>
+                    <a className="btn btn-green" href="/plants">Voir les plantes</a>
                 </div>
                 <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
                      alt="Select your plants"/>
@@ -37,56 +96,39 @@ const Solution: React.FunctionComponent = () => {
                      alt="We can help you"/>
                 <div className="solution-step-text">
                     <h3>Nous pouvons vous aider !</h3>
-                    Notre application peut vous proposer différents types de plantes adaptés à votre environnement,
-                    grâce à un moteur de recherche performant.
+                    <p>
+                        Vous ne savez pas quelles plantes faire pousser ? Nous sommes là pour vous aider !
+                    </p>
+                    <p>
+                        Notre site Web dispose d'un moteur de recherche performant pour trouver la plante adaptée à votre environnement.
+                    </p>
+                    <p>
+                        Nous mettons également à votre disposition des conseils ciblés en lien avec les plantes que vous faites pousser.
+                    </p>
                     <br/>
                 </div>
             </div>
 
             <div className="col-md-12 solution-step config">
                 <div className="solution-step-text">
-                    <h3>Configurez vos rappels </h3>
-                    Vous pourrez sélectionner les types de rappels que vous souhaitez avoir, leur fréquence, leur
-                    horaire...
-                    <br/>
+                    <h3>Configurez vos alertes !</h3>
+                    <p>
+                        Sur notre application mobile, vous pouvez configurer des alertes.
+                    </p>
+                    <p>
+                        Pour chacune d'entre-elles, vous pouvez y lier une ou plusieurs plantes liées à vos carottes.
+                    </p>
+                    <p>
+                        Le jour et l'heure prévue, vous recevez une notification sur votre téléphone pour prendre soin de vos plantes de manière adaptée.
+                    </p>
                 </div>
                 <img src="/images/flat/flat-reminder-config.png" className="solution-step-img"
                      alt="Configure your reminders"/>
             </div>
 
-            <div className="col-xs-12 solution-step receive">
-                <img src="/images/flat/flat-receive-notif.png" className="solution-step-img"
-                     alt="You receive notifications"/>
-                <div className="solution-step-text">
-                    <h3>Vous recevez des notifications !</h3>
-                    Selon les rappels que vous avez configuré, votre téléphone vous envoie des notifications lorsque vos
-                    plantes ont besoin de vous.
-                    <br/>
-                </div>
+            <div className="col-md-12 solution-conclusion">
+                Ainsi, vous pouvez faire pousser vos plantes en toute sérénité !
             </div>
-
-            <div className="col-md-12 solution-step advice">
-                <div className="solution-step-text">
-                    <h3>Besoin de renseignements ?</h3>
-                    Vous pouvez consulter nos fiches de renseignements et de conseils dédiées à chacune des plantes sur
-                    lesquelles nous disposons d'informations vérifiées.
-                    <br/>
-                </div>
-                <img src="/images/flat/flat-plant-info.png" className="solution-step-img"
-                     alt="Need informations ?"/>
-            </div>
-
-            <div className="col-md-12 solution-step share">
-                <img src="/images/flat/flat-share-result.png" className="solution-step-img"
-                     alt="Share your results"/>
-                <div className="solution-step-text">
-                    <h3>Montrez nous vos résultats !</h3>
-                    Vous pouvez renseigner la croissance de vos plantes et poster des photos directement dans notre
-                    application, pour partager vos réussites.
-                    <br/>
-                </div>
-            </div>
-
         </div>
     )
 };

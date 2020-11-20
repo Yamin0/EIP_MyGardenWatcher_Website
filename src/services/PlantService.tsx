@@ -18,7 +18,7 @@ const fetchPlantList = (attributes: string[], ids?: string) => {
         return fetch(url, reqOpt)
             .then(handleResponse)
             .then((plants) => {
-                return plants
+                return plants.plants
             }, (err) => {
                 return Promise.reject(err);
             });
@@ -56,7 +56,7 @@ const searchPlantList = (search: string) => {
     return fetch(url, reqOpt)
         .then(handleResponse)
         .then((plants) => {
-            return plants
+            return plants.plants
         }, (err) => {
             return Promise.reject(err);
         });
