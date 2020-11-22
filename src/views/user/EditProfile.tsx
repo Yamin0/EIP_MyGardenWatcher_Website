@@ -233,7 +233,9 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                     Mon espace client
                 </h1>
                 <div className="row">
-                    <UserMenu disconnect={this.props.disconnect}/>
+                    <div className="col-3">
+                        <UserMenu disconnect={this.props.disconnect}/>
+                    </div>
                     <form className="form col-9 needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
                         {this.state.loading &&
                             <div className="form-loading d-flex align-items-center justify-content-center position-absolute">

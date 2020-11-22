@@ -1183,6 +1183,9 @@ footer {
 .carrot-list-empty {
   margin-top: 80px;
 }
+.carrot-list-side {
+  align-content: start;
+}
 .add-carrot .form {
   padding: 0;
 }
@@ -1208,6 +1211,32 @@ footer {
   font-weight: bold;
   font-size: 22px;
   margin-bottom: 20px;
+}
+.carrot-thumb-name {
+  margin-right: 10px;
+}
+.carrot-thumb-spinner {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+  vertical-align: initial;
+}
+.carrot-thumb-circle {
+  margin-right: 20px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: initial;
+}
+.carrot-thumb-circle.Connected {
+  background: #00A84E;
+}
+.carrot-thumb-circle.Disconnected {
+  background: red;
+}
+.carrot-thumb-circle.Unknown {
+  background: #56636b;
 }
 .carrot-thumb-img {
   width: 25px;
@@ -1273,6 +1302,49 @@ footer {
 }
 .carrot-thumb-btn-delete-plant:focus {
   box-shadow: none;
+}
+.gateway-list {
+  margin-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+.gateway-list-title {
+  color: black;
+  margin: 20px 0;
+  font-size: 32px;
+  font-weight: bold;
+}
+.gateway-list-thumb {
+  padding-bottom: 10px;
+  margin: auto;
+  width: 80%;
+  border-bottom: 1px solid #56636b;
+}
+.gateway-list-name {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+.gateway-list-spinner {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+.gateway-list-circle {
+  margin-right: 20px;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+.gateway-list-circle.Connected {
+  background: #00A84E;
+}
+.gateway-list-circle.Disconnected {
+  background: red;
+}
+.gateway-list-circle.Unknown {
+  background: #56636b;
 }
 .beta {
   padding-bottom: 100px;

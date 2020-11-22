@@ -12,26 +12,26 @@ enum EReqOrigin {
     DELETE
 }
 
-const createCarrot = (name: string, gatewayId: number, serialNumber: string) => {
+const createGateway = (name: string, serialCode: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
         headers: new Headers({
             'Content-Type': 'application/json',
             'auth': UserService.getToken() as string
         }),
-        body: JSON.stringify({name, gatewayId, serialNumber})
+        body: JSON.stringify({name, serialCode})
     };
 
-    return fetch(apiUrl + "/carrots", reqOpt)
+    return fetch(apiUrl + "/gateways", reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.REGISTER))
-        .then((carrot) => {
-            return carrot;
+        .then((gateway) => {
+            return gateway;
         }, (err) => {
             return Promise.reject(err);
         });
 };
 
-const fetchCarrotList = () => {
+const fetchGatewayList = () => {
     const reqOpt: RequestInit = {
         method: "GET",
         headers: new Headers({
@@ -40,16 +40,16 @@ const fetchCarrotList = () => {
         })
     };
 
-    return fetch(apiUrl + "/carrots", reqOpt)
+    return fetch(apiUrl + "/gateways", reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.LOGIN))
-        .then((carrots) => {
-            return carrots.carrots;
+        .then((gateways) => {
+            return gateways.gateways;
         }, (err) => {
             return Promise.reject(err);
         })
 };
 
-const editCarrot = (id: number, newName: string) => {
+const editGateway = (id: number, newName: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
         headers: new Headers({
@@ -59,16 +59,16 @@ const editCarrot = (id: number, newName: string) => {
         body: JSON.stringify({ id, newName })
     };
 
-    return fetch(apiUrl + "/carrots/rename", reqOpt)
+    return fetch(apiUrl + "/gateways/rename", reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.GETUSER))
-        .then((carrot) => {
-            return carrot;
+        .then((gateway) => {
+            return gateway;
         }, (err) => {
             return Promise.reject(err);
         })
 };
 
-const fetchCarrotDetail = (id: number) => {
+const fetchGatewayDetail = (id: number) => {
     const reqOpt: RequestInit = {
         method: "GET",
         headers: new Headers({
@@ -77,16 +77,16 @@ const fetchCarrotDetail = (id: number) => {
         })
     };
 
-    return fetch(apiUrl + "/carrots/" + id.toString(), reqOpt)
+    return fetch(apiUrl + "/gateways/" + id.toString(), reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.LOGIN))
-        .then((carrot) => {
-            return carrot
+        .then((gateway) => {
+            return gateway
         }, (err) => {
             return Promise.reject(err);
         })
 };
 
-const deleteCarrot = (id: number) => {
+const deleteGateway = (id: number) => {
     const reqOpt: RequestInit = {
         method: "DELETE",
         headers: new Headers({
@@ -95,35 +95,14 @@ const deleteCarrot = (id: number) => {
         }),
     };
 
-    return fetch(apiUrl + "/carrots/" + id.toString(), reqOpt)
+    return fetch(apiUrl + "/gateways/" + id.toString(), reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.DELETE))
         .then(() => {return}, (err) => {
             return Promise.reject(err);
         });
-
 };
 
-const sensorData = (id: number) => {
-    const reqOpt: RequestInit = {
-        method: "GET",
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'auth': UserService.getToken() as string
-        })
-    };
-
-    let url = apiUrl + "/sensorData/?carrotId=" + id.toString() + "&attributes=luminosity,temperature,humidity";
-
-    return fetch(url, reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
-        .then((data) => {
-            return data
-        }, (err) => {
-            return Promise.reject(err);
-        })
-};
-
-const aliveCarrot = (gatewayId: number, id: number) => {
+const aliveGateway = (id: number) => {
     const reqOpt: RequestInit = {
         method: "GET",
         headers: new Headers({
@@ -132,7 +111,7 @@ const aliveCarrot = (gatewayId: number, id: number) => {
         }),
     };
 
-    return fetch(apiUrl + "/carrots/alive/" + gatewayId.toString() + "/" + id.toString(), reqOpt)
+    return fetch(apiUrl + "/gateways/alive/" + id.toString(), reqOpt)
         .then((res) => handleResponse(res, EReqOrigin.DELETE))
         .then((status) => {
             return status
@@ -181,13 +160,11 @@ function handleResponse(response: Response, origin: EReqOrigin) {
     });
 }
 
-export const CarrotService = {
-    createCarrot,
-    fetchCarrotList,
-    fetchCarrotDetail,
-    editCarrot,
-    deleteCarrot,
-    sensorData,
-    aliveCarrot
+export const GatewayService = {
+    createGateway,
+    fetchGatewayList,
+    editGateway,
+    fetchGatewayDetail,
+    deleteGateway,
+    aliveGateway
 };
-

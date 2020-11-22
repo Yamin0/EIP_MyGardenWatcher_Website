@@ -164,20 +164,20 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                 <div className="plant-detail-data-thumb">
                                     <img
                                         className="plant-detail-icon"
-                                        title={"pH entre 6 et 7"}
+                                        title={plant.ph}
                                         src={"/images/icons/icon-ph.png"}
-                                        alt={plant.name + "ph6à7"}
+                                        alt={plant.name + "ph" + plant.ph}
                                     />
-                                    6 à 7
+                                    {plant.ph}
                                 </div>
                                 <div className="plant-detail-data-thumb last">
                                     <img
                                         className="plant-detail-icon"
-                                        title={"ppm entre 100 et 400"}
+                                        title={plant.co2}
                                         src={"/images/icons/icon-co2.png"}
-                                        alt={plant.name + "co2-100à400ppm"}
+                                        alt={plant.name + "co2" + plant.co2}
                                     />
-                                    100 à 400 ppm
+                                    {plant.co2}
                                 </div>
 
                                 <div className="plant-detail-more">

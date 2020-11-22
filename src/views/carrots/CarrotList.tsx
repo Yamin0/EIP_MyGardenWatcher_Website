@@ -7,12 +7,15 @@ import UserMenu from "../shared/UserMenu";
 import AddCarrot from "./AddCarrot";
 import EditCarrot from "./EditCarrot";
 import DeleteCarrot from "./DeleteCarrot";
+import {GatewayService} from "../../services/GatewayService";
+import Gateway from "../../interfaces/Gateway";
+import GatewayList from "./GatewayList";
 
-interface IPlantListProps {
+interface ICarrotListProps {
     disconnect(): void
 }
 
-interface IPlantListState {
+interface ICarrotListState {
     currentPage: number,
     totalPages: number,
     isFetching: boolean,
@@ -21,6 +24,7 @@ interface IPlantListState {
     success: boolean,
     successMsg: string,
     carrots: Carrot[],
+    gateways: Gateway[],
     editCarrot: Carrot,
     editModalOpen: boolean,
     deleteCarrot: Carrot,
@@ -29,7 +33,7 @@ interface IPlantListState {
 
 const itemsPerPage: number = 6;
 
-class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
+class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
     constructor(props: any) {
         super(props);
 
@@ -42,12 +46,14 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
             success: false,
             successMsg: "",
             carrots: [],
+            gateways: [],
             editCarrot: carrotInit,
             editModalOpen: false,
             deleteCarrot: carrotInit,
             deleteModalOpen: false
         };
 
+        this.fetchAllGateways = this.fetchAllGateways.bind(this);
         this.fetchAllCarrots = this.fetchAllCarrots.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
         this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
@@ -57,24 +63,58 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
         this.onSuccessForm = this.onSuccessForm.bind(this);
     }
 
-    // Fetch carrots
-    private fetchAllCarrots() {
+    // Fetch gateways
+    private fetchAllGateways(callback: () => void) {
         this.setState({ isFetching: true }, () => {
-            CarrotService.fetchCarrotList()
+            GatewayService.fetchGatewayList()
                 .then(data => {
-                    let carrots: Carrot[] = data as Carrot[];
+                    let gateways: Gateway[] = data as Gateway[];
+                    if (gateways.length === 0) {
+                        GatewayService.createGateway("test", "qzsedfrgthy")
+                            .then(data => {
+                                let gateway: Gateway = data as Gateway;
 
-                    this.setState({
-                        carrots: carrots,
-                        currentPage: 1,
-                        totalPages: Math.trunc(carrots.length / itemsPerPage) + (carrots.length % itemsPerPage > 0 ? 1 : 0),
-                        isFetching: false,
-                        error: ""
-                    });
+                                this.setState({
+                                    gateways: [gateway],
+                                    isFetching: false,
+                                    error: ""
+                                });
+                            }, error => {
+                                this.setState({ error: error.toString(), isFetching: false })
+                            });
+                    } else {
+                        this.setState({
+                            gateways: gateways,
+                            isFetching: false,
+                            error: ""
+                        }, callback);
+                    }
                 }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
         });
+    }
+
+    // Fetch carrots
+    private fetchAllCarrots() {
+        if (this.state.gateways.length > 0) {
+            this.setState({ isFetching: true }, () => {
+                CarrotService.fetchCarrotList()
+                    .then(data => {
+                        let carrots: Carrot[] = data as Carrot[];
+
+                        this.setState({
+                            carrots: carrots,
+                            currentPage: 1,
+                            totalPages: Math.trunc(carrots.length / itemsPerPage) + (carrots.length % itemsPerPage > 0 ? 1 : 0),
+                            isFetching: false,
+                            error: ""
+                        });
+                    }, error => {
+                        this.setState({ error: error.toString(), isFetching: false })
+                    });
+            });
+        }
     }
 
     //Pagination
@@ -114,7 +154,7 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
     }
 
     componentDidMount() {
-        this.fetchAllCarrots();
+        this.fetchAllGateways(this.fetchAllCarrots);
     }
 
     render() {
@@ -124,7 +164,10 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                     Mes carottes
                 </h1>
                 <div className="row">
-                    <UserMenu disconnect={this.props.disconnect}/>
+                    <div className="col-3 row carrot-list-side">
+                        <UserMenu disconnect={this.props.disconnect}/>
+                        <GatewayList gateways={this.state.gateways}/>
+                    </div>
                     <div className="col-9">
                         {
                             this.state.error !== "" &&
@@ -156,7 +199,7 @@ class CarrotList extends React.Component<IPlantListProps, IPlantListState> {
                                 </select>
                             </div>
 
-                            <AddCarrot onSuccessForm={this.onSuccessForm}/>
+                            <AddCarrot onSuccessForm={this.onSuccessForm} gateways={this.state.gateways}/>
                         </div>
 
                         <EditCarrot

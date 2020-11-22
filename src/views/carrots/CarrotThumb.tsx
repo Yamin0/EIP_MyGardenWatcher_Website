@@ -4,6 +4,7 @@ import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
 import {OverlayTrigger, Popover} from "react-bootstrap";
 import SensorData, {sensorDataInit} from "../../interfaces/SensorData";
+import {GatewayService} from "../../services/GatewayService";
 
 interface ICarrotThumbProps {
     carrot: Carrot,
@@ -14,6 +15,7 @@ interface ICarrotThumbProps {
 interface ICarrotThumbState {
     carrot: Carrot,
     sensorData: SensorData[],
+    status: string,
     toggled: boolean,
     hasPlants: boolean,
     isFetching: boolean,
@@ -28,6 +30,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
         this.state = {
             carrot: this.props.carrot,
             sensorData: [sensorDataInit],
+            status: "",
             toggled: false,
             hasPlants: false,
             isFetching: false,
@@ -75,6 +78,14 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
         });
     }
 
+    private aliveCarrot() {
+        CarrotService.aliveCarrot(this.props.carrot.gatewayId, this.props.carrot.id).then(data => {
+            this.setState({
+                status: data.state
+            })
+        });
+    }
+
     private togglePlants() {
         this.setState((state) => ({
             ...state,
@@ -101,6 +112,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
     componentDidMount() {
         this.fetchCarrotDetail();
+        this.aliveCarrot();
     }
 
     render() {
@@ -128,7 +140,19 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
                     <h3 className="text-center carrot-thumb-title">
                         <img src="/images/logos/mgw-carrot-classic.png" className="img-fluid carrot-thumb-img" alt=""/>
-                        {this.state.carrot.name}
+                        <span className="carrot-thumb-name">
+                            {this.state.carrot.name}
+                        </span>
+                        {
+                            this.state.status !== "" &&
+                            <div className={"carrot-thumb-circle " + this.state.status}/>
+                        }
+                        {
+                            this.state.status === "" &&
+                            <div className="carrot-thumb-spinner spinner-border text-dark" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
                     </h3>
                     <div className="row no-gutters carrot-thumb-sensor-data">
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">

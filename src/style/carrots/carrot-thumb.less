@@ -10,6 +10,37 @@
     font-size: 22px;
     margin-bottom: 20px;
   }
+  &-name {
+    margin-right: 10px;
+  }
+  &-spinner {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    vertical-align: initial;
+  }
+  &-circle {
+    margin-right: 20px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: initial;
+
+    &.Connected {
+      background: @color-primary-green;
+    }
+
+    &.Disconnected {
+      background: red;
+    }
+
+    &.Unknown {
+      background: @color-secondary;
+    }
+  }
+
+
 
   &-img {
     width: 25px;

@@ -1,15 +1,17 @@
 import * as React from "react";
 import {CarrotService} from "../../services/CarrotService";
 import {Modal} from "react-bootstrap";
+import Gateway from "../../interfaces/Gateway";
 
 interface IAddCarrotProps {
-    onSuccessForm(msg: string): void
+    onSuccessForm(msg: string): void,
+    gateways: Gateway[]
 }
 
 interface IAddCarrotState {
     name: string,
     serialNb: string,
-    gateway: string,
+    gatewayId: number,
     show: boolean,
     loading: boolean,
     error: string
@@ -21,7 +23,7 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
         this.state = {
             name: "",
             serialNb: "",
-            gateway: "",
+            gatewayId: -1,
             show: false,
             loading: false,
             error: ""
@@ -50,7 +52,7 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
 
         this.setState((state) => ({
             ...state,
-            [name]: value,
+            [name]: name === "gatewayId" ? (value === "" ? -1 : parseInt(value)) : value,
         }));
     }
 
@@ -60,12 +62,12 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            CarrotService.createCarrot(this.state.name)
+            CarrotService.createCarrot(this.state.name, this.state.gatewayId, this.state.serialNb)
                 .then(
                     () => {
                         window.scrollTo(0, 0);
                         this.props.onSuccessForm("La carotte " + this.state.name + " a bien été ajoutée à votre compte !");
-                        this.setState({loading: false, error: "", name: "", serialNb: "", gateway: "", show: false});
+                        this.setState({loading: false, error: "", name: "", serialNb: "", gatewayId: -1, show: false});
                     }, error => {
                         window.scrollTo(0, 0);
                         this.setState({ error: error.toString(), loading: false })
@@ -149,15 +151,16 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
                             <select
                                 id="addCarrotGateway"
                                 className="form-control"
-                                name="gateway"
-                                value={this.state.gateway}
+                                name="gatewayId"
+                                value={this.state.gatewayId}
                                 onChange={this.handleChange}
                                 required={true}
                             >
                                 <option value="">...</option>
-                                <option value="1">Boîtier 1</option>
-                                <option value="2">Boîtier 2</option>
-                                <option value="3">Boîtier 3</option>
+                                {
+                                    this.props.gateways.map((gateway) =>
+                                        <option key={"gateway" + gateway.id} value={gateway.id}>{gateway.name}</option>)
+                                }
                             </select>
                             <div className="invalid-feedback">
                                 Veuillez sélectionner le boîtier auquel votre carotte sera associée.

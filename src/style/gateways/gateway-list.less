@@ -1,0 +1,46 @@
+.gateway-list {
+  margin-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  &-title {
+    color: @color-secondary-dark;
+    margin: 20px 0;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  &-thumb {
+    padding-bottom: 10px;
+    margin: auto;
+    width: 80%;
+    border-bottom: 1px solid @color-secondary;
+  }
+  &-name {
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  &-spinner {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+  }
+  &-circle {
+    margin-right: 20px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: text-bottom;
+
+    &.Connected {
+      background: @color-primary-green;
+    }
+
+    &.Disconnected {
+      background: red;
+    }
+
+    &.Unknown {
+      background: @color-secondary;
+    }
+  }
+}
