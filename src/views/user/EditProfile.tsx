@@ -229,9 +229,10 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         const { mail, password, firstName, lastName, geoLoc, birthdate, receiveMail } = this.state.formUser;
         return (
             <div className="edit-profile container">
-                <h1 className="main-title orange text-center">
-                    Mon espace client
-                </h1>
+                <div className="row justify-content-end">
+                    <h1 className="col-9 main-title orange text-center">
+                        Mon espace client
+                    </h1></div>
                 <div className="row">
                     <div className="col-3">
                         <UserMenu disconnect={this.props.disconnect}/>

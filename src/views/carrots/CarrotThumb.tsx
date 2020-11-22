@@ -4,7 +4,6 @@ import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
 import {OverlayTrigger, Popover} from "react-bootstrap";
 import SensorData, {sensorDataInit} from "../../interfaces/SensorData";
-import {GatewayService} from "../../services/GatewayService";
 
 interface ICarrotThumbProps {
     carrot: Carrot,
@@ -188,13 +187,13 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                             </button>
 
                             {
-                                this.state.isFetching &&
+                                this.state.isFetching && this.state.toggled &&
                                 <p className="text-center">Récupération des données...</p>
                             }
 
                             {
                                 this.state.toggled &&
-                                <div>
+                                <div className="carrot-thumb-plant-list">
                                     {
                                         !this.state.isFetching &&
                                         (this.state.carrot.plants &&
@@ -239,7 +238,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                         </div>
                             :
                             <div className="row">
-                                <p className="text-center">
+                                <p className="text-center carrot-thumb-no-plant">
                                     Vous n'avez pas encore de plante liée à cette carotte.
                                 </p>
                                 <OverlayTrigger

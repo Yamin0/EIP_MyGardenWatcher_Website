@@ -19,7 +19,7 @@ const Concept: React.FunctionComponent<{}> =  () => {
                     Nous mettons à votre disposition des données pertinentes et des conseils ciblés afin de vous aider à faire pousser vos plantes dans un environnement
                     optimal à leur bien-être.
                 </div>
-                <img src="/images/way-to-use-schema.png" alt="Way to use" className="concept-way-to-use"/>
+                <img src="/images/way-to-use-schema.png" alt="Way to use" className="img-fluid concept-way-to-use"/>
                 <div className="col-md-12 concept-subtitle">
                     Désormais, même sans avoir la main verte, vous pouvez jardiner et obtenir des résultats !
                 </div>

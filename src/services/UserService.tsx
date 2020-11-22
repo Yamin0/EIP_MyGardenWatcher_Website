@@ -158,6 +158,9 @@ const logout = () => {
 };
 
 function handleResponse(response: Response, origin: EReqOrigin) {
+    const newToken = response.headers.get("token");
+    if (newToken && newToken !== "")
+        UserService.setToken(newToken);
     return response.text().then(text => {
         let data;
         try {
@@ -166,18 +169,20 @@ function handleResponse(response: Response, origin: EReqOrigin) {
             data = text;
         }
         if (!response.ok) {
+            console.log(response.status);
             switch (response.status) {
                 case 400:
                     return Promise.reject(origin === EReqOrigin.RESETPWD ?
                         "La clé d'identification pour la réinitialisation de mot de passe est incorrecte ou a déjà été utilisée." :
-                        "Un des champs du formulaire est manquant ou mal renseigné dans la requête. C'est un problème de code."
+                        "Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard."
                     );
                 case 401:
                     return Promise.reject(origin === EReqOrigin.LOGIN ?
-                        (data.message && data.message !== "" ? "Ce compte n'existe pas" : "Identifiants incorrects") :
+                        (data.message && typeof data.message === "string" ? "Identifiants incorrects" : "Ce compte n'existe pas") :
                         origin === EReqOrigin.FORGOTPWD ?
                             "Nous n'avons pas pu trouver de compte utilisateur enregistré avec cette adresse email." :
-                            "Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard."
+                            (origin === EReqOrigin.SETUSER || origin === EReqOrigin.EDITPWD ? "Le mot de passe renseigné n'est pas le bon." :
+                                "Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard.")
                     )
                 case 404:
                     return Promise.reject(origin === EReqOrigin.FORGOTPWD || origin === EReqOrigin.RESETPWD ?
@@ -186,8 +191,8 @@ function handleResponse(response: Response, origin: EReqOrigin) {
                     );
                 case 405:
                     return Promise.reject("La réinitialisation du mot de passe n'a pas du être effectuée. Merci de réessayer une nouvelle fois ou contacter le support pour obtenir de l'aide.");
-                case 409:
-                    return Promise.reject("Cette adresse email a déjà été renseignée pour créer un compte utilisateur. Merci d'en indiquer une autre.");
+                case 422:
+                    return Promise.reject("Cette adresse email est déja utilisée. Merci d'en indiquer une autre.");
                 default:
                     return Promise.reject("Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard.");
             }
@@ -207,6 +212,7 @@ export const UserService = {
     deleteAccount,
     login,
     logout,
-    getToken
+    getToken,
+    setToken
 };
 

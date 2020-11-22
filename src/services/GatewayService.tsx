@@ -1,17 +1,6 @@
 import {apiUrl} from "../App";
 import {UserService} from "./UserService";
 
-enum EReqOrigin {
-    REGISTER,
-    LOGIN,
-    GETUSER,
-    SETUSER,
-    EDITPWD,
-    FORGOTPWD,
-    RESETPWD,
-    DELETE
-}
-
 const createGateway = (name: string, serialCode: string) => {
     const reqOpt: RequestInit = {
         method: "POST",
@@ -23,7 +12,7 @@ const createGateway = (name: string, serialCode: string) => {
     };
 
     return fetch(apiUrl + "/gateways", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.REGISTER))
+        .then((res) => handleResponse(res))
         .then((gateway) => {
             return gateway;
         }, (err) => {
@@ -41,7 +30,7 @@ const fetchGatewayList = () => {
     };
 
     return fetch(apiUrl + "/gateways", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
+        .then((res) => handleResponse(res))
         .then((gateways) => {
             return gateways.gateways;
         }, (err) => {
@@ -60,7 +49,7 @@ const editGateway = (id: number, newName: string) => {
     };
 
     return fetch(apiUrl + "/gateways/rename", reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.GETUSER))
+        .then((res) => handleResponse(res))
         .then((gateway) => {
             return gateway;
         }, (err) => {
@@ -78,7 +67,7 @@ const fetchGatewayDetail = (id: number) => {
     };
 
     return fetch(apiUrl + "/gateways/" + id.toString(), reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.LOGIN))
+        .then((res) => handleResponse(res))
         .then((gateway) => {
             return gateway
         }, (err) => {
@@ -96,7 +85,7 @@ const deleteGateway = (id: number) => {
     };
 
     return fetch(apiUrl + "/gateways/" + id.toString(), reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.DELETE))
+        .then((res) => handleResponse(res))
         .then(() => {return}, (err) => {
             return Promise.reject(err);
         });
@@ -112,7 +101,7 @@ const aliveGateway = (id: number) => {
     };
 
     return fetch(apiUrl + "/gateways/alive/" + id.toString(), reqOpt)
-        .then((res) => handleResponse(res, EReqOrigin.DELETE))
+        .then((res) => handleResponse(res))
         .then((status) => {
             return status
         }, (err) => {
@@ -120,7 +109,10 @@ const aliveGateway = (id: number) => {
         });
 };
 
-function handleResponse(response: Response, origin: EReqOrigin) {
+function handleResponse(response: Response) {
+    const newToken = response.headers.get("token");
+    if (newToken && newToken !== "")
+        UserService.setToken(newToken);
     return response.text().then(text => {
         let data;
         try {
@@ -129,31 +121,7 @@ function handleResponse(response: Response, origin: EReqOrigin) {
             data = text;
         }
         if (!response.ok) {
-            switch (response.status) {
-                case 400:
-                    return Promise.reject(origin === EReqOrigin.RESETPWD ?
-                        "La clé d'identification pour la réinitialisation de mot de passe est incorrecte ou a déjà été utilisée." :
-                        "Un des champs du formulaire est manquant ou mal renseigné dans la requête. C'est un problème de code."
-                    );
-                case 401:
-                    return Promise.reject(origin === EReqOrigin.LOGIN ?
-                        "Identifiants incorrects" :
-                        origin === EReqOrigin.FORGOTPWD ?
-                            "Nous n'avons pas pu trouver de compte utilisateur enregistré avec cette adresse email." :
-                            "Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard."
-                    )
-                case 404:
-                    return Promise.reject(origin === EReqOrigin.FORGOTPWD || origin === EReqOrigin.RESETPWD ?
-                        "Nous n'avons pas pu trouver de compte utilisateur enregistré avec cette adresse email." :
-                        "Votre compte utilisateur n'a pas été trouvé. Merci de vérifier vos identifiants    ."
-                    );
-                case 405:
-                    return Promise.reject("La réinitialisation du mot de passe n'a pas du être effectuée. Merci de réessayer une nouvelle fois ou contacter le support pour obtenir de l'aide.");
-                case 409:
-                    return Promise.reject("Cette adresse email a déjà été renseignée pour créer un compte utilisateur. Merci d'en indiquer une autre.");
-                default:
-                    return Promise.reject("Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard.");
-            }
+            return Promise.reject("Oups, une erreur s'est produite lors de l'envoi du formulaire. Merci de réessayer plus tard.");
         }
 
         return data;

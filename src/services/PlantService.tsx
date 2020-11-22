@@ -141,6 +141,9 @@ const deletePlantFromCarrot = (carrotId: number, plantId: number) => {
 }
 
 function handleResponse(response: Response) {
+    const newToken = response.headers.get("token");
+    if (newToken && newToken !== "")
+        UserService.setToken(newToken);
     return response.text().then(text => {
         let data;
         try {

@@ -13,7 +13,7 @@ const GatewayThumb: React.FunctionComponent<{gateway: Gateway}> = ({gateway}) =>
         GatewayService.aliveGateway(gateway.id).then(data => {
             setStatus(data.state);
         });
-    }, []);
+    }, [gateway.id]);
     return (
         <div className="gateway-list-thumb">
             <span className="gateway-list-name">

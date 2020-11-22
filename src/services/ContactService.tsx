@@ -47,6 +47,9 @@ const deleteFile = () => {
 };
 
 function handleResponse(response: Response) {
+    const newToken = response.headers.get("token");
+    if (newToken && newToken !== "")
+        UserService.setToken(newToken);
     return response.text().then(text => {
         let data;
         try {
@@ -55,11 +58,7 @@ function handleResponse(response: Response) {
             data = text;
         }
         if (!response.ok) {
-            if (response.status === 404) {
-                return Promise.reject("Votre compte utilisateur n'a pas été trouvé. Veuillez vérifier que vous êtes connecté.");
-            } else {
-                return Promise.reject("Oups, une erreur s'est produite lors de l'envoi de votre message. Merci de réessayer plus tard.");
-            }
+            return Promise.reject("Oups, une erreur s'est produite lors de l'envoi de votre message. Merci de réessayer plus tard.");
         }
 
         return data;

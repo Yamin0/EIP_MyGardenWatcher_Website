@@ -54,6 +54,7 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
         };
 
         this.fetchAllGateways = this.fetchAllGateways.bind(this);
+        this.firstGateway = this.firstGateway.bind(this);
         this.fetchAllCarrots = this.fetchAllCarrots.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
         this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
@@ -69,26 +70,11 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
             GatewayService.fetchGatewayList()
                 .then(data => {
                     let gateways: Gateway[] = data as Gateway[];
-                    if (gateways.length === 0) {
-                        GatewayService.createGateway("test", "qzsedfrgthy")
-                            .then(data => {
-                                let gateway: Gateway = data as Gateway;
-
-                                this.setState({
-                                    gateways: [gateway],
-                                    isFetching: false,
-                                    error: ""
-                                });
-                            }, error => {
-                                this.setState({ error: error.toString(), isFetching: false })
-                            });
-                    } else {
-                        this.setState({
-                            gateways: gateways,
-                            isFetching: false,
-                            error: ""
-                        }, callback);
-                    }
+                    this.setState({
+                        gateways: gateways,
+                        isFetching: false,
+                        error: ""
+                    }, callback);
                 }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
@@ -115,6 +101,20 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                     });
             });
         }
+    }
+
+    private firstGateway() {
+        GatewayService.createGateway("test", "gdfcdxdvf")
+            .then(data => {
+                let gateway: Gateway = data as Gateway;
+                this.setState({
+                    gateways: [gateway],
+                    isFetching: false,
+                    error: ""
+                });
+                }, error => {
+                this.setState({ error: error.toString(), isFetching: false })
+            });
     }
 
     //Pagination
@@ -160,13 +160,25 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
     render() {
         return (
             <div className="carrot-list container">
-                <h1 className="main-title orange text-center">
-                    Mes carottes
-                </h1>
+                <div className="row justify-content-end">
+                    <h1 className="col-9 main-title orange text-center">
+                        Mes carottes
+                    </h1>
+                </div>
                 <div className="row">
                     <div className="col-3 row carrot-list-side">
                         <UserMenu disconnect={this.props.disconnect}/>
-                        <GatewayList gateways={this.state.gateways}/>
+                        {
+                            this.state.gateways && this.state.gateways.length > 0 &&
+                            <GatewayList gateways={this.state.gateways}/>
+                        }
+                        {
+                            this.state.gateways.length === 0 &&
+                            process.env.NODE_ENV === 'development' &&
+                                <button onClick={this.firstGateway}>
+                                    Créer un gateway
+                                </button>
+                        }
                     </div>
                     <div className="col-9">
                         {
@@ -189,33 +201,31 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                             </div>
                         }
 
-                        <div className="row justify-content-between carrot-list-bar">
-                            <div className="col-5 row">
-                                <label className="col-4">Filtrer</label>
-                                <select className="col-8">
-                                    <option>Non fonctionnel</option>
-                                    <option>Nom croissant</option>
-                                    <option>Nom décroissant</option>
-                                </select>
+                        {
+                            this.state.gateways && this.state.gateways.length > 0 &&
+                            <div className="row justify-content-end carrot-list-bar">
+                                <AddCarrot onSuccessForm={this.onSuccessForm} gateways={this.state.gateways}/>
                             </div>
+                        }
 
-                            <AddCarrot onSuccessForm={this.onSuccessForm} gateways={this.state.gateways}/>
-                        </div>
+                        {
+                            this.state.carrots.length > 0 &&
+                                <>
+                                    <EditCarrot
+                                        carrot={this.state.editCarrot}
+                                        onSuccessForm={this.onSuccessForm}
+                                        show={this.state.editModalOpen}
+                                        handleClose={this.handleEditModalClose}
+                                    />
 
-                        <EditCarrot
-                            carrot={this.state.editCarrot}
-                            onSuccessForm={this.onSuccessForm}
-                            show={this.state.editModalOpen}
-                            handleClose={this.handleEditModalClose}
-                        />
-
-                        <DeleteCarrot
-                            carrot={this.state.deleteCarrot}
-                            show={this.state.deleteModalOpen}
-                            handleClose={this.handleDeleteModalClose}
-                            onSuccessForm={this.onSuccessForm}
-                        />
-
+                                    <DeleteCarrot
+                                        carrot={this.state.deleteCarrot}
+                                        show={this.state.deleteModalOpen}
+                                        handleClose={this.handleDeleteModalClose}
+                                        onSuccessForm={this.onSuccessForm}
+                                    />
+                                </>
+                        }
                         {
                             this.state.isFetching &&
                             <p className="text-center">Récupération des données...</p>
@@ -233,6 +243,33 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                         {
                             !this.state.isFetching &&
                             this.state.error === "" &&
+                            this.state.gateways.length === 0 &&
+                            <div className="row carrot-list-no-gateway">
+                                <p className="col-12 text-center">
+                                    Vous n'avez pas encore de boîtier lié à votre compte. Un boîtier est nécessaire pour pouvoir ajouter et gérer vos carottes.
+                                    Vous ne pouvez pas configurer de boîtier sur le site Web. Pour cela, vous devez télécharger l'application mobile.
+                                    <br/>
+                                    <br/>
+                                    Vous pouvez la télécharger en cliquant sur le bouton ci-dessous ou en scannant le QR code.
+                                </p>
+                                <div className="col-md-12 text-center">
+                                    <a
+                                        className="btn btn-green carrot-list-no-gateway-download-btn"
+                                        href="http://www.mygardenwatcher.fr:3001/file/apk"
+                                    >
+                                        Télécharger l'application mobile
+                                        <span className="oi oi-data-transfer-download"/>
+                                    </a>
+                                    <img src="/images/qrcode-app-dl.png" className="carrot-list-no-gateway-download-qrcode img-fluid" alt="QR Code"/>
+                                </div>
+                            </div>
+
+                        }
+
+                        {
+                            !this.state.isFetching &&
+                            this.state.error === "" &&
+                            this.state.gateways.length > 0 &&
                             this.state.carrots.length === 0 &&
                             <div className="row carrot-list-empty">
                                 <p className="col-12 text-center">

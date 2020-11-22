@@ -457,7 +457,7 @@ footer {
   color: #00A84E;
 }
 .concept-way-to-use {
-  width: 60%;
+  width: 70%;
   margin: 20px 0;
 }
 .concept-video {
@@ -1183,6 +1183,27 @@ footer {
 .carrot-list-empty {
   margin-top: 80px;
 }
+.carrot-list-no-gateway {
+  margin-top: 30px;
+}
+.carrot-list-no-gateway-download-btn {
+  box-shadow: 5px 5px 6px #7C9872;
+  margin-top: 20px;
+  font-size: 16px;
+}
+.carrot-list-no-gateway-download-btn:hover,
+.carrot-list-no-gateway-download-btn:focus,
+.carrot-list-no-gateway-download-btn:active {
+  box-shadow: 5px 5px 6px #56636b;
+}
+.carrot-list-no-gateway-download-btn .oi {
+  margin-left: 5px;
+}
+.carrot-list-no-gateway-download-qrcode {
+  margin-left: 10%;
+  margin-top: 50px;
+  width: 25%;
+}
 .carrot-list-side {
   align-content: start;
 }
@@ -1211,6 +1232,13 @@ footer {
   font-weight: bold;
   font-size: 22px;
   margin-bottom: 20px;
+}
+.carrot-thumb-no-plant {
+  font-size: 14px;
+}
+.carrot-thumb-plant-list {
+  overflow: auto;
+  height: 120px;
 }
 .carrot-thumb-name {
   margin-right: 10px;
