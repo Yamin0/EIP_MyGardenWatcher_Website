@@ -63,11 +63,11 @@ const Team: React.FunctionComponent = () => {
     return (
         <div className="row team" id="team">
 
-            <h2 className="team-title col-md-12">L'équipe</h2>
+            <h2 className="team-title col-12">L'équipe</h2>
             <Fade>
             {
                 teamMembers.map((s, i) =>
-                    <div key={i} className="col-md-3 team-member" itemScope itemType="https://schema.org/Person">
+                    <div key={i} className="col-12 col-md-4 col-xl-3 team-member" itemScope itemType="https://schema.org/Person">
                         <a href={s.link} target="_blank" className="team-member-link" rel="noopener noreferrer">
                             <img src={s.image} className="team-member-img" alt={s.fullName}/>
                         </a>

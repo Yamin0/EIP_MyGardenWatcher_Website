@@ -9,7 +9,7 @@ const Vision: React.FunctionComponent = () => {
 
             <div className="col-md-12 vision-content row justify-content-around">
                 <Slide left>
-                    <div className="col-4 vision-content-text">
+                    <div className="col-12 col-md-4 vision-content-text">
                         <p>
                             Nous avons fait un constat : la société actuelle s'urbanise et accélère de plus en plus.
                             le stress devient quotidien et notre environnement se numérise.
@@ -29,7 +29,7 @@ const Vision: React.FunctionComponent = () => {
                     </div>
                 </Slide>
                 <Slide right>
-                    <div className="col-4 vision-content-text dark">
+                    <div className="col-12 col-md-4 vision-content-text">
                         <p>
                             Chez <span className="logo">MyGardenWatcher</span>, nous nous inscrivons dans cette démarche d'épanouissement personnel
                             et de recherche de qualité de l'environnement.
@@ -49,7 +49,7 @@ const Vision: React.FunctionComponent = () => {
                 </Slide>
             </div>
             <Fade>
-                <div className="col-8 vision-subtitle">
+                <div className="col-12 col-md-8 vision-subtitle">
                     Nous contribuons ainsi à rendre le jardinage accessible à un plus grand nombre.
                 </div>
             </Fade>

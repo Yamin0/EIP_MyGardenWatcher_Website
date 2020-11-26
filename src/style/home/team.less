@@ -14,6 +14,7 @@
     flex-direction: column;
     text-align: center;
     &-name {
+      margin-top: 10px;
       font-size: 24px;
       font-family: "Lobster", cursive;
       color: @color-primary-orange;
@@ -33,6 +34,23 @@
         img {
           opacity: 0.7;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .team {
+    padding-top: 50px;
+    padding-bottom: 220px;
+    &-title {
+      font-size: 45px;
+      margin-bottom: 50px;
+    }
+    &-member {
+      margin-bottom: 30px;
+      &-img {
+        width: 80%;
       }
     }
   }

@@ -36,12 +36,6 @@
     &-img {
       width: 50%;
     }
-    &-text {
-      width: 40%;
-      text-align: left;
-      font-size: 18px;
-      margin-bottom: 18%;
-    }
   }
 
   &-conclusion {
@@ -61,7 +55,6 @@
 
     &-img {
       width: 35%;
-      height: 100%;
     }
     &-text {
       font-size: 18px;
@@ -108,6 +101,74 @@
       h3 {
         color: @color-primary-green;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .solution {
+    padding-top: 50px;
+    &-title {
+      font-size: 45px;
+    }
+    &-subtitle {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+
+    &-second-title {
+      font-size: 35px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 22px;
+    }
+
+    &-products {
+      &-img {
+        margin-bottom: 30px;
+      }
+      &-text {
+        font-size: 15px;
+      }
+    }
+    &-step {
+      background: none !important;
+      padding-top: 50px;
+      flex-wrap: wrap;
+      &-text {
+        text-align: center;
+        font-size: 15px;
+        padding: 0;
+      }
+      &-img {
+        width: 75%;
+        margin: auto;
+        padding-top: 50px;
+      }
+
+      &.account {
+        padding-top: 20px;
+      }
+      &.search {
+        img {
+          padding-top: 0;
+        }
+      }
+      &.config {
+        img {
+          padding-top: 20px;
+        }
+      }
+    }
+
+    &-conclusion {
+      font-size: 22px;
+      margin-top: 30px;
+      margin-bottom: 0;
     }
   }
 }

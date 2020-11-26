@@ -10,10 +10,10 @@ const Solution: React.FunctionComponent = () => {
             <h4 className="solution-subtitle col-md-12">Un assistant connecté au jardinage de loisir</h4>
 
             <Zoom>
-                <div className="col-md-12 row solution-products">
-                    <div className="col-md-6 text-center">
+                <div className="col-12 row solution-products">
+                    <div className="col-12 col-md-6 text-center">
                         <h3 className="solution-products-title orange">La carotte connectée</h3>
-                        <div>
+                        <div className="solution-products-text">
                             <p>
                                 Nous vous proposons un outil connecté en forme de carotte.
                             </p>
@@ -28,9 +28,9 @@ const Solution: React.FunctionComponent = () => {
                             <img src="/images/flat/flat-phone.png" className="solution-products-img" alt="phone"/>
                         </div>
                     </div>
-                    <div className="col-md-6 text-center">
+                    <div className="col-12 col-md-6 text-center">
                         <h3 className=" solution-products-title green">Le boîtier de transmission</h3>
-                        <div>
+                        <div className="solution-products-text">
                             <p>
                                 Notre solution inclut un boîtier qui s'installe dans votre maison.
                             </p>
@@ -48,8 +48,8 @@ const Solution: React.FunctionComponent = () => {
                 </div>
             </Zoom>
             <h2 className="solution-second-title text-center col-md-12">Comment ça marche ?</h2>
-            <Slide left className="col-md-12 row">
-            <div className="col-md-12 solution-step account">
+            <Slide left className="col-12 row">
+            <div className="col-12 solution-step account">
                     <div className="solution-step-text">
                         <h3>Créez votre compte utilisateur !</h3>
                         <p>
@@ -65,9 +65,9 @@ const Solution: React.FunctionComponent = () => {
                          alt="Select your plants"/>
                 </div>
             </Slide>
-            <Slide right className="col-md-12 row">
-                <div className="col-md-12 solution-step connect">
-                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
+            <Slide right className="col-12 row">
+                <div className="col-12 solution-step connect">
+                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img d-none d-md-block"
                          alt="Select your plants"/>
                     <div className="solution-step-text">
                         <h3>Connectez votre boîtier et vos carottes !</h3>
@@ -79,10 +79,12 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <a className="btn btn-green" href="/carrots">J'ajoute une carotte</a>
                     </div>
+                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img d-block d-md-none"
+                         alt="Select your plants"/>
                 </div>
             </Slide>
-            <Slide left className="col-md-12 row">
-                <div className="col-md-12 solution-step select">
+            <Slide left className="col-12 row">
+                <div className="col-12 solution-step select">
                     <div className="solution-step-text">
                         <h3>Choississez vos plantations !</h3>
                         <p>
@@ -101,9 +103,9 @@ const Solution: React.FunctionComponent = () => {
                 </div>
             </Slide>
 
-            <Slide right className="col-md-12 row">
-                <div className="col-md-12 solution-step search">
-                    <img src="/images/flat/flat-help-select.png" className="solution-step-img"
+            <Slide right className="col-12 row">
+                <div className="col-12 solution-step search">
+                    <img src="/images/flat/flat-help-select.png" className="solution-step-img d-none d-md-block"
                          alt="We can help you"/>
                     <div className="solution-step-text">
                         <h3>Nous pouvons vous aider !</h3>
@@ -118,11 +120,13 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <br/>
                     </div>
+                    <img src="/images/flat/flat-help-select.png" className="solution-step-img d-block d-md-none"
+                         alt="We can help you"/>
                 </div>
             </Slide>
 
-            <Slide left className="col-md-12 row">
-                <div className="col-md-12 solution-step config">
+            <Slide left className="col-12 row">
+                <div className="col-12 solution-step config">
                     <div className="solution-step-text">
                         <h3>Configurez vos alertes !</h3>
                         <p>
@@ -140,8 +144,8 @@ const Solution: React.FunctionComponent = () => {
                 </div>
             </Slide>
 
-            <Slide bottom className="col-md-12 row">
-                <div className="col-md-12 solution-conclusion">
+            <Slide bottom className="col-12 row">
+                <div className="col-12 solution-conclusion">
                     Ainsi, vous pouvez faire pousser vos plantes en toute sérénité !
                 </div>
             </Slide>

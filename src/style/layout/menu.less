@@ -18,7 +18,7 @@
   }
 
   &-logo {
-    width: 300px;
+    width: 250px;
 
     &-image {
       width: 100%;
@@ -30,7 +30,7 @@
 
     &-link {
       color: @color-secondary-dark;
-      font-size: 22px;
+      font-size: 18px;
       transition: all ease-in-out .3s;
 
       &:hover, &:focus {
@@ -67,7 +67,7 @@
         border: none;
         line-height: 80px;
         padding: 0 20px;
-        font-size: 22px;
+        font-size: 18px;
 
         &.btn-account {
           display: block;
@@ -121,5 +121,68 @@
   .oi {
     padding-right: 10px;
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .menu {
+    ul {
+      display: block;
+      height: 60px;
+    }
+    &-logo {
+      width: 70%;
+      padding: 3px 10px;
+    }
+    &-elem {
+      width: 100%;
+      background-color: @color-secondary-light;
+      padding: 10px;
+      margin-left: 0;
+      border-bottom: 1px solid @color-secondary;
+
+      &.account {
+        position: relative;
+        height: 45px;
+        padding: 0;
+        .btn-login {
+          height: 100%;
+          text-align: left;
+          line-height: 45px;
+          display: inline-block;
+          font-size: 16px;
+          padding: 0 10px;
+          width: 100%;
+          border-radius: 0 !important;
+        }
+      }
+      &.burger {
+        width: 30%;
+        float: right;
+        border: none;
+        text-align: right;
+        padding: 0;
+        &.open {
+          button {
+            background-color: @color-secondary;
+            color: @color-secondary-light;
+          }
+        }
+        button {
+          border-radius: 0;
+          padding: 11px 15px;
+          &:focus, &:active {
+            box-shadow: none;
+          }
+          .oi {
+            font-size: 30px;
+          }
+        }
+      }
+
+      &-link {
+        font-size: 16px;
+      }
+    }
   }
 }

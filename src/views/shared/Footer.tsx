@@ -39,17 +39,24 @@ const Footer: React.FunctionComponent<{}> =  () => {
     return (
         <footer>
             <div className="row footer">
-                <div className="footer-section">
+                <div className="footer-section d-flex justify-content-center">
                     {
                         socialNetworks.map((s, i) =>
                             <div className="footer-elem social" key={i}>
-                                <img src={s.image} alt={s.title}/>
                                 {
                                     s.isInternalPage ?
-                                        <Link to={s.link}>{s.title}</Link>
+                                        <Link to={s.link}>
+                                            <img src={s.image} alt={s.title}/>
+                                            <span className="d-none d-sm-inline-block">
+                                                {s.title}
+                                            </span>
+                                        </Link>
                                         :
                                         <a href={s.link} target="_blank" rel="noopener noreferrer">
-                                            {s.title}
+                                            <img src={s.image} alt={s.title}/>
+                                            <span className="d-none d-sm-inline-block">
+                                                {s.title}
+                                            </span>
                                         </a>
                                 }
                                 </div>
@@ -57,18 +64,23 @@ const Footer: React.FunctionComponent<{}> =  () => {
                     }
                 </div>
 
-                <div className="footer-section">
+                <div className="footer-section text-center d-lg-flex justify-content-sm-center">
                     <div className="footer-elem">
                         <a href="/#">
                             Mentions légales
                         </a>
                     </div>
+                    <span className="d-none d-sm-inline-block">
                     -
+                    </span>
                     <div className="footer-elem">
                         <a href="/#">
                             Conditions générales d'utilisation
                         </a>
-                    </div> -
+                    </div>
+                    <span className="d-none d-sm-inline-block">
+                    -
+                    </span>
                     <div className="footer-elem">
                         © My Garden Watcher 2019 - Réalisation : Delph & Coco
                     </div>

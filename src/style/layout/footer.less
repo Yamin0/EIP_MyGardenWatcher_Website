@@ -1,10 +1,7 @@
-
 .footer {
   background: @color-secondary-light;
   &-section {
     width: 100%;
-    display: flex;
-    justify-content: center;
 
     &:first-child {
       margin-top: 15px;
@@ -19,8 +16,8 @@
     margin: 0 5px;
     &.social {
       margin: 0 20px;
-      a {
-        margin-left: 5px;
+      img {
+        margin-right: 10px;
       }
     }
 
@@ -36,6 +33,23 @@
 
     img {
       width: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .footer {
+    &-elem {
+      margin-bottom: 10px;
+      a {
+        font-size: 16px;
+      }
+      &.social {
+        margin: 0 10px;
+        img {
+          margin-right: 0;
+        }
+      }
     }
   }
 }

@@ -20,6 +20,8 @@ import {UserService} from "./services/UserService";
 import ScrollToTop from "./HoC/ScrollToTop";
 import Beta from "./views/beta/Beta";
 import CarrotList from "./views/carrots/CarrotList";
+import BurgerMenu from "./views/shared/BurgerMenu";
+import DownloadApp from "./views/beta/DownloadApp";
 
 export let history = createBrowserHistory();
 
@@ -27,6 +29,8 @@ export const apiUrl = process.env.NODE_ENV === 'development' ? "http://mygardenw
 
 interface IAppState {
     user: User,
+    windowWidth: number,
+    windowHeight: number,
     isAuthenticated: boolean,
     isLoginOpen: boolean
 }
@@ -36,9 +40,12 @@ class App extends React.Component<{}, IAppState> {
         super(props);
         this.state = {
             user: userInit,
+            windowWidth: 0,
+            windowHeight: 0,
             isAuthenticated: !!window.localStorage.getItem("mgwAuthToken"),
             isLoginOpen: false
         };
+        this.updateDimensions = this.updateDimensions.bind(this);
         this.authenticate = this.authenticate.bind(this);
         this.toggleLogin = this.toggleLogin.bind(this);
         this.checkToken = this.checkToken.bind(this);
@@ -47,7 +54,17 @@ class App extends React.Component<{}, IAppState> {
     }
 
     componentDidMount(): void {
+        this.updateDimensions();
+        window.addEventListener("resize", this.updateDimensions);
+
         if (this.state.isAuthenticated) this.getUser();
+    }
+
+    private updateDimensions() {
+        let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+        let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+
+        this.setState({ windowWidth, windowHeight });
     }
 
     private authenticate(status: boolean) {
@@ -99,16 +116,28 @@ class App extends React.Component<{}, IAppState> {
             <Router history={history}>
                 <ScrollToTop />
 
-                <Header
-                    isAuthenticated={isAuthenticated}
-                    isLoginOpen={isLoginOpen}
-                    connect={connect}
-                    disconnect={disconnect}
-                    toggleLogin={this.toggleLogin}
-                />
+                {
+                    this.state.windowWidth >= 768 ?
+                    <Header
+                        isAuthenticated={isAuthenticated}
+                        isLoginOpen={isLoginOpen}
+                        connect={connect}
+                        disconnect={disconnect}
+                        toggleLogin={this.toggleLogin}
+                    />
+                    :
+                        <BurgerMenu
+                            isAuthenticated={isAuthenticated}
+                            isLoginOpen={isLoginOpen}
+                            connect={connect}
+                            disconnect={disconnect}
+                            toggleLogin={this.toggleLogin}
+                        />
+                }
 
                 <Route exact path="/" component={Home} />
                 <Route exact path="/beta" component={Beta} />
+                <Route exact path="/download-app" component={DownloadApp}/>
                 <Route exact path="/contact-single"
                        render={() => <ContactSingle user={this.state.user} isAuthenticated={isAuthenticated} />}
                 />
