@@ -56,19 +56,28 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
         this.setState({ isFetching: true }, () => {
             PlantService.fetchPlantAdvice(id, 3)
                 .then(data => {
-                    PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description", "type"],
-                        (data as number[]).join(";"))
-                        .then(data => {
-                            let plants: Plant[] = data as Plant[];
+                    if ((data as number[]).length > 0) {
+                        PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description", "type"],
+                            (data as number[]).join(";"))
+                            .then(data => {
+                                let plants: Plant[] = data as Plant[];
 
-                            this.setState({
-                                similar: plants,
-                                isFetching: false,
-                                error: ""
+                                this.setState({
+                                    similar: plants,
+                                    isFetching: false,
+                                    error: ""
+                                });
+                            }, error => {
+                                this.setState({ error: error.toString(), isFetching: false })
                             });
-                        }, error => {
-                            this.setState({ error: error.toString(), isFetching: false })
-                        });
+                    }
+                    else {
+                        this.setState({
+                            similar: [],
+                            isFetching: false,
+                            error: ""
+                        })
+                    }
                 }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
