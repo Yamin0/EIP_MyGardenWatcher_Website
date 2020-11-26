@@ -62,6 +62,23 @@ const searchPlantList = (search: string) => {
         });
 }
 
+const fetchPlantAdvice = (plantId: number, limit: number) => {
+    const reqOpt: RequestInit = {
+        method: "GET",
+        headers: new Headers({'Content-Type': 'application/json'}),
+    };
+
+    let url: string = apiUrl + "/plants/similar?plantId=" + plantId.toString() + "&limit=" + limit.toString();
+
+    return fetch(url, reqOpt)
+        .then(handleResponse)
+        .then((plants) => {
+            return plants.plants
+        }, (err) => {
+            return Promise.reject(err);
+        });
+};
+
 const calculateIdsOfPage = (pageNumber: number, itemsPerPage: number, allIds: number[]) => {
     const minPlantIndex: number = itemsPerPage * (pageNumber - 1);
 
@@ -170,6 +187,7 @@ export const PlantService = {
     calculateIdsOfPage,
     groupIds,
     linkPlantToCarrot,
-    deletePlantFromCarrot
+    deletePlantFromCarrot,
+    fetchPlantAdvice
 };
 

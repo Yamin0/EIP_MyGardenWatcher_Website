@@ -1412,6 +1412,16 @@ footer {
 .plant-detail-visual {
   margin-bottom: 40px;
 }
+.plant-detail-similar {
+  margin-top: 50px;
+}
+.plant-detail-similar-title {
+  font-family: "Lobster", cursive;
+  text-align: center;
+  font-size: 50px;
+  color: #FF7300;
+  margin-bottom: 50px;
+}
 .plant-link .modal-header {
   flex-wrap: wrap;
 }
@@ -1477,6 +1487,13 @@ footer {
   }
   .plant-detail .border-carrot {
     margin: 0;
+  }
+  .plant-detail-similar {
+    margin-top: 30px;
+  }
+  .plant-detail-similar-title {
+    font-size: 40px;
+    margin-bottom: 30px;
   }
   .plant-detail-text {
     font-size: 14px;
@@ -1577,13 +1594,13 @@ footer {
   display: inline-block;
   vertical-align: initial;
 }
-.carrot-thumb-circle.Connected {
+.carrot-thumb-circle.CONNECTED {
   background: #00A84E;
 }
-.carrot-thumb-circle.Disconnected {
+.carrot-thumb-circle.DISCONNECTED {
   background: red;
 }
-.carrot-thumb-circle.Unknown {
+.carrot-thumb-circle.UNKNOWN {
   background: #56636b;
 }
 .carrot-thumb-img {
@@ -1685,13 +1702,13 @@ footer {
   display: inline-block;
   vertical-align: text-bottom;
 }
-.gateway-list-circle.Connected {
+.gateway-list-circle.CONNECTED {
   background: #00A84E;
 }
-.gateway-list-circle.Disconnected {
+.gateway-list-circle.DISCONNECTED {
   background: red;
 }
-.gateway-list-circle.Unknown {
+.gateway-list-circle.UNKNOWN {
   background: #56636b;
 }
 .beta {

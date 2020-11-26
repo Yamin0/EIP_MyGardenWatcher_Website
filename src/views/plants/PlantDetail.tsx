@@ -4,6 +4,7 @@ import Plant, {plantInit} from "../../interfaces/Plant";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import PlantLink from "./PlantLink";
 import {humidityRanges, lightFrenchNames, lightIconNames, tempRanges} from "../../interfaces/Search";
+import PlantThumb from "./PlantThumb";
 
 interface RouteInfo {
     id: string,
@@ -16,6 +17,7 @@ interface IPlantDetailProps extends RouteComponentProps<RouteInfo> {
 
 interface IPlantDetailState {
     plant: Plant,
+    similar: Plant[],
     isFetching: boolean,
     error: string
 }
@@ -25,12 +27,13 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
         super(props);
         this.state = {
             plant: plantInit,
+            similar: [],
             isFetching: false,
             error: "lol"
         };
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         this.fetchPlant(parseInt(this.props.match.params.id));
     }
 
@@ -42,7 +45,30 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                         plant: data as Plant,
                         isFetching: false,
                         error: ""
-                    });
+                    }, () => this.fetchPlantAdvice(this.state.plant.id));
+                }, error => {
+                    this.setState({ error: error.toString(), isFetching: false })
+                });
+        });
+    }
+
+    private fetchPlantAdvice(id: number) {
+        this.setState({ isFetching: true }, () => {
+            PlantService.fetchPlantAdvice(id, 3)
+                .then(data => {
+                    PlantService.fetchPlantList(["id", "name", "minTemp", "maxTemp", "humidity", "light", "image", "description", "type"],
+                        (data as number[]).join(";"))
+                        .then(data => {
+                            let plants: Plant[] = data as Plant[];
+
+                            this.setState({
+                                similar: plants,
+                                isFetching: false,
+                                error: ""
+                            });
+                        }, error => {
+                            this.setState({ error: error.toString(), isFetching: false })
+                        });
                 }, error => {
                     this.setState({ error: error.toString(), isFetching: false })
                 });
@@ -201,6 +227,18 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                                     <p>{plant.caracteristics}</p>
                                 </div>
                             </div>
+
+                            {
+                                !this.state.isFetching &&
+                                this.state.error === "" &&
+                                this.state.similar.length > 0 &&
+                                    <div className="row plant-detail-similar">
+                                        <h2 className="col-12 plant-detail-similar-title">Plantes similaires</h2>
+                                        {
+                                            this.state.similar.map((plant, i) => <PlantThumb key={i.toString()} plant={plant}/>)
+                                        }
+                                    </div>
+                            }
                     </div>
         )
     }
