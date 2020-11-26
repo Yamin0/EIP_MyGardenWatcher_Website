@@ -19,12 +19,14 @@ const Concept: React.FunctionComponent =  () => {
                     Nous mettons à votre disposition des données pertinentes et des conseils ciblés afin de vous aider à faire pousser vos plantes dans un environnement
                     optimal à leur bien-être.
                 </div>
-                <img src="/images/way-to-use-schema.png" alt="Way to use" className="img-fluid concept-way-to-use"/>
-                <div className="col-md-12 concept-subtitle">
+                <div className="col-12 text-center">
+                    <img src="/images/way-to-use-schema.png" alt="Way to use" className="img-fluid concept-way-to-use"/>
+                </div>
+                <div className="col-12 concept-subtitle">
                     Désormais, même sans avoir la main verte, vous pouvez jardiner et obtenir des résultats !
                 </div>
             </div>
-            <h3 className="concept-video-title text-center col-md-12">Notre projet en vidéo</h3>
+            <h3 className="concept-video-title text-center col-12">Notre projet en vidéo</h3>
 
             <iframe title="MyGardenWatcher Présentation" className="concept-video" src="https://www.youtube.com/embed/KS7dqE9BfLM" frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
