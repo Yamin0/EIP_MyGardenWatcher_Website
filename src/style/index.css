@@ -890,6 +890,9 @@ footer {
 .contact-pro {
   padding-bottom: 150px;
 }
+.contact-pro .main-title {
+  padding-top: 100px;
+}
 .contact-pro-form {
   padding-left: 10px;
   color: #56636b;
@@ -904,6 +907,26 @@ footer {
 .contact-pro-form-link:hover {
   color: #7C9872;
   text-decoration: none;
+}
+@media screen and (max-width: 576px) {
+  .contact-single {
+    padding-bottom: 250px;
+  }
+  .contact-single .main-title {
+    font-size: 45px;
+  }
+  .contact-single label {
+    font-size: 14px;
+  }
+  .contact-pro {
+    padding-bottom: 250px;
+  }
+  .contact-pro .main-title {
+    font-size: 40px;
+  }
+  .contact-pro label {
+    font-size: 14px;
+  }
 }
 .register {
   padding-bottom: 180px;
@@ -1086,7 +1109,7 @@ footer {
 .plant-list-thumb-title {
   margin-bottom: 0;
   padding: 20px 0;
-  background-color: #F3F3F3;
+  background-color: #e1e1e1;
   color: black;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -1154,8 +1177,8 @@ footer {
 }
 .plant-list-thumb-description {
   padding: 10px 10px 0 10px;
-  border-left: 3px solid #F3F3F3;
-  border-right: 3px solid #F3F3F3;
+  border-left: 3px solid #e1e1e1;
+  border-right: 3px solid #e1e1e1;
   margin-top: 0;
 }
 .plant-list-bar {
@@ -1264,6 +1287,29 @@ footer {
 }
 .plant-list-search-tooltips.hide {
   display: none;
+}
+@media screen and (max-width: 576px) {
+  .plant-list .main-title {
+    padding-top: 80px;
+  }
+  .plant-list-result {
+    font-size: 18px;
+  }
+  .plant-list-btn-submit {
+    margin-top: 15px;
+  }
+  .plant-list-radio {
+    margin-top: 10px;
+  }
+  .plant-list-thumb-title {
+    font-size: 22px;
+  }
+  .plant-list-search-sort {
+    margin-top: 20px;
+  }
+  .plant-list-search-sort-title {
+    font-size: 16px;
+  }
 }
 .plant-detail {
   padding-bottom: 150px;
@@ -1410,6 +1456,35 @@ footer {
 }
 .plant-link .modal-footer {
   justify-content: space-between;
+}
+@media screen and (max-width: 576px) {
+  .plant-detail {
+    padding-bottom: 250px;
+  }
+  .plant-detail .main-title {
+    padding-top: 80px;
+    font-size: 40px;
+  }
+  .plant-detail-more {
+    margin-bottom: 30px;
+  }
+  .plant-detail-img {
+    height: 200px;
+  }
+  .plant-detail-content {
+    padding: 0 15px;
+  }
+  .plant-detail .border-carrot {
+    margin: 0;
+  }
+  .plant-detail-text {
+    font-size: 14px;
+    text-align: justify;
+    margin: 30px 0;
+  }
+  .plant-detail-text.left {
+    text-align: justify;
+  }
 }
 .carrot-list {
   padding-bottom: 150px;
@@ -1738,6 +1813,25 @@ footer {
   box-shadow: 5px 5px 6px #56636b;
 }
 @media screen and (max-width: 576px) {
+  .beta {
+    padding-bottom: 20px;
+  }
+  .beta-title {
+    font-size: 45px;
+    padding-top: 80px;
+  }
+  .beta-presentation {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  .beta .border-carrot {
+    margin: 0;
+  }
+  .beta-thanks {
+    font-size: 30px;
+    padding: 50px 20px;
+    margin-bottom: 180px;
+  }
   .download-app {
     padding-bottom: 250px;
   }

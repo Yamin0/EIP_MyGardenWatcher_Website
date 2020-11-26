@@ -137,7 +137,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < tempRanges.length; i++) {
             listButtons.push(
-                <div className="form-check form-check-inline" key={i.toString()}>
+                <div className="form-check form-check-inline plant-list-radio" key={i.toString()}>
                     <input
                         className="form-check-input"
                         type="radio"
@@ -170,7 +170,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < humidityRanges.length; i++) {
             listButtons.push(
-                <div className="form-check form-check-inline" key={i.toString()}>
+                <div className="form-check form-check-inline plant-list-radio" key={i.toString()}>
                     <input
                         className="form-check-input"
                         type="radio"
@@ -203,7 +203,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = -1; i < lightIconNames.length; i++) {
             listButtons.push(
-                <div className="form-check form-check-inline" key={i.toString()}>
+                <div className="form-check form-check-inline plant-list-radio" key={i.toString()}>
                     <input
                         className="form-check-input"
                         type="radio"
@@ -235,7 +235,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
         for (let i = 0; i < typeList.length; i++) {
             listButtons.push(
-                <div className="form-check col-3" key={i.toString()}>
+                <div className="form-check col-12 col-md-3" key={i.toString()}>
                     <input
                         type="checkbox"
                         className="form-check-input"
@@ -272,7 +272,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                 </div>
 
                 <div id="PlantListHide" className={"plant-list-search-" + (this.state.toggled ? "display" : "hide") + " row"}>
-                    <div className="form-group col-6">
+                    <div className="form-group col-12 col-md-6">
                         <div className="plant-list-search-title">
                             Humidité
                         </div>
@@ -281,7 +281,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         </div>
                     </div>
 
-                    <div className="form-group col-6">
+                    <div className="form-group col-12 col-md-6">
                         <div className="plant-list-search-title">
                             Température
                         </div>
@@ -290,7 +290,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                         </div>
                     </div>
 
-                    <div className="form-group col-6">
+                    <div className="form-group col-12 col-md-6">
                         <div className="plant-list-search-title">
                             Luminosité
                         </div>
@@ -312,17 +312,17 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
                 <button
                     type="button"
                     onClick={this.toggleHide}
-                    className="btn plant-list-search-toggle col-3"
+                    className="btn plant-list-search-toggle col-12 col-md-3"
                 >
                     {this.state.toggled ? "Moins de critères" : "Plus de critères"}
                     <span className={"oi oi-chevron-" + (this.state.toggled ? "top" : "bottom")}/>
                 </button>
 
-                <div className="col-5 row plant-list-search-submit justify-content-between">
+                <div className="col-12 col-md-5 row plant-list-search-submit justify-content-between">
                     <button
                         type="button"
                         onClick={this.handleClear}
-                        className="btn btn-orange col-4"
+                        className="btn btn-orange col-12 col-md-4"
                     >
                         <span className="oi oi-x"/>
                         Effacer
@@ -330,7 +330,7 @@ class PlantSearchEngine extends React.Component<IPlantSearchEngineProps, IPlantS
 
                     <button
                         type="submit"
-                        className="btn btn-green col-6"
+                        className="btn btn-green plant-list-btn-submit col-12 col-md-6"
                     >
                         <span className="oi oi-magnifying-glass"/>
                         Rechercher

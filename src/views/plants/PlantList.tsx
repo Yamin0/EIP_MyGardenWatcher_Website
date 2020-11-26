@@ -124,7 +124,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
     }
 
     private createSortSelect() {
-        return <div className="form-group row col-5">
+        return <div className="form-group plant-list-search-sort row col-12 col-md-5">
             <label className="form-label plant-list-search-sort-title col-7">
                 Trier les plantes par:
             </label>
@@ -172,7 +172,7 @@ class PlantList extends React.Component<RouteComponentProps, IPlantListState> {
                     !this.state.isFetching &&
                     this.state.error === "" &&
                     <div className="row no-gutters plant-list-result">
-                        <div className="col-7">
+                        <div className="col-12 col-md-7">
                             Résultat de la recherche: {this.state.plants.length} plantes
                         </div>
                         {this.createSortSelect()}

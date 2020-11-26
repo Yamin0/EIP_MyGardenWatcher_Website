@@ -14,8 +14,8 @@
     &-title {
       margin-bottom: 0;
       padding: 20px 0;
-      background-color: #F3F3F3;
-      color: black;
+      background-color: @color-secondary-light;
+      color: @color-secondary-dark;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       transition: all ease-in-out 0.5s;
@@ -84,8 +84,8 @@
     }
     &-description {
       padding: 10px 10px 0 10px;
-      border-left: 3px solid #F3F3F3;
-      border-right: 3px solid #F3F3F3;
+      border-left: 3px solid @color-secondary-light;
+      border-right: 3px solid @color-secondary-light;
       margin-top: 0;
     }
   }
@@ -210,6 +210,36 @@
       }
       &.hide {
         display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .plant-list {
+    .main-title {
+      padding-top: 80px;
+    }
+    &-result {
+      font-size: 18px;
+    }
+    &-btn-submit {
+      margin-top: 15px;
+    }
+    &-radio {
+      margin-top: 10px;
+    }
+    &-thumb {
+      &-title {
+        font-size: 22px;
+      }
+    }
+    &-search {
+      &-sort {
+        margin-top: 20px;
+        &-title {
+          font-size: 16px;
+        }
       }
     }
   }

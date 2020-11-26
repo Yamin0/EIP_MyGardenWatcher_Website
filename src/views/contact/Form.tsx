@@ -377,7 +377,7 @@ class Form extends React.Component<IFormProps, IFormState> {
                         </div>
                     </div>
 
-                    <div className="form-group">
+{/*                    <div className="form-group">
                         <label htmlFor="Attachment" className="col-form-label">
                             Ajouter des pièces jointes
                         </label>
@@ -390,7 +390,7 @@ class Form extends React.Component<IFormProps, IFormState> {
                             onChange={this.handleFileChange}
                             accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
                         />
-                    </div>
+                    </div>*/}
 
                     <button type="submit" className="btn btn-orange">Envoyer</button>
                     <small className="form-text text-muted form-annex">

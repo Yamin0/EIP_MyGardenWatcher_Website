@@ -9,7 +9,7 @@ interface IPlantThumbProps {
 
 const PlantThumb: React.FunctionComponent<IPlantThumbProps> = ({plant}) => {
     return (
-        <div className="col-4 plant-list-thumb" key={plant.id}>
+        <div className="col-12 col-md-4 plant-list-thumb" key={plant.id}>
             <Link to={"/plants/" + plant.id + "/" + plant.name} className="plant-list-thumb-title-link">
                 <h3 className="text-center plant-list-thumb-title">
                     {plant.name}

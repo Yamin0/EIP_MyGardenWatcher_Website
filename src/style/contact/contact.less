@@ -9,6 +9,9 @@
 
 .contact-pro {
   padding-bottom: 150px;
+  .main-title {
+    padding-top: 100px;
+  }
   &-form {
     padding-left: 10px;
     color: @color-secondary;
@@ -22,6 +25,30 @@
         color: @color-primary-green-dark;
         text-decoration: none;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contact-single {
+    padding-bottom: 250px;
+
+    .main-title {
+      font-size: 45px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+  }
+
+  .contact-pro {
+    padding-bottom: 250px;
+    .main-title {
+      font-size: 40px;
+    }
+    label {
+      font-size: 14px;
     }
   }
 }

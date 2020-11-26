@@ -79,11 +79,11 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                         </h1>
 
                         <div className="row">
-                            <div className="col-9 plant-detail-visual">
+                            <div className="col-12 col-md-9 plant-detail-visual">
                                 <img src={plant.image} alt={plant.name} className="plant-detail-img"/>
                             </div>
 
-                            <div className="col-3 plant-detail-data">
+                            <div className="col-12 col-md-3 plant-detail-data">
                                 <div className="plant-detail-data-thumb">
                                     <h5 className="plant-detail-data-title">Environnement</h5>
                                 </div>
@@ -190,15 +190,17 @@ class PlantDetail extends React.Component<IPlantDetailProps, IPlantDetailState> 
                             </div>
                         </div>
 
-                        <div className="col-12 plant-detail-text">
-                            <h3 className="plant-detail-subtitle green">Description</h3>
-                            <p>{plant.description}</p>
-                        </div>
-                        <div className="border-carrot"/>
-                        <div className="col-12 plant-detail-text left">
-                            <h3 className="plant-detail-subtitle orange">Caractéristiques</h3>
-                            <p>{plant.caracteristics}</p>
-                        </div>
+                            <div className="row plant-detail-content">
+                                <div className="col-12 plant-detail-text">
+                                    <h3 className="plant-detail-subtitle green">Description</h3>
+                                    <p>{plant.description}</p>
+                                </div>
+                                <div className="border-carrot"/>
+                                <div className="col-12 plant-detail-text left">
+                                    <h3 className="plant-detail-subtitle orange">Caractéristiques</h3>
+                                    <p>{plant.caracteristics}</p>
+                                </div>
+                            </div>
                     </div>
         )
     }

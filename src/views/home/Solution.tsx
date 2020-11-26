@@ -55,11 +55,11 @@ const Solution: React.FunctionComponent = () => {
                         <p>
                             Vous pouvez créer un compte utilisateur sur notre site Web ou notre application mobile.
                         </p>
-                        <a className="btn btn-orange solution-step-btn" href="/beta">Télécharger l'application mobile</a>
+                        <a className="btn btn-orange solution-step-btn" href="/download-app">Télécharger l'application mobile</a>
                         <p>
                             C'est avec ce compte que vous pourrez gérer vos carottes connectées et visualiser la croissance de vos plantes.
                         </p>
-                        <a className="btn btn-green" href="/register">Je crée mon compte</a>
+                        <a className="d-none d-md-inline-block btn btn-green" href="/register">Je crée mon compte</a>
                     </div>
                     <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
                          alt="Select your plants"/>
@@ -77,7 +77,7 @@ const Solution: React.FunctionComponent = () => {
                         <p>
                             Vous pourrez ensuite ajouter vos carottes sur l'application mobile ou le site Web.
                         </p>
-                        <a className="btn btn-green" href="/carrots">J'ajoute une carotte</a>
+                        <a className="d-none d-md-inline-block btn btn-green" href="/carrots">J'ajoute une carotte</a>
                     </div>
                     <img src="/images/flat/flat-plant-select.png" className="solution-step-img d-block d-md-none"
                          alt="Select your plants"/>
