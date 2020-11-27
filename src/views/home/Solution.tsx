@@ -25,7 +25,7 @@ const Solution: React.FunctionComponent = () => {
                             </p>
                         </div>
                         <div>
-                            <img src="/images/flat/flat-phone.png" className="solution-products-img" alt="phone"/>
+                            <img src="/images/flat/flat-gateway.png" className="solution-products-img" alt="phone"/>
                         </div>
                     </div>
                     <div className="col-12 col-md-6 text-center">
@@ -61,13 +61,13 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <a className="d-none d-md-inline-block btn btn-green" href="/register">Je crée mon compte</a>
                     </div>
-                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
+                    <img src="/images/flat/screen-register.png" className="solution-step-img"
                          alt="Select your plants"/>
                 </div>
             </Slide>
             <Slide right className="col-12 row">
                 <div className="col-12 solution-step connect">
-                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img d-none d-md-block"
+                    <img src="/images/flat/screen-carrot.png" className="solution-step-img d-none d-md-block"
                          alt="Select your plants"/>
                     <div className="solution-step-text">
                         <h3>Connectez votre boîtier et vos carottes !</h3>
@@ -79,7 +79,7 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <a className="d-none d-md-inline-block btn btn-green" href="/carrots">J'ajoute une carotte</a>
                     </div>
-                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img d-block d-md-none"
+                    <img src="/images/flat/screen-carrot.png" className="solution-step-img d-block d-md-none"
                          alt="Select your plants"/>
                 </div>
             </Slide>
@@ -98,14 +98,14 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <a className="btn btn-green" href="/plants">Voir les plantes</a>
                     </div>
-                    <img src="/images/flat/flat-plant-select.png" className="solution-step-img"
+                    <img src="/images/flat/screen-plant.png" className="solution-step-img"
                          alt="Select your plants"/>
                 </div>
             </Slide>
 
             <Slide right className="col-12 row">
                 <div className="col-12 solution-step search">
-                    <img src="/images/flat/flat-help-select.png" className="solution-step-img d-none d-md-block"
+                    <img src="/images/flat/screen-advice.png" className="solution-step-img d-none d-md-block"
                          alt="We can help you"/>
                     <div className="solution-step-text">
                         <h3>Nous pouvons vous aider !</h3>
@@ -120,7 +120,7 @@ const Solution: React.FunctionComponent = () => {
                         </p>
                         <br/>
                     </div>
-                    <img src="/images/flat/flat-help-select.png" className="solution-step-img d-block d-md-none"
+                    <img src="/images/flat/screen-advice.png" className="solution-step-img d-block d-md-none"
                          alt="We can help you"/>
                 </div>
             </Slide>
@@ -139,7 +139,7 @@ const Solution: React.FunctionComponent = () => {
                             Le jour et l'heure prévue, vous recevez une notification sur votre téléphone pour prendre soin de vos plantes de manière adaptée.
                         </p>
                     </div>
-                    <img src="/images/flat/flat-reminder-config.png" className="solution-step-img"
+                    <img src="/images/flat/screen-alert.png" className="solution-step-img"
                          alt="Configure your reminders"/>
                 </div>
             </Slide>
