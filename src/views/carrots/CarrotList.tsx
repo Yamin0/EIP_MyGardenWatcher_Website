@@ -8,8 +8,11 @@ import AddCarrot from "./AddCarrot";
 import EditCarrot from "./EditCarrot";
 import DeleteCarrot from "./DeleteCarrot";
 import {GatewayService} from "../../services/GatewayService";
-import Gateway from "../../interfaces/Gateway";
-import GatewayList from "./GatewayList";
+import Gateway, {gatewayInit} from "../../interfaces/Gateway";
+import GatewayList from "../gateways/GatewayList";
+import AddGateway from "../gateways/AddGateway";
+import EditGateway from "../gateways/EditGateway";
+import DeleteGateway from "../gateways/DeleteGateway";
 
 interface ICarrotListProps {
     disconnect(): void
@@ -26,9 +29,13 @@ interface ICarrotListState {
     carrots: Carrot[],
     gateways: Gateway[],
     editCarrot: Carrot,
-    editModalOpen: boolean,
+    editCarrotModalOpen: boolean,
     deleteCarrot: Carrot,
-    deleteModalOpen: boolean
+    deleteCarrotModalOpen: boolean
+    editGateway: Gateway,
+    editGatewayModalOpen: boolean,
+    deleteGateway: Gateway,
+    deleteGatewayModalOpen: boolean
 }
 
 const itemsPerPage: number = 6;
@@ -48,19 +55,26 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
             carrots: [],
             gateways: [],
             editCarrot: carrotInit,
-            editModalOpen: false,
+            editCarrotModalOpen: false,
             deleteCarrot: carrotInit,
-            deleteModalOpen: false
+            deleteCarrotModalOpen: false,
+            editGateway: gatewayInit,
+            editGatewayModalOpen: false,
+            deleteGateway: gatewayInit,
+            deleteGatewayModalOpen: false
         };
 
         this.fetchAllGateways = this.fetchAllGateways.bind(this);
-        this.firstGateway = this.firstGateway.bind(this);
         this.fetchAllCarrots = this.fetchAllCarrots.bind(this);
         this.onPageChange = this.onPageChange.bind(this);
-        this.handleEditModalOpen = this.handleEditModalOpen.bind(this);
-        this.handleEditModalClose = this.handleEditModalClose.bind(this);
-        this.handleDeleteModalOpen = this.handleDeleteModalOpen.bind(this);
-        this.handleDeleteModalClose = this.handleDeleteModalClose.bind(this);
+        this.handleEditCarrotModalOpen = this.handleEditCarrotModalOpen.bind(this);
+        this.handleEditCarrotModalClose = this.handleEditCarrotModalClose.bind(this);
+        this.handleDeleteCarrotModalOpen = this.handleDeleteCarrotModalOpen.bind(this);
+        this.handleDeleteCarrotModalClose = this.handleDeleteCarrotModalClose.bind(this);
+        this.handleEditGatewayModalOpen = this.handleEditGatewayModalOpen.bind(this);
+        this.handleEditGatewayModalClose = this.handleEditGatewayModalClose.bind(this);
+        this.handleDeleteGatewayModalOpen = this.handleDeleteGatewayModalOpen.bind(this);
+        this.handleDeleteGatewayModalClose = this.handleDeleteGatewayModalClose.bind(this);
         this.onSuccessForm = this.onSuccessForm.bind(this);
     }
 
@@ -103,20 +117,6 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
         }
     }
 
-    private firstGateway() {
-        GatewayService.createGateway("test", "gdfcdxdvf")
-            .then(data => {
-                let gateway: Gateway = data as Gateway;
-                this.setState({
-                    gateways: [gateway],
-                    isFetching: false,
-                    error: ""
-                });
-                }, error => {
-                this.setState({ error: error.toString(), isFetching: false })
-            });
-    }
-
     //Pagination
     private onPageChange(e: React.MouseEvent, page: number) {
         e.preventDefault();
@@ -125,20 +125,38 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
         })
     }
 
-    private handleEditModalOpen(carrot: Carrot) {
-        this.setState({editCarrot: carrot, editModalOpen: true});
+    // Carrot modal handling
+    private handleEditCarrotModalOpen(carrot: Carrot) {
+        this.setState({editCarrot: carrot, editCarrotModalOpen: true});
     }
 
-    private handleEditModalClose() {
-        this.setState({editModalOpen: false});
+    private handleEditCarrotModalClose() {
+        this.setState({editCarrotModalOpen: false});
     }
 
-    private handleDeleteModalOpen(carrot: Carrot) {
-        this.setState({deleteCarrot: carrot, deleteModalOpen: true});
+    private handleDeleteCarrotModalOpen(carrot: Carrot) {
+        this.setState({deleteCarrot: carrot, deleteCarrotModalOpen: true});
     }
 
-    private handleDeleteModalClose() {
-        this.setState({deleteModalOpen: false});
+    private handleDeleteCarrotModalClose() {
+        this.setState({deleteCarrotModalOpen: false});
+    }
+
+    // Gateway modal handling
+    private handleEditGatewayModalOpen(gateway: Gateway) {
+        this.setState({editGateway: gateway, editGatewayModalOpen: true});
+    }
+
+    private handleEditGatewayModalClose() {
+        this.setState({editGatewayModalOpen: false});
+    }
+
+    private handleDeleteGatewayModalOpen(gateway: Gateway) {
+        this.setState({deleteGateway: gateway, deleteGatewayModalOpen: true});
+    }
+
+    private handleDeleteGatewayModalClose() {
+        this.setState({deleteGatewayModalOpen: false});
     }
 
     private onSuccessForm(msg: string) {
@@ -146,7 +164,7 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
             success: true,
             successMsg: msg
         }, () => {
-            this.fetchAllCarrots();
+            this.fetchAllGateways(this.fetchAllCarrots);
             setTimeout(() => {
                 this.setState({success: false});
             }, 5000)
@@ -170,15 +188,15 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                         <UserMenu disconnect={this.props.disconnect}/>
                         {
                             this.state.gateways && this.state.gateways.length > 0 &&
-                            <GatewayList gateways={this.state.gateways}/>
+                            <GatewayList
+                                gateways={this.state.gateways}
+                                handleDeleteModalOpen={this.handleDeleteGatewayModalOpen}
+                                handleEditModalOpen={this.handleEditGatewayModalOpen}
+                            />
                         }
-                        {
-                            this.state.gateways.length === 0 &&
-                            process.env.NODE_ENV === 'development' &&
-                                <button onClick={this.firstGateway}>
-                                    Créer un gateway
-                                </button>
-                        }
+                        <div className="col-12">
+                            <AddGateway onSuccessForm={this.onSuccessForm}/>
+                        </div>
                     </div>
                     <div className="col-9">
                         {
@@ -207,6 +225,24 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                                 <AddCarrot onSuccessForm={this.onSuccessForm} gateways={this.state.gateways}/>
                             </div>
                         }
+                        {
+                            this.state.gateways.length > 0 &&
+                            <>
+                                <EditGateway
+                                    gateway={this.state.editGateway}
+                                    onSuccessForm={this.onSuccessForm}
+                                    show={this.state.editGatewayModalOpen}
+                                    handleClose={this.handleEditGatewayModalClose}
+                                />
+
+                                <DeleteGateway
+                                    gateway={this.state.deleteGateway}
+                                    show={this.state.deleteGatewayModalOpen}
+                                    handleClose={this.handleDeleteGatewayModalClose}
+                                    onSuccessForm={this.onSuccessForm}
+                                />
+                            </>
+                        }
 
                         {
                             this.state.carrots.length > 0 &&
@@ -214,14 +250,15 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                                     <EditCarrot
                                         carrot={this.state.editCarrot}
                                         onSuccessForm={this.onSuccessForm}
-                                        show={this.state.editModalOpen}
-                                        handleClose={this.handleEditModalClose}
+                                        show={this.state.editCarrotModalOpen}
+                                        handleClose={this.handleEditCarrotModalClose}
+                                        gatewayName={this.state.gateways.find(g => g.id === this.state.editCarrot.gatewayId)?.serialCode || ""}
                                     />
 
                                     <DeleteCarrot
                                         carrot={this.state.deleteCarrot}
-                                        show={this.state.deleteModalOpen}
-                                        handleClose={this.handleDeleteModalClose}
+                                        show={this.state.deleteCarrotModalOpen}
+                                        handleClose={this.handleDeleteCarrotModalClose}
                                         onSuccessForm={this.onSuccessForm}
                                     />
                                 </>
@@ -245,12 +282,19 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                             this.state.error === "" &&
                             this.state.gateways.length === 0 &&
                             <div className="row carrot-list-no-gateway">
-                                <p className="col-12 text-center">
-                                    Vous n'avez pas encore de boîtier lié à votre compte. Un boîtier est nécessaire pour pouvoir ajouter et gérer vos carottes.
-                                    Vous ne pouvez pas configurer de boîtier sur le site Web. Pour cela, vous devez télécharger l'application mobile.
+                                <p className="col-12 text-justify">
+                                    Vous n'avez pas encore de boîtier lié à votre compte.
+                                    <br/>
+                                    Un boîtier est nécessaire pour pouvoir ajouter et gérer vos carottes.
                                     <br/>
                                     <br/>
-                                    Vous pouvez la télécharger en cliquant sur le bouton ci-dessous ou en scannant le QR code.
+                                    Si vous branchez votre boîtier à une connexion Internet filaire (par câble réseau), vous pouvez ajouter un boîtier à votre compte via notre site Internet, en cliquant sur le bouton
+                                     "Ajouter une boîtier" sur la gauche, sous le menu de navigation de l'espace client.
+                                    <br/>
+                                    <br/>
+                                    Si vous souhaitez connecter votre boîtier en Wifi, vous devrez utiliser l'application mobile pour le configurer.
+                                    <br/>
+                                    Vous pouvez télécharger l'application mobile en cliquant sur le bouton ci-dessous ou en scannant le QR code.
                                 </p>
                                 <div className="col-md-12 text-center">
                                     <a
@@ -292,11 +336,11 @@ class CarrotList extends React.Component<ICarrotListProps, ICarrotListState> {
                                 const minCarrotIndex: number = itemsPerPage * (this.state.currentPage - 1);
 
                                 const mapEditModal = () => {
-                                    this.handleEditModalOpen(carrot);
+                                    this.handleEditCarrotModalOpen(carrot);
                                 };
 
                                 const mapDeleteModal = () => {
-                                    this.handleDeleteModalOpen(carrot);
+                                    this.handleDeleteCarrotModalOpen(carrot);
                                 };
 
                                 return (

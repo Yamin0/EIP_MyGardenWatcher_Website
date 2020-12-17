@@ -1,28 +1,26 @@
 import * as React from "react";
-import {CarrotService} from "../../services/CarrotService";
-import Carrot from "../../interfaces/Carrot";
 import {Modal} from "react-bootstrap";
 import Gateway from "../../interfaces/Gateway";
+import {GatewayService} from "../../services/GatewayService";
 
-interface IEditCarrotProps {
-    carrot: Carrot,
-    gatewayName: string,
+interface IEditGatewayProps {
+    gateway: Gateway,
     show: boolean,
     handleClose(): void
     onSuccessForm(msg: string): void
 }
 
-interface IEditCarrotState {
+interface IEditGatewayState {
     name: string,
     loading: boolean,
     error: string
 }
 
-class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
+class EditGateway extends React.Component<IEditGatewayProps, IEditGatewayState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            name: this.props.carrot.name,
+            name: this.props.gateway.name,
             loading: false,
             error: ""
         };
@@ -30,9 +28,9 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidUpdate(prevProps: Readonly<IEditCarrotProps>, prevState: Readonly<IEditCarrotState>, snapshot?: any) {
-        if (JSON.stringify(prevProps.carrot) !== JSON.stringify(this.props.carrot)) {
-            this.setState({ name: this.props.carrot.name });
+    componentDidUpdate(prevProps: Readonly<IEditGatewayProps>, prevState: Readonly<IEditGatewayState>, snapshot?: any) {
+        if (JSON.stringify(prevProps.gateway) !== JSON.stringify(this.props.gateway)) {
+            this.setState({ name: this.props.gateway.name });
         }
     }
 
@@ -56,11 +54,11 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            CarrotService.editCarrot(this.props.carrot.id, this.state.name)
+            GatewayService.editGateway(this.props.gateway.id, this.state.name)
                 .then(
                     () => {
                         window.scrollTo(0, 0);
-                        this.props.onSuccessForm("Votre carotte a bien été renommée.");
+                        this.props.onSuccessForm("Votre boîtier a bien été renommé.");
                         this.setState({loading: false, error: "", name: ""});
                         this.props.handleClose();
                     }, error => {
@@ -73,7 +71,7 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
 
     render() {
         return (
-            <Modal className="edit-carrot" show={this.props.show} onHide={this.props.handleClose} centered>
+            <Modal className="add-gateway" show={this.props.show} onHide={this.props.handleClose} centered>
                 {
                     this.state.loading ?
                         <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
@@ -86,8 +84,8 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
                 }
 
                 <Modal.Header closeButton>
-                    <h5 className="modal-title">
-                        Je modifie les informations de ma carotte
+                    <h5 className="modal-title" id="editGatewayModalLabel">
+                        Je modifie les informations de mon boîtier
                     </h5>
                 </Modal.Header>
                 <form className="form needs-validation" onSubmit={this.handleSubmit} noValidate={true}>
@@ -101,8 +99,9 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
                         }
 
                         <div className="form-group">
-                            <label className="col-form-label">Nom de la carotte</label>
+                            <label className="col-form-label">Nom du boîtier</label>
                             <input
+                                id="editGatewayName"
                                 className="form-control"
                                 type="text"
                                 name="name"
@@ -111,17 +110,18 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
                                 required={true}
                             />
                             <div className="invalid-feedback">
-                                Veuillez indiquer un nom pour votre carotte.
+                                Veuillez indiquer un nom pour votre boîtier.
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <label className="col-form-label">Numéro de série de la carotte</label>
+                            <label className="col-form-label">Numéro de série du boîtier</label>
                             <input
+                                id="addGatewaySerialCode"
                                 className="form-control readonly"
                                 type="text"
                                 name="serialCode"
-                                value={this.props.carrot.serialCode}
+                                value={"1234-5678-90ab-cdef-ghi"}
                                 readOnly={true}
                             />
                         </div>
@@ -129,10 +129,11 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
                         <div className="form-group">
                             <label className="col-form-label">Boîtier associé</label>
                             <input
+                                id="addCarrotSerialNb"
                                 className="form-control readonly"
                                 type="text"
-                                name="gatewayName"
-                                value={this.props.gatewayName}
+                                name="serialNb"
+                                value={"Boîtier 1"}
                                 readOnly={true}
                             />
                         </div>
@@ -160,4 +161,4 @@ class EditCarrot extends React.Component<IEditCarrotProps, IEditCarrotState> {
     }
 }
 
-export default EditCarrot;
+export default EditGateway;

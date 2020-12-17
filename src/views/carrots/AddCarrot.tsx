@@ -10,7 +10,7 @@ interface IAddCarrotProps {
 
 interface IAddCarrotState {
     name: string,
-    serialNb: string,
+    serialCode: string,
     gatewayId: number,
     show: boolean,
     loading: boolean,
@@ -22,7 +22,7 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
         super(props);
         this.state = {
             name: "",
-            serialNb: "",
+            serialCode: "",
             gatewayId: -1,
             show: false,
             loading: false,
@@ -62,12 +62,12 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
             (e.currentTarget as HTMLElement).classList.add("was-validated");
         } else {
             this.setState({ loading: true });
-            CarrotService.createCarrot(this.state.name, this.state.gatewayId, this.state.serialNb)
+            CarrotService.createCarrot(this.state.name, this.state.gatewayId, this.state.serialCode)
                 .then(
                     () => {
                         window.scrollTo(0, 0);
                         this.props.onSuccessForm("La carotte " + this.state.name + " a bien été ajoutée à votre compte !");
-                        this.setState({loading: false, error: "", name: "", serialNb: "", gatewayId: -1, show: false});
+                        this.setState({loading: false, error: "", name: "", serialCode: "", gatewayId: -1, show: false});
                     }, error => {
                         window.scrollTo(0, 0);
                         this.setState({ error: error.toString(), loading: false })
@@ -117,7 +117,6 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
                         <div className="form-group">
                             <label className="col-form-label">Nom de la carotte</label>
                             <input
-                                id="addCarrotName"
                                 className="form-control"
                                 type="text"
                                 name="name"
@@ -133,11 +132,10 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
                         <div className="form-group">
                             <label className="col-form-label">Numéro de série de la carotte</label>
                             <input
-                                id="addCarrotSerialNb"
                                 className="form-control"
                                 type="text"
-                                name="serialNb"
-                                value={this.state.serialNb}
+                                name="serialCode"
+                                value={this.state.serialCode}
                                 onChange={this.handleChange}
                                 required={true}
                             />
@@ -149,7 +147,6 @@ class AddCarrot extends React.Component<IAddCarrotProps, IAddCarrotState> {
                         <div className="form-group">
                             <label className="col-form-label">Boîtier associé</label>
                             <select
-                                id="addCarrotGateway"
                                 className="form-control"
                                 name="gatewayId"
                                 value={this.state.gatewayId}

@@ -13,7 +13,7 @@ interface ICarrotThumbProps {
 
 interface ICarrotThumbState {
     carrot: Carrot,
-    sensorData: SensorData[],
+    sensorData: SensorData,
     status: string,
     toggled: boolean,
     hasPlants: boolean,
@@ -28,7 +28,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
         this.state = {
             carrot: this.props.carrot,
-            sensorData: [sensorDataInit],
+            sensorData: sensorDataInit,
             status: "",
             toggled: false,
             hasPlants: false,
@@ -39,6 +39,7 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
         this.fetchCarrotDetail = this.fetchCarrotDetail.bind(this);
         this.fetchSensorData = this.fetchSensorData.bind(this);
+        this.aliveCarrot = this.aliveCarrot.bind(this);
         this.togglePlants = this.togglePlants.bind(this);
         this.handleDeletePlantLink = this.handleDeletePlantLink.bind(this);
     }
@@ -62,10 +63,9 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
 
     private fetchSensorData() {
         this.setState({ isFetching: true }, () => {
-            CarrotService.sensorData(this.state.carrot.id)
+            CarrotService.sensorDataLast(this.state.carrot.id)
                 .then(data => {
-                    let sensorData: SensorData[] = data as SensorData[];
-                    if (sensorData.length === 0) sensorData = [sensorDataInit];
+                    let sensorData: SensorData = data as SensorData;
 
                     this.setState({
                         sensorData: sensorData,
@@ -78,11 +78,14 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
     }
 
     private aliveCarrot() {
-        CarrotService.aliveCarrot(this.props.carrot.gatewayId, this.props.carrot.id).then(data => {
-            this.setState({
-                status: data.state
+        this.setState({status: ""},
+            () => {
+                CarrotService.aliveCarrot(this.props.carrot.gatewayId, this.props.carrot.id).then(data => {
+                    this.setState({
+                        status: data.state
+                    })
+                });
             })
-        });
     }
 
     private togglePlants() {
@@ -152,25 +155,32 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                                 <span className="sr-only">Loading...</span>
                             </div>
                         }
+                        <button
+                            type="button"
+                            className="btn carrot-thumb-btn-reload"
+                            onClick={this.aliveCarrot}
+                        >
+                            <span className="oi oi-reload"/>
+                        </button>
                     </h3>
                     <div className="row no-gutters carrot-thumb-sensor-data">
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
                             <img className="plant-list-thumb-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData[0].temperature}°
+                            {this.state.sensorData.temperature}°
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
                             <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData[0].humidity}%
+                            {this.state.sensorData.humidity}%
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
                             <img className="plant-list-thumb-icon" src="/images/icons/light/full.png" alt="luminosité"/>
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData[0].luminosity}lx
+                            {this.state.sensorData.luminosity}lx
                         </div>
                     </div>
 

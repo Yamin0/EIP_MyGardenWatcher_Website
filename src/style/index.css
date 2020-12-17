@@ -1558,6 +1558,7 @@ footer {
   justify-content: space-between;
 }
 .carrot-thumb {
+  position: relative;
   margin: 30px 0;
 }
 .carrot-thumb-wrapper {
@@ -1565,9 +1566,10 @@ footer {
   padding: 20px 0;
 }
 .carrot-thumb-title {
+  margin-top: 10px;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 .carrot-thumb-no-plant {
@@ -1581,16 +1583,15 @@ footer {
   margin-right: 10px;
 }
 .carrot-thumb-spinner {
-  width: 20px;
-  height: 20px;
-  margin-right: 20px;
+  width: 15px;
+  height: 15px;
+  font-size: 14px;
   vertical-align: initial;
 }
 .carrot-thumb-circle {
-  margin-right: 20px;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   display: inline-block;
   vertical-align: initial;
 }
@@ -1641,6 +1642,20 @@ footer {
 .carrot-thumb-btns {
   margin-top: 10px;
 }
+.carrot-thumb-btn-reload {
+  font-size: 16px;
+  padding: 0;
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+.carrot-thumb-btn-reload:hover {
+  text-shadow: 1px 1px 5px black;
+}
+.carrot-thumb-btn-reload:focus,
+.carrot-thumb-btn-reload:active {
+  box-shadow: none;
+}
 .carrot-thumb-btn-edit {
   padding: 5px;
   font-size: 16px;
@@ -1669,36 +1684,57 @@ footer {
   box-shadow: none;
 }
 .gateway-list {
-  margin-top: 30px;
-  padding-bottom: 30px;
-  text-align: center;
+  margin-top: 20px;
 }
 .gateway-list-title {
   color: black;
-  margin: 20px 0;
+  margin: 15px 0;
   font-size: 32px;
   font-weight: bold;
+  text-align: center;
 }
 .gateway-list-thumb {
-  padding-bottom: 10px;
-  margin: auto;
-  width: 80%;
+  padding: 10px 0;
+}
+.gateway-list-thumb:not(:last-child) {
   border-bottom: 1px solid #56636b;
 }
+.gateway-list-thumb-btn-edit {
+  padding: 3px;
+  font-size: 13px;
+}
+.gateway-list-thumb-btn-delete {
+  padding: 3px;
+  margin-right: 10px;
+  font-size: 13px;
+}
+.gateway-list-thumb-btn-reload {
+  font-size: 13px;
+}
+.gateway-list-thumb-btn-reload:hover {
+  text-shadow: 1px 1px 5px black;
+}
+.gateway-list-thumb-btn-reload:focus,
+.gateway-list-thumb-btn-reload:active {
+  box-shadow: none;
+}
 .gateway-list-name {
-  margin-left: 20px;
   margin-right: 10px;
 }
 .gateway-list-spinner {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+  font-size: 14px;
   margin-right: 20px;
+}
+.gateway-list-add-btn {
+  margin-top: 20px;
 }
 .gateway-list-circle {
   margin-right: 20px;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   display: inline-block;
   vertical-align: text-bottom;
 }

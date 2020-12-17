@@ -2,39 +2,41 @@ import * as React from "react";
 import {Modal} from "react-bootstrap";
 import {CarrotService} from "../../services/CarrotService";
 import Carrot from "../../interfaces/Carrot";
+import Gateway from "../../interfaces/Gateway";
+import {GatewayService} from "../../services/GatewayService";
 
-interface IDeleteCarrotProps {
-    carrot: Carrot,
+interface IDeleteGatewayProps {
+    gateway: Gateway,
     show: boolean,
     handleClose(): void,
     onSuccessForm(msg: string): void
 }
 
-interface IDeleteCarrotState {
+interface IDeleteGatewayState {
     loading: boolean,
     error: string
 }
 
-class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotState> {
+class DeleteGateway extends React.Component<IDeleteGatewayProps, IDeleteGatewayState> {
     constructor(props: any) {
         super(props);
         this.state = {
             loading: false,
             error: ""
         };
-        this.handleDeleteCarrot = this.handleDeleteCarrot.bind(this);
+        this.handleDeleteGateway = this.handleDeleteGateway.bind(this);
     }
 
-    private handleDeleteCarrot(e: React.MouseEvent<HTMLButtonElement>) {
+    private handleDeleteGateway(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
         this.setState({loading: true});
-        CarrotService.deleteCarrot(this.props.carrot.id)
+        GatewayService.deleteGateway(this.props.gateway.id)
             .then(
                 () => {
                     this.props.handleClose();
                     window.scrollTo(0, 0);
                     this.setState({loading: false, error: ""});
-                    this.props.onSuccessForm("La carotte " + this.props.carrot.name + " a bien été supprimée de votre compte.");
+                    this.props.onSuccessForm("Le boîtier " + this.props.gateway.name + " a bien été supprimé de votre compte.");
                 },
                 error => {
                     window.scrollTo(0, 0);
@@ -45,7 +47,7 @@ class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotStat
 
     render() {
         return (
-            <Modal className="delete-carrot" show={this.props.show} onHide={this.props.handleClose} centered>
+            <Modal className="delete-account" show={this.props.show} onHide={this.props.handleClose} centered>
                 {
                     this.state.loading ?
                         <div className="form-loading d-flex align-items-center justify-content-center position-absolute">
@@ -59,7 +61,7 @@ class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotStat
 
                 <Modal.Header closeButton>
                     <h5 className="modal-title">
-                        Voulez-vous vraiment supprimer la carotte {this.props.carrot.name} ?
+                        Voulez-vous vraiment supprimer le boîtier {this.props.gateway.name} ?
                     </h5>
                 </Modal.Header>
                 <Modal.Body>
@@ -71,7 +73,7 @@ class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotStat
                         </div>
                     }
 
-                    Toutes les données collectées jusque là par cette carotte seront effacées, ainsi que les plantes qui lui sont liées.
+                    Toutes les données collectées jusque là avec ce Gateway seront effacées, ainsi que les carottes qui lui sont liées.
                     Vous ne pourrez plus accéder à ces informations.
                 </Modal.Body>
                 <Modal.Footer>
@@ -86,7 +88,7 @@ class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotStat
                         type="button"
                         className="btn btn-orange"
                         disabled={this.state.loading}
-                        onClick={this.handleDeleteCarrot}
+                        onClick={this.handleDeleteGateway}
                     >
                         Supprimer définitivement
                     </button>
@@ -97,4 +99,4 @@ class DeleteCarrot extends React.Component<IDeleteCarrotProps, IDeleteCarrotStat
     }
 }
 
-export default DeleteCarrot;
+export default DeleteGateway;
