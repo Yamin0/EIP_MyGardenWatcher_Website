@@ -115,17 +115,17 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
         }
 
         if (this.state.formUser.mail !== this.props.user.mail) {
-            if ((name === "email" && value !== this.state.repeatEmail) ||
+            if ((name === "mail" && value !== this.state.repeatEmail) ||
                 (name === "repeatEmail" && value !== this.state.formUser.mail)) {
                 (document.getElementById("EditProfileRepeatEmail") as HTMLInputElement).setCustomValidity("email mismatch");
-            } else if ((name === "email" && value === this.state.repeatEmail) ||
+            } else if ((name === "mail" && value === this.state.repeatEmail) ||
                 (name === "repeatEmail" && value === this.state.formUser.mail)) {
                 (document.getElementById("EditProfileRepeatEmail") as HTMLInputElement).setCustomValidity("");
             }
         }
 
         let repeatProps = {};
-        if (name === "email" && value === this.props.user.mail) repeatProps = { repeatEmail: "" };
+        if (name === "mail" && value === this.props.user.mail) repeatProps = { repeatEmail: "" };
         if (name === "newPassword" && value === "") repeatProps = { repeatNewPassword: "" };
 
         if (name === "repeatEmail" || name === "newPassword" || name === "repeatNewPassword") {
@@ -199,7 +199,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 this.handleSuccessRequest(Promise, "Votre mot de passe a bien été modifié.");
             }
             if (this.state.editInfo && !this.state.changePassword) {
-                const Promise = UserService.setUser(this.state.formUser);
+                const Promise = UserService.setUser({this.state.formUser, mail: (this.state.formUser.mail === this.props.user.mail ? "" : this.state.formUser.mail)});
                 this.handleSuccessRequest(Promise, "Vos informations personnelles ont bien été mises à jour.");
             }
         }
