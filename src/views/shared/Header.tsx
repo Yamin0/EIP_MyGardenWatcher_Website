@@ -30,7 +30,7 @@ const Header: React.FunctionComponent<IHeaderProps> =  ({isAuthenticated, isLogi
                     </HashLink>
                 </li>
                 <li className="menu-elem">
-                    <HashLink to="#concept" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Le concept</HashLink>
+                    <HashLink to="/#concept" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Le concept</HashLink>
                 </li>
                 <li className="menu-elem">
                     <HashLink to="/#vision" scroll={el => el.scrollIntoView({ behavior: 'smooth' })} className="menu-elem-link">Notre vision</HashLink>
