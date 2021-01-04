@@ -199,7 +199,7 @@ class EditProfile extends React.Component<IEditProfileProps, IEditProfileState> 
                 this.handleSuccessRequest(Promise, "Votre mot de passe a bien été modifié.");
             }
             if (this.state.editInfo && !this.state.changePassword) {
-                const Promise = UserService.setUser({this.state.formUser, mail: (this.state.formUser.mail === this.props.user.mail ? "" : this.state.formUser.mail)});
+                const Promise = UserService.setUser({...this.state.formUser, mail: (this.state.formUser.mail === this.props.user.mail ? "" : this.state.formUser.mail)});
                 this.handleSuccessRequest(Promise, "Vos informations personnelles ont bien été mises à jour.");
             }
         }
