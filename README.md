@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 This project is the website of my Graduation project at Epitech, the EIP (Epitech Innovative Experience).
-You can access it online at : www.mygardenwatcher.fr(https://mygardenwatcher.fr/)
+You can access it online at : [www.mygardenwatcher.fr](https://mygardenwatcher.fr/)
 
 This project is originally hosted on GitLab and uses GitLab CI to deploy.
 
