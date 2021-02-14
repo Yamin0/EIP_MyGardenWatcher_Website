@@ -4,6 +4,7 @@ import {CarrotService} from "../../services/CarrotService";
 import {PlantService} from "../../services/PlantService";
 import {OverlayTrigger, Popover} from "react-bootstrap";
 import SensorData, {sensorDataInit} from "../../interfaces/SensorData";
+import {humidityRanges, lightFrenchNames, lightIconNames, lightLimits, tempRanges} from "../../interfaces/Search";
 
 interface ICarrotThumbProps {
     carrot: Carrot,
@@ -62,17 +63,17 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
     }
 
     private fetchSensorData() {
-        this.setState({ isFetching: true }, () => {
+        this.setState({ loading: true }, () => {
             CarrotService.sensorDataLast(this.state.carrot.id)
                 .then(data => {
                     let sensorData: SensorData = data as SensorData;
 
                     this.setState({
                         sensorData: sensorData,
-                        isFetching: false
+                        loading: false
                     });
                 }, error => {
-                    this.setState({ error: error.toString(), isFetching: false })
+                    this.setState({ error: error.toString(), loading: false })
                 });
         });
     }
@@ -118,6 +119,8 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
     }
 
     render() {
+        const { sensorData } = this.state;
+
         return (
             <div className="col-4 carrot-thumb">
                 <div className="carrot-thumb-wrapper">
@@ -158,29 +161,75 @@ class CarrotThumb extends React.Component<ICarrotThumbProps, ICarrotThumbState> 
                         <button
                             type="button"
                             className="btn carrot-thumb-btn-reload"
-                            onClick={this.aliveCarrot}
+                            onClick={() => {
+                                this.aliveCarrot();
+                                this.fetchSensorData();
+                            }}
                         >
                             <span className="oi oi-reload"/>
                         </button>
                     </h3>
                     <div className="row no-gutters carrot-thumb-sensor-data">
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
-                            <img className="plant-list-thumb-icon" src="/images/icons/icon-temperature.png" alt="temperature"/>
+                            {
+                                tempRanges.map((range, idx) => {
+                                    if (sensorData.temperature >= range[0] && sensorData.temperature <= range[1])
+                                        return <img
+                                            key={this.state.carrot.name + idx.toString()}
+                                            className="plant-list-thumb-icon"
+                                            title={"température " + sensorData.temperature + "°"}
+                                            src={"/images/icons/temperature/" + (idx + 1).toString() + ".png"}
+                                            alt={this.state.carrot.name + "temperature " + idx.toString()}
+                                        />
+                                    return ""
+                                })
+                            }
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData.temperature}°
+                            {sensorData.temperature}°
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
-                            <img className="plant-list-thumb-icon" src="/images/icons/icon-humidity.png" alt="humidité"/>
+                            {
+                                humidityRanges.map((range, idx) => {
+                                    if (sensorData.humidity >= range[0] && sensorData.humidity <= range[1])
+                                        return <img
+                                            key={this.state.carrot.name + idx.toString()}
+                                            className="plant-list-thumb-icon"
+                                            title={sensorData.humidity.toString() + "% d'humidité"}
+                                            src={"/images/icons/humidity/" + (idx + 1).toString() + ".png"}
+                                            alt={this.state.carrot.name + "humidité " + idx.toString()}
+                                        />
+                                    return ""
+                                })
+                            }
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData.humidity}%
+                            {sensorData.humidity}%
                         </div>
                         <div className="col-5 text-right carrot-thumb-sensor-data-name">
-                            <img className="plant-list-thumb-icon" src="/images/icons/light/full.png" alt="luminosité"/>
+                            {
+                                lightLimits.map((limit, idx) => {
+                                    let name = "";
+                                    if (idx === 0 && sensorData.luminosity < limit)
+                                        name = "none";
+                                    else if (idx === 1 && sensorData.luminosity > limit)
+                                        name = "full";
+                                    else if ((limit === 0 && sensorData.luminosity > limit) || (limit === 1 && sensorData.luminosity < limit))
+                                        name = "partial";
+                                    else
+                                        return "";
+                                    return <img
+                                        title={lightFrenchNames[idx]}
+                                        className="plant-list-thumb-icon"
+                                        src={"/images/icons/light/" + name + ".png"}
+                                        alt="luminosité"
+                                        key={this.state.carrot.name + name}
+                                    />
+                                })
+                            }
                         </div>
                         <div className="col-5 carrot-thumb-sensor-data-value">
-                            {this.state.sensorData.luminosity}lx
+                            {sensorData.luminosity}lx
                         </div>
                     </div>
 

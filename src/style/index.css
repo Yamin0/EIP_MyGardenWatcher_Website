@@ -88,7 +88,7 @@ footer {
   margin-top: 10px;
   overflow: hidden;
   font-size: 16px;
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
   padding: 0;
 }
 .module p {
@@ -98,6 +98,9 @@ footer {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+.line-clamp-one {
+  -webkit-line-clamp: 1;
 }
 .page-link {
   color: #56636b;
@@ -1109,7 +1112,7 @@ footer {
 }
 .plant-list-thumb-title {
   margin-bottom: 0;
-  padding: 20px 0;
+  padding: 20px 10px;
   background-color: #e1e1e1;
   color: black;
   border-top-left-radius: 10px;
@@ -1122,6 +1125,10 @@ footer {
 }
 .plant-list-thumb-title-link:hover {
   text-decoration: none;
+}
+.plant-list-thumb-title p {
+  overflow: hidden;
+  margin: 0;
 }
 .plant-list-thumb-link {
   overflow: hidden;
@@ -1731,7 +1738,6 @@ footer {
   margin-top: 20px;
 }
 .gateway-list-circle {
-  margin-right: 20px;
   border-radius: 50%;
   width: 15px;
   height: 15px;

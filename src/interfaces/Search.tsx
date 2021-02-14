@@ -42,3 +42,5 @@ export const humidityRanges: number[][] = [
     [61, 80],
     [81, 100],
 ];
+
+export const lightLimits: number[] = [3000, 25000];
